@@ -9,7 +9,7 @@ import net.kdt.pojavlaunch.game.platform.Platform;
 
 public class AWTBackend implements PlatformBackend {
     static {
-        System.loadLibrary("pojavexec_awt");
+        System.loadLibrary("mojoawt");
     }
 
     @Override
