@@ -3,7 +3,7 @@ package net.kdt.pojavlaunch.downloader;
 import java.io.File;
 import java.io.IOException;
 
-import git.artdeell.mojo.utils.HashUtils;
+import net.kdt.pojavlaunch.utils.HashUtils;
 
 public class DownloadFileTask extends DownloaderTask implements BytesCopiedListener {
     private long mBytesDownloaded = 0;
