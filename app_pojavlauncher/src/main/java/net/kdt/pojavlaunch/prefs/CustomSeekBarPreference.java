@@ -75,13 +75,16 @@ public class CustomSeekBarPreference extends SeekBarPreference {
             stepUp.setOnClickListener(v -> stepValue(seekBar, 1));
         }
 
+        // A slider without an explicit increment must still be round-able to a value
+        final int increment = Math.max(1, getSeekBarIncrement());
+
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 progress += mMin;
-                progress = progress / getSeekBarIncrement();
-                progress = progress * getSeekBarIncrement();
+                progress = progress / increment;
+                progress = progress * increment;
                 progress -= mMin;
 
                 mTextView.setText(String.valueOf(progress + mMin));
@@ -95,8 +98,8 @@ public class CustomSeekBarPreference extends SeekBarPreference {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
                 int progress = seekBar.getProgress() + mMin;
-                progress /= getSeekBarIncrement();
-                progress *= getSeekBarIncrement();
+                progress /= increment;
+                progress *= increment;
                 progress -= mMin;
 
                 setValue(progress + mMin);
