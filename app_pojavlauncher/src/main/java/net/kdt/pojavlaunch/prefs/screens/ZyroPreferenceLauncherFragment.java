@@ -60,7 +60,8 @@ public class ZyroPreferenceLauncherFragment extends LauncherPreferenceFragment {
         updateVisibility();
     }
 
-    private void updateVisibility() {
+    @Override
+    protected void updateVisibility() {
         updateNotificationVisibility();
         Activity activity = getActivity();
         if(!(activity instanceof LauncherActivity)) return;
