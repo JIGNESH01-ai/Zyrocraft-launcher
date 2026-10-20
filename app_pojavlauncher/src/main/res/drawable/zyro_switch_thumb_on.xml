@@ -5,7 +5,7 @@
     android:viewportWidth="20"
     android:viewportHeight="20">
     <path
-        android:fillColor="@color/zyro_accent"
+        android:fillColor="@color/zyro_neon"
         android:pathData="M10,10 m-9,0 a9,9 0 1,0 18,0 a9,9 0 1,0 -18,0"/>
     <path
         android:strokeColor="@color/zyro_background"

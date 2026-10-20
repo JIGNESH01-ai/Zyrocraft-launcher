@@ -68,6 +68,13 @@ public class CustomSeekBarPreference extends SeekBarPreference {
         mTextView.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
         SeekBar seekBar = (SeekBar) view.findViewById(R.id.seekbar);
 
+        View stepDown = view.findViewById(R.id.zyro_seek_step_down);
+        View stepUp = view.findViewById(R.id.zyro_seek_step_up);
+        if(stepDown != null && stepUp != null) {
+            stepDown.setOnClickListener(v -> stepValue(seekBar, -1));
+            stepUp.setOnClickListener(v -> stepValue(seekBar, 1));
+        }
+
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
@@ -124,7 +131,20 @@ public class CustomSeekBarPreference extends SeekBarPreference {
     }
 
 
+    /** Moves the slider by one increment, the way the step arrows do */
+    private void stepValue(SeekBar seekBar, int direction) {
+        int increment = Math.max(1, getSeekBarIncrement());
+        int progress = seekBar.getProgress() + direction * increment;
+        progress = Math.max(0, Math.min(seekBar.getMax(), progress));
+        if(progress == seekBar.getProgress()) return;
+        seekBar.setProgress(progress);
+        int value = progress + mMin;
+        if(increment > 1) value = value / increment * increment;
+        setValue(value);
+    }
+
     private void updateTextViewWithSuffix(){
+        if(mTextView == null) return;
         if(!mTextView.getText().toString().endsWith(mSuffix)){
             mTextView.setText(String.format("%s%s", mTextView.getText(), mSuffix));
         }

@@ -198,7 +198,6 @@
         <item name="preferenceStyle">@style/ZyroPrefRow</item>
         <item name="dialogPreferenceStyle">@style/ZyroPrefRow</item>
         <item name="editTextPreferenceStyle">@style/ZyroPrefRow</item>
-        <item name="listPreferenceStyle">@style/ZyroPrefRow</item>
         <item name="preferenceCategoryStyle">@style/ZyroPrefCategory</item>
         <item name="switchPreferenceCompatStyle">@style/ZyroPrefSwitch</item>
         <item name="seekBarPreferenceStyle">@style/ZyroPrefSeek</item>
