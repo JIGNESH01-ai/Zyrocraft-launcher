@@ -62,7 +62,7 @@ jobs:
           {
             echo "### Gradle errors"
             echo '```'
-            grep -nE "error:|e: |FAILURE:|What went wrong|Caused by:|AAPT|Exception" gradle-build.log | head -50
+            grep -nE -A 8 "error:|e: |FAILURE:|What went wrong|Caused by:|AAPT|Exception" gradle-build.log | head -80
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
           grep -nE "error:|e: |FAILURE:|What went wrong|Caused by:|AAPT" gradle-build.log | head -30 | while IFS= read -r line; do
@@ -70,6 +70,13 @@ jobs:
           done
           tail -n 80 gradle-build.log
           exit 1
+
+      - name: Upload gradle log
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gradle-build-log
+          path: gradle-build.log
 
       - name: Upload APK artifact
         if: success()
