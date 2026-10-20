@@ -31,4 +31,9 @@
     <dimen name="fragment_padding_medium">@dimen/_10sdp</dimen>
     <!-- Misc paddings -->
     <dimen name="profile_editor_image_padding">@dimen/padding_small</dimen>
+
+    <!-- ZYROCRAFT left navigation rail -->
+    <dimen name="zyro_nav_width">110dp</dimen>
+    <dimen name="zyro_nav_item_height">46dp</dimen>
+    <dimen name="zyro_nav_border">1dp</dimen>
 </resources>

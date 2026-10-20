@@ -7,11 +7,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
 import android.system.Os;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -30,9 +32,14 @@ import net.kdt.pojavlaunch.authenticator.accounts.Accounts;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.extra.ExtraListener;
+import net.kdt.pojavlaunch.fragments.DownloadsFragment;
+import net.kdt.pojavlaunch.fragments.InstancesFragment;
+import net.kdt.pojavlaunch.fragments.LocalPacksFragment;
 import net.kdt.pojavlaunch.fragments.MainMenuFragment;
 import net.kdt.pojavlaunch.fragments.MicrosoftLoginFragment;
+import net.kdt.pojavlaunch.fragments.SearchModFragment;
 import net.kdt.pojavlaunch.fragments.SelectAuthFragment;
+import net.kdt.pojavlaunch.fragments.VersionsFragment;
 import net.kdt.pojavlaunch.instances.Instance;
 import net.kdt.pojavlaunch.instances.InstanceInstaller;
 import net.kdt.pojavlaunch.instances.Instances;
@@ -61,12 +68,31 @@ public class LauncherActivity extends BaseActivity {
     private NotificationManager mNotificationManager;
     private static ActivityResultLauncher<String> mRequestPermissionLauncher;
 
+    /* Left navigation rail entries, in the order they are declared in view_zyro_nav_rail.xml */
+    private static final int NAV_NONE = -1;
+    private static final int NAV_HOME = 0;
+    private static final int NAV_INSTANCES = 1;
+    private static final int NAV_VERSIONS = 2;
+    private static final int NAV_MODS = 3;
+    private static final int NAV_MODPACKS = 4;
+    private static final int NAV_RESOURCE_PACKS = 5;
+    private static final int NAV_SHADERS = 6;
+    private static final int NAV_DOWNLOADS = 7;
+    private static final int NAV_SETTINGS = 8;
+    private TextView[] mNavItems;
+    private TextView mScreenTitle;
+
     /* Allows to switch from one button "type" to another */
     private final FragmentManager.FragmentLifecycleCallbacks mFragmentCallbackListener = new FragmentManager.FragmentLifecycleCallbacks() {
         @Override
         public void onFragmentResumed(@NonNull FragmentManager fm, @NonNull Fragment f) {
-            mSettingsButton.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), f instanceof MainMenuFragment
-                    ? R.drawable.ic_px_sliders : R.drawable.ic_px_home));
+            // The settings button only exists in the portrait layout, the landscape
+            // layout reaches settings from the navigation rail.
+            if (mSettingsButton != null) {
+                mSettingsButton.setImageDrawable(ContextCompat.getDrawable(getBaseContext(), f instanceof MainMenuFragment
+                        ? R.drawable.ic_px_sliders : R.drawable.ic_px_home));
+            }
+            updateNavSelection(f);
         }
     };
 
@@ -192,7 +218,7 @@ public class LauncherActivity extends BaseActivity {
         ProgressKeeper.addTaskCountListener(mDoubleLaunchPreventionListener);
         ProgressKeeper.addTaskCountListener((mProgressServiceKeeper = new ProgressServiceKeeper(this)));
 
-        mSettingsButton.setOnClickListener(mSettingButtonListener);
+        if (mSettingsButton != null) mSettingsButton.setOnClickListener(mSettingButtonListener);
         ProgressKeeper.addTaskCountListener(mProgressLayout);
         ExtraCore.addExtraListener(ExtraConstants.BACK_PREFERENCE, mBackPreferenceListener);
         ExtraCore.addExtraListener(ExtraConstants.SELECT_AUTH_METHOD, mSelectAuthMethod);
@@ -332,6 +358,146 @@ public class LauncherActivity extends BaseActivity {
     private void bindViews(){
         mFragmentView = findViewById(R.id.container_fragment);
         mSettingsButton = findViewById(R.id.setting_button);
+        mScreenTitle = findViewById(R.id.zyro_screen_title);
         mProgressLayout = findViewById(R.id.progress_layout);
+        bindNavRail();
+    }
+
+    /** Wires the left navigation rail. All views are nullable: the rail only exists in landscape. */
+    private void bindNavRail() {
+        int[] navIds = {
+                R.id.nav_home, R.id.nav_instances, R.id.nav_versions, R.id.nav_mods,
+                R.id.nav_modpacks, R.id.nav_resource_packs, R.id.nav_shaders,
+                R.id.nav_downloads, R.id.nav_settings
+        };
+        mNavItems = new TextView[navIds.length];
+        for (int i = 0; i < navIds.length; i++) {
+            mNavItems[i] = findViewById(navIds[i]);
+        }
+
+        setNavAction(NAV_HOME, () -> {
+            FragmentManager manager = getSupportFragmentManager();
+            if (!manager.isStateSaved()) Tools.backToMainMenu(this);
+        });
+        setNavAction(NAV_INSTANCES, () ->
+                navigateTo(InstancesFragment.class, InstancesFragment.TAG, null));
+        setNavAction(NAV_VERSIONS, () ->
+                navigateTo(VersionsFragment.class, VersionsFragment.TAG, null));
+        setNavAction(NAV_MODS, () ->
+                navigateTo(SearchModFragment.class, SearchModFragment.TAG,
+                        SearchModFragment.newInstance(false).getArguments()));
+        setNavAction(NAV_MODPACKS, () ->
+                navigateTo(SearchModFragment.class, SearchModFragment.TAG,
+                        SearchModFragment.newInstance(true).getArguments()));
+        setNavAction(NAV_RESOURCE_PACKS, () ->
+                navigateTo(LocalPacksFragment.class, LocalPacksFragment.TAG,
+                        LocalPacksFragment.newInstance(LocalPacksFragment.FOLDER_RESOURCE_PACKS,
+                                getString(R.string.zyro_resource_packs)).getArguments()));
+        setNavAction(NAV_SHADERS, () ->
+                navigateTo(LocalPacksFragment.class, LocalPacksFragment.TAG,
+                        LocalPacksFragment.newInstance(LocalPacksFragment.FOLDER_SHADER_PACKS,
+                                getString(R.string.zyro_shaders)).getArguments()));
+        setNavAction(NAV_DOWNLOADS, () ->
+                navigateTo(DownloadsFragment.class, DownloadsFragment.TAG, null));
+        setNavAction(NAV_SETTINGS, this::openSettings);
+
+        applyNavSelection(NAV_HOME);
+    }
+
+    private void setNavAction(int index, Runnable action) {
+        if (mNavItems == null || mNavItems[index] == null) return;
+        mNavItems[index].setOnClickListener(v -> action.run());
+    }
+
+    /** Replaces the visible fragment, unless this screen is already showing */
+    private void navigateTo(Class<? extends Fragment> fragmentClass, String tag, Bundle args) {
+        FragmentManager manager = getSupportFragmentManager();
+        if (manager.isStateSaved()) return;
+        Fragment current = manager.findFragmentById(R.id.container_fragment);
+        if (current != null && current.getClass() == fragmentClass
+                && sameArguments(current.getArguments(), args)) {
+            return;
+        }
+        Tools.swapFragment(this, fragmentClass, tag, args);
+    }
+
+    private static boolean sameArguments(Bundle first, Bundle second) {
+        if (first == null || second == null) return first == second;
+        if (!first.keySet().equals(second.keySet())) return false;
+        for (String key : first.keySet()) {
+            Object left = first.get(key);
+            Object right = second.get(key);
+            if (left == null ? right != null : !left.equals(right)) return false;
+        }
+        return true;
+    }
+
+    private void openSettings() {
+        FragmentManager manager = getSupportFragmentManager();
+        if (manager.isStateSaved()) return;
+        Fragment current = manager.findFragmentById(R.id.container_fragment);
+        if (current instanceof LauncherPreferenceFragment) return;
+        Tools.swapFragment(this, LauncherPreferenceFragment.class, SETTING_FRAGMENT_TAG, null);
+    }
+
+    /** Highlights the rail entry matching the visible fragment */
+    private void updateNavSelection(@NonNull Fragment fragment) {
+        int selected = NAV_NONE;
+        if (fragment instanceof MainMenuFragment) {
+            selected = NAV_HOME;
+        } else if (fragment instanceof InstancesFragment) {
+            selected = NAV_INSTANCES;
+        } else if (fragment instanceof VersionsFragment) {
+            selected = NAV_VERSIONS;
+        } else if (fragment instanceof SearchModFragment) {
+            Bundle args = fragment.getArguments();
+            boolean isModpack = args == null || args.getBoolean(SearchModFragment.ARG_IS_MODPACK, true);
+            selected = isModpack ? NAV_MODPACKS : NAV_MODS;
+        } else if (fragment instanceof LocalPacksFragment) {
+            Bundle args = fragment.getArguments();
+            String folder = args == null ? null : args.getString(LocalPacksFragment.ARG_FOLDER);
+            selected = LocalPacksFragment.FOLDER_SHADER_PACKS.equals(folder) ? NAV_SHADERS : NAV_RESOURCE_PACKS;
+        } else if (fragment instanceof DownloadsFragment) {
+            selected = NAV_DOWNLOADS;
+        } else if (fragment instanceof LauncherPreferenceFragment) {
+            selected = NAV_SETTINGS;
+        }
+        applyNavSelection(selected);
+    }
+
+    private void applyNavSelection(int selected) {
+        if (mScreenTitle != null) {
+            int titleRes = navTitleRes(selected);
+            if (titleRes != 0) mScreenTitle.setText(titleRes);
+        }
+        if (mNavItems == null) return;
+        int activeColor = ContextCompat.getColor(this, R.color.zyro_neon);
+        int idleColor = ContextCompat.getColor(this, R.color.zyro_text_secondary);
+        for (int i = 0; i < mNavItems.length; i++) {
+            TextView item = mNavItems[i];
+            if (item == null) continue;
+            boolean isSelected = i == selected;
+            int color = isSelected ? activeColor : idleColor;
+            item.setTextColor(color);
+            item.setBackgroundResource(isSelected
+                    ? R.drawable.zyro_nav_selected
+                    : R.drawable.zyro_nav_item_bg);
+            item.setCompoundDrawableTintList(ColorStateList.valueOf(color));
+        }
+    }
+
+    private static int navTitleRes(int index) {
+        switch (index) {
+            case NAV_HOME: return R.string.zyro_home;
+            case NAV_INSTANCES: return R.string.zyro_instances;
+            case NAV_VERSIONS: return R.string.zyro_versions;
+            case NAV_MODS: return R.string.zyro_mods;
+            case NAV_MODPACKS: return R.string.zyro_modpacks;
+            case NAV_RESOURCE_PACKS: return R.string.zyro_resource_packs;
+            case NAV_SHADERS: return R.string.zyro_shaders;
+            case NAV_DOWNLOADS: return R.string.zyro_downloads;
+            case NAV_SETTINGS: return R.string.zyro_settings;
+            default: return 0;
+        }
     }
 }

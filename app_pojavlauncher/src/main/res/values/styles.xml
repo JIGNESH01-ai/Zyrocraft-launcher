@@ -69,6 +69,24 @@
         <item name="android:background">@color/divider</item>
     </style>
 
+    <!-- Left navigation rail item: icon above a small caption -->
+    <style name="ZyroNavItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/zyro_nav_item_height</item>
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:background">@drawable/zyro_nav_item_bg</item>
+        <item name="android:gravity">center</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:drawablePadding">@dimen/padding_tiny</item>
+        <item name="android:drawableTint">@color/zyro_text_secondary</item>
+        <item name="android:textColor">@color/zyro_text_secondary</item>
+        <item name="android:textSize">7sp</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
     <!-- ZYRO typography and component styles -->
     <style name="ZyroTitle">
         <item name="android:textSize">@dimen/_18ssp</item>

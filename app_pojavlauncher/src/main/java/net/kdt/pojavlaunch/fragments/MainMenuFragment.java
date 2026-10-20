@@ -113,25 +113,32 @@ public class MainMenuFragment extends Fragment {
             return true;
         });
 
-        // Quick access navigation
-        view.findViewById(R.id.card_instances).setOnClickListener(v ->
+        // Quick access cards: they only exist in the portrait home layout, the landscape
+        // layout navigates from the left rail instead.
+        bindQuickCard(view, R.id.card_instances, () ->
                 Tools.swapFragment(requireActivity(), InstancesFragment.class, InstancesFragment.TAG, null));
-        view.findViewById(R.id.card_mods).setOnClickListener(v ->
+        bindQuickCard(view, R.id.card_mods, () ->
                 Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG,
                         SearchModFragment.newInstance(false).getArguments()));
-        view.findViewById(R.id.card_modpacks).setOnClickListener(v ->
+        bindQuickCard(view, R.id.card_modpacks, () ->
                 Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG,
                         SearchModFragment.newInstance(true).getArguments()));
-        view.findViewById(R.id.card_resource_packs).setOnClickListener(v ->
+        bindQuickCard(view, R.id.card_resource_packs, () ->
                 Tools.swapFragment(requireActivity(), LocalPacksFragment.class, LocalPacksFragment.TAG,
                         LocalPacksFragment.newInstance(LocalPacksFragment.FOLDER_RESOURCE_PACKS,
                                 getString(R.string.zyro_resource_packs)).getArguments()));
-        view.findViewById(R.id.card_shaders).setOnClickListener(v ->
+        bindQuickCard(view, R.id.card_shaders, () ->
                 Tools.swapFragment(requireActivity(), LocalPacksFragment.class, LocalPacksFragment.TAG,
                         LocalPacksFragment.newInstance(LocalPacksFragment.FOLDER_SHADER_PACKS,
                                 getString(R.string.zyro_shaders)).getArguments()));
-        view.findViewById(R.id.card_downloads).setOnClickListener(v ->
+        bindQuickCard(view, R.id.card_downloads, () ->
                 Tools.swapFragment(requireActivity(), DownloadsFragment.class, DownloadsFragment.TAG, null));
+    }
+
+    /** Binds a quick access card when the current layout provides it */
+    private void bindQuickCard(@NonNull View root, int viewId, Runnable action) {
+        View card = root.findViewById(viewId);
+        if (card != null) card.setOnClickListener(v -> action.run());
     }
 
     @Override

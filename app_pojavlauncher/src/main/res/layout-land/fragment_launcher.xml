@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- ZYROCRAFT home screen, landscape. The launcher is locked to sensor landscape,
-     so this is the layout the launcher uses on phones. Every view id used by
-     MainMenuFragment is present here as well as in the portrait variant. -->
+<!-- ZYROCRAFT home screen, landscape. Navigation lives in the left rail (see
+     view_zyro_nav_rail.xml), so this screen only shows the player, the selected
+     instance and the utility actions. -->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -20,12 +20,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/home_bottom_bar">
 
-        <!-- LEFT COLUMN: hero, selected instance, utilities -->
+        <!-- LEFT: hero + selected instance -->
         <ScrollView
             android:id="@+id/home_scroll"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="1.15"
             android:fillViewport="true"
             android:scrollbars="none">
 
@@ -41,7 +41,7 @@
                 <!-- HERO -->
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_110sdp">
+                    android:layout_height="@dimen/_130sdp">
 
                     <ImageView
                         android:id="@+id/home_hero_image"
@@ -154,7 +154,7 @@
                                     android:text="@string/zyro_installed"
                                     android:textColor="@color/zyro_text_secondary"
                                     android:textSize="@dimen/_9ssp"
-                                    tools:text="Offline Profile"/>
+                                    tools:text="Launch Minecraft Java Edition"/>
                             </LinearLayout>
                         </LinearLayout>
 
@@ -216,114 +216,10 @@
                             tools:text="Forge 49.1.0"/>
                     </LinearLayout>
                 </LinearLayout>
-
-                <!-- UTILITIES -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/padding_heavy"
-                    android:layout_marginBottom="@dimen/padding_moderate"
-                    android:fontFamily="@font/noto_sans_bold"
-                    android:text="@string/zyro_utilities"
-                    android:textColor="@color/zyro_text_primary"
-                    android:textSize="@dimen/_13ssp"
-                    android:textStyle="bold"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <com.kdt.mcgui.LauncherMenuButton
-                        android:id="@+id/custom_control_button"
-                        style="@style/LauncherMenuButton"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_42sdp"
-                        android:layout_marginEnd="@dimen/padding_medium"
-                        android:layout_weight="1"
-                        android:drawableStart="@drawable/ic_px_gamepad"
-                        android:drawablePadding="@dimen/padding_medium"
-                        android:text="@string/mcl_option_customcontrol"
-                        android:textSize="@dimen/_9ssp"/>
-
-                    <com.kdt.mcgui.LauncherMenuButton
-                        android:id="@+id/install_jar_button"
-                        style="@style/LauncherMenuButton"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_42sdp"
-                        android:layout_marginStart="@dimen/padding_medium"
-                        android:layout_weight="1"
-                        android:drawableStart="@drawable/ic_px_java_run"
-                        android:drawablePadding="@dimen/padding_medium"
-                        android:text="@string/main_install_jar_file"
-                        android:textSize="@dimen/_9ssp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/padding_medium"
-                    android:orientation="horizontal">
-
-                    <com.kdt.mcgui.LauncherMenuButton
-                        android:id="@+id/share_logs_button"
-                        style="@style/LauncherMenuButton"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_42sdp"
-                        android:layout_marginEnd="@dimen/padding_medium"
-                        android:layout_weight="1"
-                        android:drawableStart="@drawable/ic_px_sharelog"
-                        android:drawablePadding="@dimen/padding_medium"
-                        android:text="@string/main_share_logs"
-                        android:textSize="@dimen/_9ssp"/>
-
-                    <com.kdt.mcgui.LauncherMenuButton
-                        android:id="@+id/open_files_button"
-                        style="@style/LauncherMenuButton"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_42sdp"
-                        android:layout_marginStart="@dimen/padding_medium"
-                        android:layout_weight="1"
-                        android:drawableStart="@drawable/ic_px_folder"
-                        android:drawablePadding="@dimen/padding_medium"
-                        android:text="@string/mcl_button_open_directory"
-                        android:textSize="@dimen/_9ssp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/padding_medium"
-                    android:orientation="horizontal">
-
-                    <com.kdt.mcgui.LauncherMenuButton
-                        android:id="@+id/news_button"
-                        style="@style/LauncherMenuButton"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_42sdp"
-                        android:layout_marginEnd="@dimen/padding_medium"
-                        android:layout_weight="1"
-                        android:drawableStart="@drawable/ic_px_book"
-                        android:drawablePadding="@dimen/padding_medium"
-                        android:text="@string/mcl_tab_wiki"
-                        android:textSize="@dimen/_9ssp"/>
-
-                    <com.kdt.mcgui.LauncherMenuButton
-                        android:id="@+id/social_media_button"
-                        style="@style/LauncherMenuButton"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_42sdp"
-                        android:layout_marginStart="@dimen/padding_medium"
-                        android:layout_weight="1"
-                        android:drawableStart="@drawable/ic_social_media"
-                        android:drawablePadding="@dimen/padding_medium"
-                        android:text="@string/mcl_button_social_media"
-                        android:textSize="@dimen/_9ssp"/>
-                </LinearLayout>
             </LinearLayout>
         </ScrollView>
 
-        <!-- RIGHT COLUMN: quick access -->
+        <!-- RIGHT: utilities -->
         <ScrollView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -345,7 +241,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/padding_heavy"
                     android:fontFamily="@font/noto_sans_bold"
-                    android:text="@string/zyro_quick_access"
+                    android:text="@string/zyro_utilities"
                     android:textColor="@color/zyro_text_primary"
                     android:textSize="@dimen/_16ssp"
                     android:textStyle="bold"/>
@@ -353,204 +249,93 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:baselineAligned="false"
                     android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:id="@+id/card_instances"
+                    <com.kdt.mcgui.LauncherMenuButton
+                        android:id="@+id/custom_control_button"
+                        style="@style/LauncherMenuButton"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_76sdp"
+                        android:layout_height="@dimen/_48sdp"
                         android:layout_marginEnd="@dimen/padding_medium"
                         android:layout_weight="1"
-                        android:background="@drawable/zyro_panel_ripple"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_heavy">
+                        android:drawableStart="@drawable/ic_px_gamepad"
+                        android:drawablePadding="@dimen/padding_medium"
+                        android:text="@string/mcl_option_customcontrol"
+                        android:textSize="@dimen/_9ssp"/>
 
-                        <ImageView
-                            android:layout_width="@dimen/_22sdp"
-                            android:layout_height="@dimen/_22sdp"
-                            android:contentDescription="@string/zyro_instances"
-                            android:src="@drawable/ic_zyro_cube"
-                            app:tint="@color/zyro_neon"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/padding_medium"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:text="@string/zyro_instances"
-                            android:textColor="@color/zyro_text_primary"
-                            android:textSize="@dimen/_10ssp"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/card_mods"
+                    <com.kdt.mcgui.LauncherMenuButton
+                        android:id="@+id/install_jar_button"
+                        style="@style/LauncherMenuButton"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_76sdp"
-                        android:layout_marginStart="@dimen/padding_medium"
-                        android:layout_marginEnd="@dimen/padding_medium"
-                        android:layout_weight="1"
-                        android:background="@drawable/zyro_panel_ripple"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_heavy">
-
-                        <ImageView
-                            android:layout_width="@dimen/_22sdp"
-                            android:layout_height="@dimen/_22sdp"
-                            android:contentDescription="@string/zyro_mods"
-                            android:src="@drawable/ic_zyro_puzzle"
-                            app:tint="@color/zyro_purple"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/padding_medium"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:text="@string/zyro_mods"
-                            android:textColor="@color/zyro_text_primary"
-                            android:textSize="@dimen/_10ssp"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/card_modpacks"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_76sdp"
+                        android:layout_height="@dimen/_48sdp"
                         android:layout_marginStart="@dimen/padding_medium"
                         android:layout_weight="1"
-                        android:background="@drawable/zyro_panel_ripple"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_heavy">
-
-                        <ImageView
-                            android:layout_width="@dimen/_22sdp"
-                            android:layout_height="@dimen/_22sdp"
-                            android:contentDescription="@string/zyro_modpacks"
-                            android:src="@drawable/ic_zyro_layers"
-                            app:tint="@color/zyro_neon"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/padding_medium"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:text="@string/zyro_modpacks"
-                            android:textColor="@color/zyro_text_primary"
-                            android:textSize="@dimen/_10ssp"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
+                        android:drawableStart="@drawable/ic_px_java_run"
+                        android:drawablePadding="@dimen/padding_medium"
+                        android:text="@string/main_install_jar_file"
+                        android:textSize="@dimen/_9ssp"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/padding_medium"
-                    android:baselineAligned="false"
                     android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:id="@+id/card_resource_packs"
+                    <com.kdt.mcgui.LauncherMenuButton
+                        android:id="@+id/share_logs_button"
+                        style="@style/LauncherMenuButton"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_76sdp"
+                        android:layout_height="@dimen/_48sdp"
                         android:layout_marginEnd="@dimen/padding_medium"
                         android:layout_weight="1"
-                        android:background="@drawable/zyro_panel_ripple"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_heavy">
+                        android:drawableStart="@drawable/ic_px_sharelog"
+                        android:drawablePadding="@dimen/padding_medium"
+                        android:text="@string/main_share_logs"
+                        android:textSize="@dimen/_9ssp"/>
 
-                        <ImageView
-                            android:layout_width="@dimen/_22sdp"
-                            android:layout_height="@dimen/_22sdp"
-                            android:contentDescription="@string/zyro_resource_packs"
-                            android:src="@drawable/ic_zyro_image"
-                            app:tint="@color/zyro_purple"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/padding_medium"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:text="@string/zyro_resource_packs"
-                            android:textColor="@color/zyro_text_primary"
-                            android:textSize="@dimen/_10ssp"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/card_shaders"
+                    <com.kdt.mcgui.LauncherMenuButton
+                        android:id="@+id/open_files_button"
+                        style="@style/LauncherMenuButton"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_76sdp"
+                        android:layout_height="@dimen/_48sdp"
                         android:layout_marginStart="@dimen/padding_medium"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/ic_px_folder"
+                        android:drawablePadding="@dimen/padding_medium"
+                        android:text="@string/mcl_button_open_directory"
+                        android:textSize="@dimen/_9ssp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_medium"
+                    android:orientation="horizontal">
+
+                    <com.kdt.mcgui.LauncherMenuButton
+                        android:id="@+id/news_button"
+                        style="@style/LauncherMenuButton"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_48sdp"
                         android:layout_marginEnd="@dimen/padding_medium"
                         android:layout_weight="1"
-                        android:background="@drawable/zyro_panel_ripple"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_heavy">
+                        android:drawableStart="@drawable/ic_px_book"
+                        android:drawablePadding="@dimen/padding_medium"
+                        android:text="@string/mcl_tab_wiki"
+                        android:textSize="@dimen/_9ssp"/>
 
-                        <ImageView
-                            android:layout_width="@dimen/_22sdp"
-                            android:layout_height="@dimen/_22sdp"
-                            android:contentDescription="@string/zyro_shaders"
-                            android:src="@drawable/ic_zyro_sparkle"
-                            app:tint="@color/zyro_neon"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/padding_medium"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:text="@string/zyro_shaders"
-                            android:textColor="@color/zyro_text_primary"
-                            android:textSize="@dimen/_10ssp"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/card_downloads"
+                    <com.kdt.mcgui.LauncherMenuButton
+                        android:id="@+id/social_media_button"
+                        style="@style/LauncherMenuButton"
                         android:layout_width="0dp"
-                        android:layout_height="@dimen/_76sdp"
+                        android:layout_height="@dimen/_48sdp"
                         android:layout_marginStart="@dimen/padding_medium"
                         android:layout_weight="1"
-                        android:background="@drawable/zyro_panel_ripple"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="@dimen/padding_heavy">
-
-                        <ImageView
-                            android:layout_width="@dimen/_22sdp"
-                            android:layout_height="@dimen/_22sdp"
-                            android:contentDescription="@string/zyro_downloads"
-                            android:src="@drawable/ic_zyro_download"
-                            app:tint="@color/zyro_purple"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/padding_medium"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:text="@string/zyro_downloads"
-                            android:textColor="@color/zyro_text_primary"
-                            android:textSize="@dimen/_10ssp"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
+                        android:drawableStart="@drawable/ic_social_media"
+                        android:drawablePadding="@dimen/padding_medium"
+                        android:text="@string/mcl_button_social_media"
+                        android:textSize="@dimen/_9ssp"/>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
