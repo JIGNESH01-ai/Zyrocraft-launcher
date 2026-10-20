@@ -51,7 +51,20 @@ jobs:
           gradle-version: "8.14.5"
 
       - name: Build debug APK
-        run: gradle :app_pojavlauncher:assembleFullDebug
+        id: build
+        continue-on-error: true
+        run: |
+          gradle :app_pojavlauncher:assembleFullDebug --console=plain --no-daemon 2>&1 | tee gradle-build.log
+
+      - name: Report build errors
+        if: steps.build.outcome == 'failure'
+        run: |
+          echo "### Build errors"
+          grep -nE "error:|e: |FAILURE:|What went wrong|Caused by:|AAPT" gradle-build.log | head -30 | while IFS= read -r line; do
+            echo "::error::${line}"
+          done
+          tail -n 40 gradle-build.log
+          exit 1
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
