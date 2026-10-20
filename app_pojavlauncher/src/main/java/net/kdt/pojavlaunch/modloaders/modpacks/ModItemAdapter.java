@@ -248,7 +248,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<ModItemAdapter.ViewHold
                     int position = spinner.getSelectedItemPosition();
                     if (detail == null || position < 0) return;
                     Context appContext = context.getApplicationContext();
-                    if (mItem.isModpack) {
+                    if (mItem.isModpack()) {
                         mModpackApi.handleModpackInstallation(appContext, detail, position);
                     } else {
                         ModInstallTask.install(appContext, detail, position);

@@ -20,6 +20,7 @@ import net.kdt.pojavlaunch.modloaders.modpacks.models.Constants;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModrinthIndex;
+import net.kdt.pojavlaunch.modloaders.modpacks.models.ProjectType;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchFilters;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchResult;
 import net.kdt.pojavlaunch.utils.FileUtils;
@@ -57,7 +58,8 @@ public class ModrinthApi implements ModpackApi{
         HashMap<String, Object> params = new HashMap<>();
         StringBuilder facetString = new StringBuilder();
         facetString.append("[");
-        facetString.append(String.format("[\"project_type:%s\"]", searchFilters.isModpack ? "modpack" : "mod"));
+        facetString.append(String.format("[\"project_type:%s\"]",
+                ProjectType.modrinthName(searchFilters.projectType)));
         if(searchFilters.mcVersion != null && !searchFilters.mcVersion.isEmpty())
             facetString.append(String.format(",[\"versions:%s\"]", searchFilters.mcVersion));
         if(searchFilters.category != null && !searchFilters.category.isEmpty())
@@ -68,8 +70,7 @@ public class ModrinthApi implements ModpackApi{
         params.put("facets", facetString.toString());
         params.put("query", searchFilters.name);
         params.put("limit", 50);
-        params.put("index", searchFilters.sort != null && !searchFilters.sort.isEmpty()
-                ? searchFilters.sort : "relevance");
+        params.put("index", modrinthSort(searchFilters.sort));
         if(modrinthSearchResult != null)
             params.put("offset", modrinthSearchResult.previousOffset);
         else if(searchFilters.offset > 0)
@@ -85,7 +86,7 @@ public class ModrinthApi implements ModpackApi{
             JsonObject hit = responseHits.get(i).getAsJsonObject();
             items[i] = new ModItem(
                     Constants.SOURCE_MODRINTH,
-                    hit.get("project_type").getAsString().equals("modpack"),
+                    searchFilters.projectType,
                     hit.get("project_id").getAsString(),
                     hit.get("title").getAsString(),
                     hit.get("description").getAsString(),
@@ -98,6 +99,25 @@ public class ModrinthApi implements ModpackApi{
         modrinthSearchResult.results = items;
         modrinthSearchResult.totalResultCount = response.get("total_hits").getAsInt();
         return modrinthSearchResult;
+    }
+
+    /** Modrinth only accepts relevance, downloads, follows, newest and updated */
+    private static String modrinthSort(String sortKey) {
+        if (sortKey == null) return "relevance";
+        switch (sortKey) {
+            case "downloads": return "downloads";
+            case "newest": return "newest";
+            case "updated": return "updated";
+            case "relevance":
+            default: return "relevance";
+        }
+    }
+
+    /** Reads the first game version of a version entry, empty when the list is empty */
+    private static String readMcVersion(JsonObject version) {
+        JsonArray gameVersions = version.getAsJsonArray("game_versions");
+        if (gameVersions == null || gameVersions.size() == 0) return "";
+        return gameVersions.get(0).getAsString();
     }
 
     /** Modrinth reports a download counter for every search hit */
@@ -124,7 +144,7 @@ public class ModrinthApi implements ModpackApi{
         for (int i=0; i<response.size(); ++i) {
             JsonObject version = response.get(i).getAsJsonObject();
             names[i] = version.get("name").getAsString();
-            mcNames[i] = version.get("game_versions").getAsJsonArray().get(0).getAsString();
+            mcNames[i] = readMcVersion(version);
             urls[i] = version.get("files").getAsJsonArray().get(0).getAsJsonObject().get("url").getAsString();
             // Assume there may not be hashes, in case the API changes
             JsonObject hashesMap = version.getAsJsonArray("files").get(0).getAsJsonObject()

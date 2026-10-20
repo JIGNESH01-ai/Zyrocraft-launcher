@@ -2,6 +2,9 @@ package net.kdt.pojavlaunch;
 
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +15,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.system.Os;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +28,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
@@ -48,6 +55,7 @@ import net.kdt.pojavlaunch.instances.Instances;
 import net.kdt.pojavlaunch.lifecycle.ContextAwareDoneListener;
 import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.IconCacheJanitor;
+import net.kdt.pojavlaunch.modloaders.modpacks.models.ProjectType;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceFragment;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
@@ -63,7 +71,11 @@ import net.kdt.pojavlaunch.R;
 public class LauncherActivity extends BaseActivity {
     public static final String SETTING_FRAGMENT_TAG = "SETTINGS_FRAGMENT";
 
+    private ConstraintLayout mRootLayout;
+    private View mTopBar;
+    private HorizontalScrollView mTabsScroll;
     private FragmentContainerView mFragmentView;
+    private boolean mBrowseHeaderVisible;
     private ImageButton mSettingsButton;
     private ProgressLayout mProgressLayout;
     private ProgressServiceKeeper mProgressServiceKeeper;
@@ -93,6 +105,7 @@ public class LauncherActivity extends BaseActivity {
     private static final int TAB_VANILLA = 5;
     private static final int TAB_FAVORITES = 6;
     private static final int TAB_NONE = -1;
+    private static final int HEADER_ANIM_DURATION = 200;
 
     /* Allows to switch from one button "type" to another */
     private final FragmentManager.FragmentLifecycleCallbacks mFragmentCallbackListener = new FragmentManager.FragmentLifecycleCallbacks() {
@@ -368,6 +381,9 @@ public class LauncherActivity extends BaseActivity {
 
     /** Stuff all the view boilerplate here */
     private void bindViews(){
+        mRootLayout = findViewById(R.id.zyro_root);
+        mTopBar = findViewById(R.id.zyro_top_bar);
+        mTabsScroll = findViewById(R.id.zyro_tabs_scroll);
         mFragmentView = findViewById(R.id.container_fragment);
         mSettingsButton = findViewById(R.id.setting_button);
         mProgressLayout = findViewById(R.id.progress_layout);
@@ -397,10 +413,10 @@ public class LauncherActivity extends BaseActivity {
                 navigateTo(VersionsFragment.class, VersionsFragment.TAG, null));
         setNavAction(NAV_MODS, () ->
                 navigateTo(SearchModFragment.class, SearchModFragment.TAG,
-                        SearchModFragment.newInstance(false).getArguments()));
+                        SearchModFragment.newInstance(ProjectType.MOD).getArguments()));
         setNavAction(NAV_MODPACKS, () ->
                 navigateTo(SearchModFragment.class, SearchModFragment.TAG,
-                        SearchModFragment.newInstance(true).getArguments()));
+                        SearchModFragment.newInstance(ProjectType.MODPACK).getArguments()));
         setNavAction(NAV_RESOURCE_PACKS, () ->
                 navigateTo(LocalPacksFragment.class, LocalPacksFragment.TAG,
                         LocalPacksFragment.newInstance(LocalPacksFragment.FOLDER_RESOURCE_PACKS,
@@ -425,18 +441,16 @@ public class LauncherActivity extends BaseActivity {
 
         setTabAction(TAB_MODPACKS, () ->
                 navigateTo(SearchModFragment.class, SearchModFragment.TAG,
-                        SearchModFragment.newInstance(true).getArguments()));
+                        SearchModFragment.newInstance(ProjectType.MODPACK).getArguments()));
         setTabAction(TAB_MODS, () ->
                 navigateTo(SearchModFragment.class, SearchModFragment.TAG,
-                        SearchModFragment.newInstance(false).getArguments()));
+                        SearchModFragment.newInstance(ProjectType.MOD).getArguments()));
         setTabAction(TAB_RESOURCE_PACKS, () ->
-                navigateTo(LocalPacksFragment.class, LocalPacksFragment.TAG,
-                        LocalPacksFragment.newInstance(LocalPacksFragment.FOLDER_RESOURCE_PACKS,
-                                getString(R.string.zyro_resource_packs)).getArguments()));
+                navigateTo(SearchModFragment.class, SearchModFragment.TAG,
+                        SearchModFragment.newInstance(ProjectType.RESOURCE_PACK).getArguments()));
         setTabAction(TAB_SHADERS, () ->
-                navigateTo(LocalPacksFragment.class, LocalPacksFragment.TAG,
-                        LocalPacksFragment.newInstance(LocalPacksFragment.FOLDER_SHADER_PACKS,
-                                getString(R.string.zyro_shaders)).getArguments()));
+                navigateTo(SearchModFragment.class, SearchModFragment.TAG,
+                        SearchModFragment.newInstance(ProjectType.SHADER).getArguments()));
         setTabAction(TAB_WORLDS, () ->
                 navigateTo(WorldsFragment.class, WorldsFragment.TAG, null));
         setTabAction(TAB_VANILLA, () ->
@@ -502,10 +516,26 @@ public class LauncherActivity extends BaseActivity {
             if (SearchModFragment.isFavorites(fragment)) {
                 tab = TAB_FAVORITES;
             } else {
-                Bundle args = fragment.getArguments();
-                boolean isModpack = args == null || args.getBoolean(SearchModFragment.ARG_IS_MODPACK, true);
-                rail = isModpack ? NAV_MODPACKS : NAV_MODS;
-                tab = isModpack ? TAB_MODPACKS : TAB_MODS;
+                int projectType = SearchModFragment.projectTypeOf(fragment);
+                switch (projectType) {
+                    case ProjectType.MOD:
+                        rail = NAV_MODS;
+                        tab = TAB_MODS;
+                        break;
+                    case ProjectType.RESOURCE_PACK:
+                        rail = NAV_RESOURCE_PACKS;
+                        tab = TAB_RESOURCE_PACKS;
+                        break;
+                    case ProjectType.SHADER:
+                        rail = NAV_SHADERS;
+                        tab = TAB_SHADERS;
+                        break;
+                    case ProjectType.MODPACK:
+                    default:
+                        rail = NAV_MODPACKS;
+                        tab = TAB_MODPACKS;
+                        break;
+                }
             }
         } else if (fragment instanceof LocalPacksFragment) {
             Bundle args = fragment.getArguments();
@@ -522,6 +552,81 @@ public class LauncherActivity extends BaseActivity {
         }
         applyNavSelection(rail);
         applyTabSelection(tab);
+        setBrowseHeaderVisible(showsBrowseHeader(fragment), true);
+    }
+
+    /** Screens that share the browse header: search, local libraries, worlds and versions */
+    private boolean showsBrowseHeader(@NonNull Fragment fragment) {
+        return fragment instanceof SearchModFragment
+                || fragment instanceof LocalPacksFragment
+                || fragment instanceof WorldsFragment
+                || fragment instanceof VersionsFragment;
+    }
+
+    /**
+     * Shows or hides the browse header. The content sits under it, so collapsing
+     * the header to zero height gives every other screen the full view; the height
+     * and the alpha animate together, which reads as a clean fade out.
+     */
+    private void setBrowseHeaderVisible(boolean visible, boolean animate) {
+        if (mTopBar == null || mTabsScroll == null) return;
+        if (mBrowseHeaderVisible == visible) return;
+        mBrowseHeaderVisible = visible;
+
+        if (!animate) {
+            ViewGroup.LayoutParams params = mTopBar.getLayoutParams();
+            params.height = visible ? ViewGroup.LayoutParams.WRAP_CONTENT : 0;
+            mTopBar.setLayoutParams(params);
+            mTopBar.setVisibility(visible ? View.VISIBLE : View.GONE);
+            mTopBar.setAlpha(visible ? 1f : 0f);
+            return;
+        }
+
+        final int fullHeight = measureHeaderHeight();
+        final int startHeight = visible ? 0 : mTopBar.getHeight();
+        mTopBar.setVisibility(View.VISIBLE);
+        mTopBar.setAlpha(visible ? 0f : 1f);
+
+        ValueAnimator animator = ValueAnimator.ofInt(startHeight, visible ? fullHeight : 0);
+        animator.setDuration(HEADER_ANIM_DURATION);
+        animator.setInterpolator(new DecelerateInterpolator());
+        animator.addUpdateListener(animation -> {
+            int height = (int) animation.getAnimatedValue();
+            ViewGroup.LayoutParams params = mTopBar.getLayoutParams();
+            if (params.height != height) {
+                params.height = height;
+                mTopBar.setLayoutParams(params);
+            }
+            float fraction = fullHeight <= 0 ? 0f : (float) height / fullHeight;
+            mTopBar.setAlpha(visible ? fraction : 1f - fraction);
+        });
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                ViewGroup.LayoutParams params = mTopBar.getLayoutParams();
+                params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                mTopBar.setLayoutParams(params);
+                if (visible) {
+                    mTopBar.setAlpha(1f);
+                } else {
+                    mTopBar.setAlpha(0f);
+                    mTopBar.setVisibility(View.GONE);
+                }
+            }
+        });
+        animator.start();
+    }
+
+    /** Height the header needs when every tab fits on one row */
+    private int measureHeaderHeight() {
+        if (mTopBar.getHeight() > 0) return mTopBar.getHeight();
+        int width = mRootLayout == null ? 0 : mRootLayout.getWidth()
+                - (int) getResources().getDimension(R.dimen.zyro_nav_width);
+        if (width <= 0) width = getResources().getDisplayMetrics().widthPixels;
+        int widthSpec = View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.AT_MOST);
+        int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        mTopBar.measure(widthSpec, heightSpec);
+        return Math.max(mTopBar.getMeasuredHeight(), 0);
     }
 
     private void applyNavSelection(int selected) {
@@ -555,5 +660,16 @@ public class LauncherActivity extends BaseActivity {
                     : R.drawable.zyro_tab_bg);
             tab.setCompoundDrawableTintList(ColorStateList.valueOf(color));
         }
+        if (selected != TAB_NONE) scrollTabIntoView(mTabItems[selected]);
+    }
+
+    /** Keeps the selected tab inside the visible part of the scrolling tab bar */
+    private void scrollTabIntoView(TextView tab) {
+        if (tab == null || mTabsScroll == null) return;
+        mTabsScroll.post(() -> {
+            int target = tab.getLeft() - (mTabsScroll.getWidth() - tab.getWidth()) / 2;
+            int max = Math.max(0, mTabsScroll.getChildAt(0).getWidth() - mTabsScroll.getWidth());
+            mTabsScroll.smoothScrollTo(Math.max(0, Math.min(target, max)), 0);
+        });
     }
 }

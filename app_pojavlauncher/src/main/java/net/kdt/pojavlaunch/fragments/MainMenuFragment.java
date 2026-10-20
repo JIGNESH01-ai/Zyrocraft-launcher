@@ -33,6 +33,7 @@ import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.instances.Instance;
 import net.kdt.pojavlaunch.instances.InstanceIconProvider;
 import net.kdt.pojavlaunch.instances.Instances;
+import net.kdt.pojavlaunch.modloaders.modpacks.models.ProjectType;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.utils.FileUtils;
 import net.kdt.pojavlaunch.utils.VersionDescriptor;
@@ -119,10 +120,10 @@ public class MainMenuFragment extends Fragment {
                 Tools.swapFragment(requireActivity(), InstancesFragment.class, InstancesFragment.TAG, null));
         bindQuickCard(view, R.id.card_mods, () ->
                 Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG,
-                        SearchModFragment.newInstance(false).getArguments()));
+                        SearchModFragment.newInstance(ProjectType.MOD).getArguments()));
         bindQuickCard(view, R.id.card_modpacks, () ->
                 Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG,
-                        SearchModFragment.newInstance(true).getArguments()));
+                        SearchModFragment.newInstance(ProjectType.MODPACK).getArguments()));
         bindQuickCard(view, R.id.card_resource_packs, () ->
                 Tools.swapFragment(requireActivity(), LocalPacksFragment.class, LocalPacksFragment.TAG,
                         LocalPacksFragment.newInstance(LocalPacksFragment.FOLDER_RESOURCE_PACKS,

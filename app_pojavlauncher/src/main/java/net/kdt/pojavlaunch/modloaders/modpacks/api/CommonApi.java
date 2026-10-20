@@ -36,13 +36,10 @@ public class CommonApi implements ModpackApi {
 
     public CommonApi(String curseforgeApiKey) {
         mModrinthApi = new ModrinthApi();
-        if ("DUMMY".equals(curseforgeApiKey)) {
-            mCurseforgeApi = null;
-            mModpackApis = new ModpackApi[]{mModrinthApi};
-        } else {
-            mCurseforgeApi = new CurseforgeApi(curseforgeApiKey);
-            mModpackApis = new ModpackApi[]{mModrinthApi, mCurseforgeApi};
-        }
+        // Without a key the api falls back to the public keyless mirror, so the
+        // CurseForge parser stays available for local modpack imports too.
+        mCurseforgeApi = CurseforgeApi.create(curseforgeApiKey);
+        mModpackApis = new ModpackApi[]{mModrinthApi, mCurseforgeApi};
     }
 
     @Override

@@ -723,4 +723,30 @@ Version %1$s</string>
     <string name="zyro_world_deleted">World deleted</string>
     <string name="zyro_world_delete_failed">Could not delete the world</string>
     <string name="zyro_worlds_refresh">Refresh</string>
+    <!-- Browse categories per project type -->
+    <string name="zyro_pack_cat_combat">Combat</string>
+    <string name="zyro_pack_cat_multiplayer">Multiplayer</string>
+    <string name="zyro_pack_cat_kitchensink">Kitchen Sink</string>
+    <string name="zyro_pack_cat_light">Light</string>
+    <string name="zyro_pack_cat_scifi">Sci-Fi</string>
+    <string name="zyro_rp_cat_textures">Textures</string>
+    <string name="zyro_rp_cat_models">Models</string>
+    <string name="zyro_rp_cat_fonts">Fonts</string>
+    <string name="zyro_rp_cat_audio">Audio</string>
+    <string name="zyro_rp_cat_gui">GUI</string>
+    <string name="zyro_rp_cat_locale">Translations</string>
+    <string name="zyro_rp_cat_environment">Environment</string>
+    <string name="zyro_rp_cat_blocks">Blocks</string>
+    <string name="zyro_rp_cat_items">Items</string>
+    <string name="zyro_rp_cat_entities">Entities</string>
+    <string name="zyro_sh_cat_realistic">Realistic</string>
+    <string name="zyro_sh_cat_semirealistic">Semi-Realistic</string>
+    <string name="zyro_sh_cat_fantasy">Fantasy</string>
+    <string name="zyro_sh_cat_cartoon">Cartoon</string>
+    <string name="zyro_sh_cat_vanilla">Vanilla-like</string>
+    <string name="zyro_sh_cat_atmosphere">Atmosphere</string>
+    <string name="zyro_sh_cat_blooming">Blooming</string>
+    <string name="zyro_sh_cat_foliage">Foliage</string>
+    <string name="zyro_categories_loading">Loading categories…</string>
+    <string name="zyro_source_error_curseforge">Could not reach CurseForge. Check your connection and try again.</string>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModItem;
+import net.kdt.pojavlaunch.modloaders.modpacks.models.ProjectType;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,9 +37,13 @@ public final class ModFavorites {
             for (int i = 0; i < array.length(); i++) {
                 JSONObject object = array.optJSONObject(i);
                 if (object == null) continue;
+                // Entries saved before project types existed only recorded a modpack flag
+                int projectType = object.has("projectType")
+                        ? object.optInt("projectType", ProjectType.MODPACK)
+                        : (object.optBoolean("isModpack") ? ProjectType.MODPACK : ProjectType.MOD);
                 items.add(new ModItem(
                         object.optInt("apiSource"),
-                        object.optBoolean("isModpack"),
+                        projectType,
                         object.optString("id"),
                         object.optString("title"),
                         object.optString("description"),
@@ -82,7 +87,8 @@ public final class ModFavorites {
             JSONObject object = new JSONObject();
             try {
                 object.put("apiSource", item.apiSource);
-                object.put("isModpack", item.isModpack);
+                object.put("projectType", item.projectType);
+                object.put("isModpack", item.isModpack());
                 object.put("id", item.id);
                 object.put("title", item.title);
                 object.put("description", item.description);

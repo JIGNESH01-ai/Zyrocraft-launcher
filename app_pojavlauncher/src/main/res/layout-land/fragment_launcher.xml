@@ -38,6 +38,19 @@
                 android:paddingEnd="@dimen/padding_moderate"
                 android:paddingBottom="@dimen/padding_heavy">
 
+                <!-- Account switcher: the browse header no longer carries it, so the
+                     home screen keeps it reachable from every session. -->
+                <com.kdt.mcgui.AccountSpinner
+                    android:id="@+id/account_spinner"
+                    android:layout_width="@dimen/_150sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginBottom="@dimen/padding_medium"
+                    android:background="@drawable/zyro_avatar_frame"
+                    android:dropDownWidth="@dimen/_250sdp"
+                    android:dropDownVerticalOffset="@dimen/_44sdp"
+                    android:paddingEnd="@dimen/_8sdp"
+                    tools:ignore="RtlSymmetry"/>
+
                 <!-- HERO -->
                 <FrameLayout
                     android:layout_width="match_parent"

@@ -10,6 +10,7 @@ import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.instances.Instance;
 import net.kdt.pojavlaunch.instances.Instances;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ModDetail;
+import net.kdt.pojavlaunch.modloaders.modpacks.models.ProjectType;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.utils.DownloadUtils;
 import net.kdt.pojavlaunch.utils.FileUtils;
@@ -17,7 +18,8 @@ import net.kdt.pojavlaunch.utils.FileUtils;
 import java.io.File;
 
 /**
- * Downloads a single mod file into the currently selected instance's mods folder.
+ * Downloads a single project file into the matching folder of the currently
+ * selected instance: mods, resourcepacks or shaderpacks.
  */
 public final class ModInstallTask {
     public static final String PROGRESS_KEY = ProgressLayout.INSTALL_MODPACK;
@@ -32,15 +34,16 @@ public final class ModInstallTask {
                 Instance instance = Instances.loadSelectedInstance();
                 if (instance == null) throw new IllegalStateException(
                         appContext.getString(R.string.zyro_no_instance_for_mod));
-                File modsFolder = new File(instance.getGameDirectory(), "mods");
-                FileUtils.ensureDirectory(modsFolder);
+                File targetFolder = new File(instance.getGameDirectory(),
+                        ProjectType.installFolder(detail.projectType));
+                FileUtils.ensureDirectory(targetFolder);
 
                 String url = detail.versionUrls[selectedVersion];
                 String fileName = url.substring(url.lastIndexOf('/') + 1);
                 int query = fileName.indexOf('?');
                 if (query > 0) fileName = fileName.substring(0, query);
                 if (fileName.isEmpty()) fileName = detail.id + ".jar";
-                File outFile = new File(modsFolder, fileName);
+                File outFile = new File(targetFolder, fileName);
 
                 DownloadUtils.downloadFileMonitored(url, outFile, null, (curr, max) -> {
                     int percent = max > 0 ? (int) ((curr * 100L) / max) : 0;

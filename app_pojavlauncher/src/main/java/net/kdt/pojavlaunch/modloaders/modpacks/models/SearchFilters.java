@@ -6,14 +6,17 @@ import org.jetbrains.annotations.Nullable;
  * Search filters, passed to APIs
  */
 public class SearchFilters {
-    public boolean isModpack;
+    /** One of the ProjectType values */
+    public int projectType = ProjectType.MODPACK;
     public String name;
     @Nullable public String mcVersion;
-    /** Modrinth sort index: relevance (default), downloads, date or updated */
+    /** Sort key: relevance (default), downloads, newest or updated */
     @Nullable public String sort;
-    /** Modrinth category facet, for example technology, adventure, magic or quests */
+    /** Modrinth category slug, for example technology, adventure or textures */
     @Nullable public String category;
-    /** Mod loader facet, for example fabric, forge, neoforge or quilt */
+    /** CurseForge category id, 0 when no category is selected */
+    public int categoryId;
+    /** Mod loader key, for example fabric, forge, neoforge or quilt */
     @Nullable public String loader;
     /** Result offset for the first request of a page, in number of entries */
     public int offset;
