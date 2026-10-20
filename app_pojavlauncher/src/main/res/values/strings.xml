@@ -663,6 +663,9 @@ Version %1$s</string>
     <string name="zyro_open_folder">Open folder</string>
     <string name="zyro_import_local">Import local</string>
     <string name="zyro_pack_enabled">Enabled</string>
+    <string name="zyro_pack_imported">Pack imported</string>
+    <string name="zyro_shader_info">Shader packs apply to the selected instance.</string>
+    <string name="zyro_mods_info">Mods apply to the selected instance.</string>
     <string name="zyro_pack_disabled">Disabled</string>
     <string name="zyro_error_no_game_dir">Game directory unavailable</string>
     <string name="zyro_version_type_latest">Latest</string>

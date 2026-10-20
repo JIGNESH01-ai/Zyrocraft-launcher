@@ -97,7 +97,13 @@ public class LocalPacksFragment extends Fragment {
         list.setAdapter(mAdapter);
 
         TextView warning = view.findViewById(R.id.zyro_packs_warning);
-        if (FOLDER_SHADER_PACKS.equals(mFolder)) warning.setVisibility(View.VISIBLE);
+        TextView subtitle = view.findViewById(R.id.zyro_packs_subtitle);
+        if (FOLDER_SHADER_PACKS.equals(mFolder)) {
+            warning.setVisibility(View.VISIBLE);
+            subtitle.setText(R.string.zyro_shader_info);
+        } else if (FOLDER_MODS.equals(mFolder)) {
+            subtitle.setText(R.string.zyro_mods_info);
+        }
 
         Button importButton = view.findViewById(R.id.zyro_packs_import);
         if (FOLDER_MODS.equals(mFolder)) {
@@ -244,7 +250,7 @@ public class LocalPacksFragment extends Fragment {
                 IOUtils.copy(in, os);
                 Tools.runOnUiThread(() -> {
                     if (getContext() != null)
-                        Toast.makeText(getContext(), R.string.zyro_pack_enabled, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), R.string.zyro_pack_imported, Toast.LENGTH_SHORT).show();
                     reload();
                 });
             } catch (IOException e) {
