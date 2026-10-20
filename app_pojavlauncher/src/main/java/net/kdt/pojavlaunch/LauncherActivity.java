@@ -95,6 +95,7 @@ public class LauncherActivity extends BaseActivity {
     private static final int NAV_SETTINGS = 8;
     private ImageView[] mNavItems;
     private TextView[] mTabItems;
+    private int mSelectedTab = TAB_NONE;
 
     /* Content tabs declared in view_zyro_browse_tabs.xml */
     private static final int TAB_MODPACKS = 0;
@@ -608,6 +609,7 @@ public class LauncherActivity extends BaseActivity {
                 mTopBar.setLayoutParams(params);
                 if (visible) {
                     mTopBar.setAlpha(1f);
+                    if (mSelectedTab != TAB_NONE) scrollTabIntoView(mTabItems[mSelectedTab]);
                 } else {
                     mTopBar.setAlpha(0f);
                     mTopBar.setVisibility(View.GONE);
@@ -647,6 +649,7 @@ public class LauncherActivity extends BaseActivity {
 
     private void applyTabSelection(int selected) {
         if (mTabItems == null) return;
+        mSelectedTab = selected;
         int activeColor = ContextCompat.getColor(this, R.color.zyro_neon);
         int idleColor = ContextCompat.getColor(this, R.color.zyro_text_secondary);
         for (int i = 0; i < mTabItems.length; i++) {

@@ -89,7 +89,8 @@ public class CurseforgeApi implements ModpackApi{
         HashMap<String, Object> params = new HashMap<>();
         params.put("gameId", CURSEFORGE_MC_GAME_ID);
         params.put("classId", ProjectType.curseforgeClassId(searchFilters.projectType));
-        params.put("searchFilter", searchFilters.name == null ? "" : searchFilters.name);
+        if(searchFilters.name != null && !searchFilters.name.isEmpty())
+            params.put("searchFilter", searchFilters.name);
         params.put("sortField", curseforgeSortField(searchFilters.sort));
         params.put("sortOrder", "desc");
         params.put("pageSize", CURSEFORGE_PAGINATION_SIZE);
