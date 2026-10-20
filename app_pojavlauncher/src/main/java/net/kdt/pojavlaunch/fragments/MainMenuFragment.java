@@ -26,6 +26,7 @@ import net.kdt.pojavlaunch.R;
 
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.authenticator.accounts.Account;
+import net.kdt.pojavlaunch.authenticator.accounts.Accounts;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
@@ -151,7 +152,7 @@ public class MainMenuFragment extends Fragment {
         TextView loaderText = view.findViewById(R.id.home_instance_loader_text);
         ImageView avatar = view.findViewById(R.id.home_instance_avatar);
 
-        Account account = Account.getCurrent();
+        Account account = Accounts.getCurrent();
         playerName.setText(account != null && account.username != null ? account.username : "Player");
 
         Instance instance = Instances.loadSelectedInstance();
