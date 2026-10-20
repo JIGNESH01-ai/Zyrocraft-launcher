@@ -683,7 +683,6 @@ Version %1$s</string>
     <string name="zyro_tab_favorites">Favorites</string>
     <string name="zyro_source_modrinth">Modrinth</string>
     <string name="zyro_source_curseforge">CurseForge</string>
-    <string name="zyro_install">Install</string>
     <string name="zyro_favorite">Favorite</string>
     <string name="zyro_search_placeholder">Search…</string>
     <string name="zyro_filter_categories">Categories: %s</string>
@@ -724,5 +723,4 @@ Version %1$s</string>
     <string name="zyro_world_deleted">World deleted</string>
     <string name="zyro_world_delete_failed">Could not delete the world</string>
     <string name="zyro_worlds_refresh">Refresh</string>
-    <string name="zyro_open_folder">Open folder</string>
 </resources>
