@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Controller settings, the Gamepad tab of the settings screen -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <net.kdt.pojavlaunch.prefs.ZyroActionPreference
+        android:title="@string/preference_remap_controller_title"
+        android:summary="@string/preference_remap_controller_description"
+        app:zyroActionText="@string/zyro_action_open"/>
+
+    <net.kdt.pojavlaunch.prefs.GamepadRemapPreference
+        android:title="@string/preference_wipe_controller_title"
+        android:summary="@string/preference_wipe_controller_description"
+        app:zyroActionText="@string/zyro_action_reset"/>
+
+    <net.kdt.pojavlaunch.prefs.CustomSeekBarPreference
+        android:key="gamepad_deadzone_scale"
+        android:title="@string/preference_deadzone_scale_title"
+        android:summary="@string/preference_deadzone_scale_description"
+        app:showSeekBarValue="true"
+        app:min="@integer/gamepad_deadzone_seekbar_min"
+        android:max="@integer/gamepad_deadzone_seekbar_max"
+        app:seekBarIncrement="@integer/gamepad_deadzone_seekbar_increment"/>
+
+</PreferenceScreen>

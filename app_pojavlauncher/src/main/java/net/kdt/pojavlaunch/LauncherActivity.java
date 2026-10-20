@@ -57,7 +57,7 @@ import net.kdt.pojavlaunch.lifecycle.ContextExecutor;
 import net.kdt.pojavlaunch.modloaders.modpacks.imagecache.IconCacheJanitor;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.ProjectType;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
-import net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceFragment;
+import net.kdt.pojavlaunch.prefs.screens.ZyroSettingsFragment;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.progresskeeper.TaskCountListener;
 import net.kdt.pojavlaunch.services.ProgressServiceKeeper;
@@ -149,7 +149,7 @@ public class LauncherActivity extends BaseActivity {
         if(manager.isStateSaved()) return;
         Fragment fragment = manager.findFragmentById(mFragmentView.getId());
         if(fragment instanceof MainMenuFragment){
-            Tools.swapFragment(this, LauncherPreferenceFragment.class, SETTING_FRAGMENT_TAG, null);
+            Tools.swapFragment(this, ZyroSettingsFragment.class, SETTING_FRAGMENT_TAG, null);
         } else{
             // The setting button doubles as a home button now
             Tools.backToMainMenu(this);
@@ -500,8 +500,8 @@ public class LauncherActivity extends BaseActivity {
         FragmentManager manager = getSupportFragmentManager();
         if (manager.isStateSaved()) return;
         Fragment current = manager.findFragmentById(R.id.container_fragment);
-        if (current instanceof LauncherPreferenceFragment) return;
-        Tools.swapFragment(this, LauncherPreferenceFragment.class, SETTING_FRAGMENT_TAG, null);
+        if (current instanceof ZyroSettingsFragment) return;
+        Tools.swapFragment(this, ZyroSettingsFragment.class, SETTING_FRAGMENT_TAG, null);
     }
 
     /** Highlights the rail entry and the content tab matching the visible fragment */
@@ -550,7 +550,7 @@ public class LauncherActivity extends BaseActivity {
             tab = TAB_WORLDS;
         } else if (fragment instanceof DownloadsFragment) {
             rail = NAV_DOWNLOADS;
-        } else if (fragment instanceof LauncherPreferenceFragment) {
+        } else if (fragment instanceof ZyroSettingsFragment) {
             rail = NAV_SETTINGS;
         }
         applyNavSelection(rail);

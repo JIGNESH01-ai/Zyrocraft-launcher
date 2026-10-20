@@ -8,7 +8,7 @@
         <item name="android:windowBackground">@drawable/zyro_page_bg</item>
         <item name="android:statusBarColor">@color/background_status_bar</item>
         <item name="android:navigationBarColor">@color/background_app</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <item name="preferenceTheme">@style/ZyroPreferenceTheme</item>
         <item name="android:textSize">@dimen/_12ssp</item>
         <item name="android:textColor">@color/zyro_text_primary</item>
         <item name="dialogCornerRadius">12dp</item>
@@ -171,4 +171,56 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
+
+    <!-- Settings: one scrollable row of pill tabs -->
+    <style name="ZyroSettingsTab">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/_4sdp</item>
+        <item name="android:layout_marginEnd">@dimen/_4sdp</item>
+        <item name="android:background">@drawable/zyro_settings_tab_bg</item>
+        <item name="android:clickable">true</item>
+        <item name="android:drawablePadding">@dimen/_6sdp</item>
+        <item name="android:drawableTint">@color/zyro_settings_tab_text</item>
+        <item name="android:focusable">true</item>
+        <item name="android:fontFamily">@font/noto_sans_bold</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">@dimen/_14sdp</item>
+        <item name="android:paddingTop">@dimen/_8sdp</item>
+        <item name="android:paddingEnd">@dimen/_14sdp</item>
+        <item name="android:paddingBottom">@dimen/_8sdp</item>
+        <item name="android:textColor">@color/zyro_settings_tab_text</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+    </style>
+
+    <!-- Settings: every preference is a translucent rounded card -->
+    <style name="ZyroPreferenceTheme" parent="@style/PreferenceThemeOverlay.v14.Material">
+        <item name="preferenceStyle">@style/ZyroPrefRow</item>
+        <item name="dialogPreferenceStyle">@style/ZyroPrefRow</item>
+        <item name="editTextPreferenceStyle">@style/ZyroPrefRow</item>
+        <item name="listPreferenceStyle">@style/ZyroPrefRow</item>
+        <item name="preferenceCategoryStyle">@style/ZyroPrefCategory</item>
+        <item name="switchPreferenceCompatStyle">@style/ZyroPrefSwitch</item>
+        <item name="seekBarPreferenceStyle">@style/ZyroPrefSeek</item>
+    </style>
+
+    <style name="ZyroPrefRow">
+        <item name="android:layout">@layout/zyro_preference_row</item>
+        <item name="iconSpaceReserved">false</item>
+    </style>
+
+    <style name="ZyroPrefCategory">
+        <item name="android:layout">@layout/zyro_preference_category</item>
+    </style>
+
+    <style name="ZyroPrefSwitch">
+        <item name="android:layout">@layout/zyro_preference_switch</item>
+        <item name="iconSpaceReserved">false</item>
+    </style>
+
+    <style name="ZyroPrefSeek">
+        <item name="android:layout">@layout/zyro_preference_seekbar</item>
+        <item name="iconSpaceReserved">false</item>
+    </style>
+
 </resources>

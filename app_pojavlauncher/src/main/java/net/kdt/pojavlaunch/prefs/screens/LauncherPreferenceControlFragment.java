@@ -1,11 +1,13 @@
 package net.kdt.pojavlaunch.prefs.screens;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.preference.PreferenceCategory;
 
+import net.kdt.pojavlaunch.CustomControlsActivity;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.prefs.CustomSeekBarPreference;
@@ -22,11 +24,15 @@ public class LauncherPreferenceControlFragment extends LauncherPreferenceFragmen
         int gyroSampleRate = LauncherPreferences.PREF_GYRO_SAMPLE_RATE;
         float mouseSpeed = LauncherPreferences.PREF_MOUSESPEED;
         float gyroSpeed = LauncherPreferences.PREF_GYRO_SENSITIVITY;
-        float joystickDeadzone = LauncherPreferences.PREF_DEADZONE_SCALE;
 
 
         //Triggers a write for some reason which resets the value
-        addPreferencesFromResource(R.xml.pref_control);
+        addPreferencesFromResource(R.xml.pref_controls);
+
+        requirePreference("edit_controls").setOnPreferenceClickListener(preference -> {
+            startActivity(new Intent(getContext(), CustomControlsActivity.class));
+            return true;
+        });
 
         CustomSeekBarPreference seek2 = requirePreference("timeLongPressTrigger",
                 CustomSeekBarPreference.class);
@@ -47,11 +53,6 @@ public class LauncherPreferenceControlFragment extends LauncherPreferenceFragmen
                 CustomSeekBarPreference.class);
         seek6.setValue((int)(mouseSpeed *100f));
         seek6.setSuffix(" %");
-
-        CustomSeekBarPreference deadzoneSeek = requirePreference("gamepad_deadzone_scale",
-                CustomSeekBarPreference.class);
-        deadzoneSeek.setValue((int) (joystickDeadzone * 100f));
-        deadzoneSeek.setSuffix(" %");
 
         CustomSeekBarPreference buttonTransparency = requirePreference("buttonTransparency",
                 CustomSeekBarPreference.class);

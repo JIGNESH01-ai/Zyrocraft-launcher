@@ -4,6 +4,7 @@ package net.kdt.pojavlaunch.prefs.screens;
 import android.Manifest;
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
@@ -17,41 +18,51 @@ import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 /**
- * Preference for the main screen, any sub-screen should inherit this class for consistent behavior,
- * overriding only onCreatePreferences
+ * Base class of every settings page. Each page loads one preference screen and is
+ * hosted inside {@link ZyroSettingsFragment}, which draws the pill tab bar.
  */
 public class LauncherPreferenceFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
     protected Runnable mVisibilityUpdater = () -> {};
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        view.setBackgroundColor(getResources().getColor(R.color.background_app));
         super.onViewCreated(view, savedInstanceState);
+        // The settings pages sit on the launcher background, so the list stays transparent
+        getListView().setBackgroundColor(Color.TRANSPARENT);
+        int padding = getResources().getDimensionPixelSize(R.dimen.padding_medium) * 2;
+        getListView().setPadding(padding, 0, padding, padding);
+        getListView().setClipToPadding(false);
     }
 
     @Override
     public void onCreatePreferences(Bundle b, String str) {
         mVisibilityUpdater = this::updateVisibility;
-        addPreferencesFromResource(R.xml.pref_main);
-        setupNotificationRequestPreference();
     }
 
-    private void updateVisibility(){
-        requirePreference("notification_permission_request").setVisible(!getLauncherActivity().checkForPermission(33, Manifest.permission.POST_NOTIFICATIONS));
+    protected void updateVisibility() {
     }
 
-    private void setupNotificationRequestPreference() {
-        Preference mRequestNotificationPermissionPreference = requirePreference("notification_permission_request");
+    protected void setupNotificationRequestPreference() {
+        Preference requestNotificationPermission = findPreference("notification_permission_request");
+        if(requestNotificationPermission == null) return;
         Activity activity = getActivity();
         if(activity instanceof LauncherActivity) {
-            mRequestNotificationPermissionPreference.setOnPreferenceClickListener(preference -> {
+            requestNotificationPermission.setOnPreferenceClickListener(preference -> {
                 ((LauncherActivity) activity).askForPermission(33, Manifest.permission.POST_NOTIFICATIONS);
                 return true;
             });
         }else{
-            mRequestNotificationPermissionPreference.setVisible(false);
+            requestNotificationPermission.setVisible(false);
         }
-        updateVisibility();
+        updateNotificationVisibility();
+    }
+
+    protected void updateNotificationVisibility() {
+        Activity activity = getActivity();
+        Preference requestNotificationPermission = findPreference("notification_permission_request");
+        if(requestNotificationPermission == null || !(activity instanceof LauncherActivity)) return;
+        requestNotificationPermission.setVisible(
+                !((LauncherActivity) activity).checkForPermission(33, Manifest.permission.POST_NOTIFICATIONS));
     }
 
     @Override

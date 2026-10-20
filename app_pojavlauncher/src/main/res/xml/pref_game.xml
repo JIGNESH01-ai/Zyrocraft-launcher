@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Game startup and file verification, the Game tab of the settings screen -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <net.kdt.pojavlaunch.prefs.ZyroSwitchPreference
+        android:defaultValue="true"
+        android:key="checkGameFiles"
+        android:summary="@string/preference_verify_game_files_description"
+        android:title="@string/preference_verify_game_files_title"/>
+
+    <net.kdt.pojavlaunch.prefs.ZyroSwitchPreference
+        android:defaultValue="true"
+        android:key="fastStartupCheck"
+        android:summary="@string/preference_go_vroom_description"
+        android:title="@string/preference_go_vroom_title"/>
+
+    <net.kdt.pojavlaunch.prefs.ZyroSwitchPreference
+        android:defaultValue="true"
+        android:key="verifyManifest"
+        android:summary="@string/preference_verify_manifest_description"
+        android:title="@string/preference_verify_manifest_title"/>
+
+    <net.kdt.pojavlaunch.prefs.ZyroSwitchPreference
+        android:defaultValue="true"
+        android:key="showMemoryWarning"
+        android:summary="@string/preference_show_memory_warning_summary"
+        android:title="@string/preference_show_memory_warning_title"/>
+
+</PreferenceScreen>

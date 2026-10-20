@@ -6,13 +6,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.preference.Preference;
 
 import net.kdt.pojavlaunch.R;
 
 import fr.spse.gamepad_remapper.Remapper;
 
-public class GamepadRemapPreference extends Preference {
+public class GamepadRemapPreference extends ZyroActionPreference {
 
     public GamepadRemapPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -25,6 +24,7 @@ public class GamepadRemapPreference extends Preference {
     }
 
     private void init(){
+        setActionText(getContext().getString(R.string.zyro_action_reset));
         setOnPreferenceClickListener(preference -> {
             Remapper.wipePreferences(getContext());
             Toast.makeText(getContext(), R.string.preference_controller_map_wiped, Toast.LENGTH_SHORT).show();

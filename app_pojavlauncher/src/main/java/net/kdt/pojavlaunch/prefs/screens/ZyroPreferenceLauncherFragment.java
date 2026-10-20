@@ -11,10 +11,9 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.Preference;
 
-import net.kdt.pojavlaunch.R;
-
 import net.kdt.pojavlaunch.LauncherActivity;
 import net.kdt.pojavlaunch.PojavApplication;
+import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.tasks.DataMigrator;
@@ -24,7 +23,8 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 
-public class LauncherPreferenceMiscellaneousFragment extends LauncherPreferenceFragment {
+/** Launcher tab: language, permissions, download source and the launcher data tools. */
+public class ZyroPreferenceLauncherFragment extends LauncherPreferenceFragment {
 
     private final ActivityResultLauncher<Uri> mMigrateLauncher = registerForActivityResult(
             new ActivityResultContracts.OpenDocumentTree(), (uri) -> {
@@ -41,8 +41,10 @@ public class LauncherPreferenceMiscellaneousFragment extends LauncherPreferenceF
 
     @Override
     public void onCreatePreferences(Bundle b, String str) {
+        addPreferencesFromResource(R.xml.pref_launcher);
         mVisibilityUpdater = this::updateVisibility;
-        addPreferencesFromResource(R.xml.pref_misc);
+        setupNotificationRequestPreference();
+
         Preference importPreference = requirePreference("runDataMigration");
         importPreference.setOnPreferenceClickListener(preference -> {
             if(ProgressKeeper.getTaskCount() > 0) {
@@ -52,33 +54,34 @@ public class LauncherPreferenceMiscellaneousFragment extends LauncherPreferenceF
             mMigrateLauncher.launch(null);
             return true;
         });
+
         setupCacheClearPreference();
         setupMicrophoneRequestPreference();
         updateVisibility();
     }
 
-    private void updateVisibility(){
-        requirePreference("microphoneAccessRequest").setVisible(!getLauncherActivity().checkForPermissionRationale(33, Manifest.permission.RECORD_AUDIO));
+    private void updateVisibility() {
+        updateNotificationVisibility();
+        Activity activity = getActivity();
+        if(!(activity instanceof LauncherActivity)) return;
+        requirePreference("microphoneAccessRequest").setVisible(
+                !((LauncherActivity) activity).checkForPermissionRationale(33, Manifest.permission.RECORD_AUDIO));
         requirePreference("clearMetadataCache").setVisible(new File(Tools.DIR_CACHE, "string_cache").exists());
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
     private void setupMicrophoneRequestPreference() {
-        Preference mRequestMicrophonePermissionPreference = requirePreference("microphoneAccessRequest");
+        Preference requestMicrophone = requirePreference("microphoneAccessRequest");
         Activity activity = getActivity();
         if(activity instanceof LauncherActivity) {
-            mRequestMicrophonePermissionPreference.setOnPreferenceClickListener(preference -> {
+            requestMicrophone.setOnPreferenceClickListener(preference -> {
                 ((LauncherActivity) activity).askForPermission(23, Manifest.permission.RECORD_AUDIO);
                 return true;
             });
-        } else {
-            mRequestMicrophonePermissionPreference.setVisible(false);
+        }else{
+            requestMicrophone.setVisible(false);
         }
     }
+
     private void setupCacheClearPreference() {
         Preference clearPreference = requirePreference("clearMetadataCache");
         clearPreference.setOnPreferenceClickListener(preference -> {

@@ -749,4 +749,15 @@ Version %1$s</string>
     <string name="zyro_sh_cat_foliage">Foliage</string>
     <string name="zyro_categories_loading">Loading categories…</string>
     <string name="zyro_source_error_curseforge">Could not reach CurseForge. Check your connection and try again.</string>
+    <!-- Settings tabs -->
+    <string name="zyro_settings_tab_renderer">Renderer</string>
+    <string name="zyro_settings_tab_game">Game</string>
+    <string name="zyro_settings_tab_java">Java</string>
+    <string name="zyro_settings_tab_launcher">Launcher</string>
+    <string name="zyro_settings_tab_controls">Controls</string>
+    <string name="zyro_settings_tab_gamepad">Gamepad</string>
+    <string name="zyro_settings_tab_experimental">Experimental</string>
+    <string name="zyro_settings_tab_about">About</string>
+    <string name="zyro_action_open">Open</string>
+    <string name="zyro_action_reset">Reset</string>
 </resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Launcher behaviour, the Launcher tab of the settings screen -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <net.kdt.pojavlaunch.prefs.ZyroListPreference
+        android:defaultValue="default"
+        android:entries="@array/download_source_names"
+        android:entryValues="@array/download_source_values"
+        android:key="downloadSource"
+        android:summary="@string/preference_download_source_description"
+        android:title="@string/preference_download_source_title"/>
+
+    <net.kdt.pojavlaunch.prefs.ZyroSwitchPreference
+        android:defaultValue="true"
+        android:key="disableServerBlocklist"
+        android:summary="@string/pref_blocklist_disable_description"
+        android:title="@string/pref_blocklist_disable_title"/>
+
+    <net.kdt.pojavlaunch.prefs.ZyroSwitchPreference
+        android:key="force_english"
+        android:summary="@string/preference_force_english_description"
+        android:title="@string/preference_force_english_title"/>
+
+    <net.kdt.pojavlaunch.prefs.ZyroActionPreference
+        android:key="notification_permission_request"
+        android:summary="@string/preference_ask_for_notification_description"
+        android:title="@string/preference_ask_for_notification_title"
+        app:zyroActionText="@string/zyro_action_open"/>
+
+    <net.kdt.pojavlaunch.prefs.ZyroActionPreference
+        android:key="microphoneAccessRequest"
+        android:summary="@string/preference_microphone_access_description"
+        android:title="@string/preference_microphone_access_title"
+        app:zyroActionText="@string/zyro_action_open"/>
+
+    <net.kdt.pojavlaunch.prefs.ZyroActionPreference
+        android:key="runDataMigration"
+        android:summary="@string/preference_data_migration_summary"
+        android:title="@string/preference_data_migration_title"
+        app:zyroActionText="@string/zyro_action_open"/>
+
+    <net.kdt.pojavlaunch.prefs.ZyroActionPreference
+        android:key="clearMetadataCache"
+        android:summary="@string/preference_metadata_clear_summary"
+        android:title="@string/preference_metadata_clear"
+        app:zyroActionText="@string/zyro_action_reset"/>
+
+</PreferenceScreen>

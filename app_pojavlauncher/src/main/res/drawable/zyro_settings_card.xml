@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settings card: translucent panel with a hairline border, like the reference rows -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#22E879F9">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#B306151B"/>
+            <stroke
+                android:width="@dimen/_1sdp"
+                android:color="#33FFFFFF"/>
+            <corners android:radius="@dimen/_16sdp"/>
+        </shape>
+    </item>
+</ripple>

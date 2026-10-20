@@ -18,6 +18,11 @@
     <color name="zyro_neon_dim">#00A86B</color>
     <color name="zyro_chip_text">#9FC4CC</color>
 
+    <!-- Settings accent, matching the reference settings screens -->
+    <color name="zyro_accent">#E879F9</color>
+    <color name="zyro_accent_fill">#1FE879F9</color>
+    <color name="zyro_accent_stroke">#66E879F9</color>
+
     <color name="control_button_color">#4CC4C4C4</color>
     <color name="control_button_pressed_color">#4D000000</color>
 

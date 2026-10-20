@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:key="">
+<!-- About tab: launcher identity, version and the project link -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <Preference
+    <net.kdt.pojavlaunch.prefs.ZyroActionPreference
         android:key="about_info"
-        android:title="@string/zyro_brand_full"
         android:selectable="false"
-        android:icon="@drawable/ic_zyro_logo"/>
+        android:title="@string/zyro_brand_full"/>
 
-    <Preference
+    <net.kdt.pojavlaunch.prefs.ZyroActionPreference
         android:key="about_version"
-        android:title="@string/zyro_about"
         android:selectable="false"
-        android:icon="@drawable/ic_zyro_star"/>
+        android:title="@string/zyro_about"/>
 
-    <Preference
+    <net.kdt.pojavlaunch.prefs.ZyroActionPreference
         android:key="about_source"
-        android:title="@string/zyro_open_folder"
         android:summary="https://github.com/JIGNESH01-ai/Zyrocraft-launcher"
-        android:icon="@drawable/ic_zyro_folder"/>
+        android:title="@string/zyro_open_folder"
+        app:zyroActionText="@string/zyro_action_open"/>
+
 </PreferenceScreen>
