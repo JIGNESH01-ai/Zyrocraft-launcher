@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/padding_extra_large"
+    android:paddingTop="@dimen/padding_heavy"
+    android:paddingBottom="@dimen/padding_medium">
+
+    <TextView
+        android:id="@+id/mod_dialog_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/zyro_loading_versions"
+        android:textColor="@color/zyro_text_secondary"
+        android:textSize="@dimen/_11ssp"/>
+
+    <Spinner
+        android:id="@+id/mod_dialog_version_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_moderate"
+        android:minHeight="@dimen/_40sdp"
+        android:visibility="invisible"/>
+</LinearLayout>

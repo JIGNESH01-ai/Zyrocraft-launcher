@@ -1,147 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Browse screen: filter row, card grid and page indicator, laid out like the
+     ZYROCRAFT reference with the launcher theme colours. -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_app"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingHorizontal="@dimen/fragment_padding_medium"
-    >
+    android:background="@android:color/transparent"
+    android:paddingHorizontal="@dimen/padding_heavy">
 
-
-
-    <!--
-        Cosmetic layout to have a better scrolling separation
-     -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/search_mod_overlay"
-        android:layout_width="match_parent"
+    <!-- Search + source -->
+    <LinearLayout
+        android:id="@+id/browse_search_row"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:translationZ="10dp"
-        android:background="@drawable/background_overlay"
-        android:paddingHorizontal="@dimen/padding_medium"
-        android:paddingVertical="@dimen/padding_medium"
-        android:layout_marginTop="@dimen/fragment_padding_medium"
-        android:layout_marginHorizontal="@dimen/fragment_padding_medium"
-
+        android:layout_marginTop="@dimen/padding_medium"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-
-        >
-        <!-- Search text -->
         <EditText
             android:id="@+id/search_mod_edittext"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/background_line"
-            android:textSize="@dimen/_13ssp"
-            android:translationZ="2dp"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_weight="1"
+            android:background="@drawable/zyro_edittext_bg"
+            android:drawableStart="@drawable/ic_zyro_search"
+            android:drawablePadding="@dimen/padding_moderate"
+            android:drawableTint="@color/zyro_text_secondary"
+            android:hint="@string/zyro_search_placeholder"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingStart="@dimen/padding_heavy"
+            android:paddingEnd="@dimen/padding_heavy"
+            android:singleLine="true"
+            android:textColor="@color/zyro_text_primary"
+            android:textColorHint="@color/zyro_text_secondary"
+            android:textSize="@dimen/_11ssp"/>
 
-            android:ems="10"
-            android:hint="@string/hint_search_modpack"
-            android:inputType="textPersonName"
-            android:paddingHorizontal="@dimen/padding_heavy"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/search_mod_filter"
-            />
-
-        <ImageButton
-            android:id="@+id/search_mod_filter"
+        <Button
+            android:id="@+id/search_mod_source"
+            style="@style/ZyroFilterChip"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:minWidth="@dimen/_38sdp"
-            android:src="@drawable/ic_filter"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_marginStart="@dimen/padding_moderate"
+            android:drawableEnd="@drawable/spinner_arrow"
+            android:drawableTint="@color/zyro_text_secondary"
+            android:text="@string/zyro_source_modrinth"/>
+    </LinearLayout>
 
-            android:paddingHorizontal="@dimen/padding_medium"
+    <!-- Category / version / loader / sort -->
+    <HorizontalScrollView
+        android:id="@+id/browse_filters_scroll"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_moderate"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@id/browse_search_row"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/search_mod_edittext"
-            app:layout_constraintBottom_toBottomOf="@id/search_mod_edittext"
-
-            />
-
-        <ProgressBar
-            android:id="@+id/search_mod_progressbar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:indeterminateTint="@color/zyro_neon"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@+id/search_mod_edittext"
-            tools:layout_editor_absoluteX="13dp" />
+            android:orientation="horizontal">
 
-        <HorizontalScrollView
-            android:id="@+id/search_mod_chips_scroll"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_medium"
-            android:scrollbars="none"
-            app:layout_constraintTop_toBottomOf="@id/search_mod_progressbar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <LinearLayout
-                android:id="@+id/search_mod_chips"
+            <Button
+                android:id="@+id/filter_categories"
+                style="@style/ZyroFilterChip"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="@dimen/_34sdp"
+                android:drawableEnd="@drawable/spinner_arrow"
+                android:drawableTint="@color/zyro_text_secondary"
+                tools:text="Categories: All"/>
 
-                <Button android:id="@+id/chip_all" style="@style/ZyroChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/zyro_filter_all"/>
-                <Button android:id="@+id/chip_popular" style="@style/ZyroChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/zyro_tab_popular"/>
-                <Button android:id="@+id/chip_new" style="@style/ZyroChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/zyro_tab_new"/>
-                <Button android:id="@+id/chip_updated" style="@style/ZyroChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/zyro_tab_updated"/>
-                <Button android:id="@+id/chip_tech" style="@style/ZyroChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/zyro_cat_tech"/>
-                <Button android:id="@+id/chip_adventure" style="@style/ZyroChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/zyro_cat_adventure"/>
-                <Button android:id="@+id/chip_magic" style="@style/ZyroChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/zyro_cat_magic"/>
-                <Button android:id="@+id/chip_quests" style="@style/ZyroChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/zyro_cat_rpg"/>
-            </LinearLayout>
-        </HorizontalScrollView>
+            <Button
+                android:id="@+id/filter_mc_version"
+                style="@style/ZyroFilterChip"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_34sdp"
+                android:layout_marginStart="@dimen/padding_moderate"
+                android:drawableEnd="@drawable/spinner_arrow"
+                android:drawableTint="@color/zyro_text_secondary"
+                tools:text="MC: All"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/filter_loader"
+                style="@style/ZyroFilterChip"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_34sdp"
+                android:layout_marginStart="@dimen/padding_moderate"
+                android:drawableEnd="@drawable/spinner_arrow"
+                android:drawableTint="@color/zyro_text_secondary"
+                tools:text="Loader: All"/>
 
+            <Button
+                android:id="@+id/filter_sort"
+                style="@style/ZyroFilterChip"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_34sdp"
+                android:layout_marginStart="@dimen/padding_moderate"
+                android:drawableEnd="@drawable/spinner_arrow"
+                android:drawableTint="@color/zyro_text_secondary"
+                tools:text="Sort: Relevance"/>
+        </LinearLayout>
+    </HorizontalScrollView>
 
-
-
-
+    <ProgressBar
+        android:id="@+id/search_mod_progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_2sdp"
+        android:layout_marginTop="@dimen/padding_tiny"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/zyro_neon"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/browse_filters_scroll"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_mod_list"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingTop="@dimen/_15sdp"
         android:clipToPadding="false"
-
-        app:layout_constraintBottom_toTopOf="@id/mineButton_import_local_modpack"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="@dimen/padding_moderate"
-        />
+        android:paddingTop="@dimen/padding_medium"
+        android:paddingBottom="@dimen/padding_medium"
+        app:layout_constraintTop_toBottomOf="@id/search_mod_progressbar"
+        app:layout_constraintBottom_toTopOf="@id/browse_pager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/search_mod_status_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:gravity="center"
+        android:textColor="@color/zyro_text_secondary"
+        android:textSize="@dimen/_11ssp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/search_mod_list"
-        app:layout_constraintEnd_toEndOf="@+id/search_mod_list"
-        app:layout_constraintStart_toStartOf="@+id/search_mod_list"
-        app:layout_constraintTop_toTopOf="@+id/search_mod_list" />
+        app:layout_constraintTop_toTopOf="@id/search_mod_list"
+        app:layout_constraintBottom_toBottomOf="@id/search_mod_list"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-    <com.kdt.mcgui.MineButton
-        android:id="@+id/mineButton_import_local_modpack"
+    <!-- Page indicator + local import -->
+    <LinearLayout
+        android:id="@+id/browse_pager"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:enabled="false"
-        android:layout_marginTop="@dimen/padding_moderate"
-        android:layout_marginBottom="@dimen/padding_moderate"
-        android:text="@string/import_local_modpack"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingVertical="@dimen/padding_moderate"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/mineButton_import_local_modpack"
+            style="@style/ZyroButton.Secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_32sdp"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingHorizontal="@dimen/padding_heavy"
+            android:text="@string/import_local_modpack"
+            android:textSize="@dimen/_9ssp"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:id="@+id/page_prev"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:background="@drawable/zyro_pager_bg"
+            android:contentDescription="@string/zyro_page_prev"
+            android:padding="@dimen/padding_moderate"
+            android:src="@drawable/ic_zyro_chevron_left"
+            app:tint="@color/zyro_text_primary"/>
+
+        <TextView
+            android:id="@+id/page_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/padding_heavy"
+            android:fontFamily="@font/noto_sans_bold"
+            android:textColor="@color/zyro_text_primary"
+            android:textSize="@dimen/_11ssp"
+            tools:text="1 / 630"/>
+
+        <ImageButton
+            android:id="@+id/page_next"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:background="@drawable/zyro_pager_bg"
+            android:contentDescription="@string/zyro_page_next"
+            android:padding="@dimen/padding_moderate"
+            android:src="@drawable/ic_zyro_chevron_right"
+            app:tint="@color/zyro_text_primary"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

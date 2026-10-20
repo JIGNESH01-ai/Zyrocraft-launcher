@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.system.Os;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ import net.kdt.pojavlaunch.fragments.MicrosoftLoginFragment;
 import net.kdt.pojavlaunch.fragments.SearchModFragment;
 import net.kdt.pojavlaunch.fragments.SelectAuthFragment;
 import net.kdt.pojavlaunch.fragments.VersionsFragment;
+import net.kdt.pojavlaunch.fragments.WorldsFragment;
 import net.kdt.pojavlaunch.instances.Instance;
 import net.kdt.pojavlaunch.instances.InstanceInstaller;
 import net.kdt.pojavlaunch.instances.Instances;
@@ -79,8 +81,18 @@ public class LauncherActivity extends BaseActivity {
     private static final int NAV_SHADERS = 6;
     private static final int NAV_DOWNLOADS = 7;
     private static final int NAV_SETTINGS = 8;
-    private TextView[] mNavItems;
-    private TextView mScreenTitle;
+    private ImageView[] mNavItems;
+    private TextView[] mTabItems;
+
+    /* Content tabs declared in view_zyro_browse_tabs.xml */
+    private static final int TAB_MODPACKS = 0;
+    private static final int TAB_MODS = 1;
+    private static final int TAB_RESOURCE_PACKS = 2;
+    private static final int TAB_SHADERS = 3;
+    private static final int TAB_WORLDS = 4;
+    private static final int TAB_VANILLA = 5;
+    private static final int TAB_FAVORITES = 6;
+    private static final int TAB_NONE = -1;
 
     /* Allows to switch from one button "type" to another */
     private final FragmentManager.FragmentLifecycleCallbacks mFragmentCallbackListener = new FragmentManager.FragmentLifecycleCallbacks() {
@@ -358,9 +370,9 @@ public class LauncherActivity extends BaseActivity {
     private void bindViews(){
         mFragmentView = findViewById(R.id.container_fragment);
         mSettingsButton = findViewById(R.id.setting_button);
-        mScreenTitle = findViewById(R.id.zyro_screen_title);
         mProgressLayout = findViewById(R.id.progress_layout);
         bindNavRail();
+        bindContentTabs();
     }
 
     /** Wires the left navigation rail. All views are nullable: the rail only exists in landscape. */
@@ -370,7 +382,7 @@ public class LauncherActivity extends BaseActivity {
                 R.id.nav_modpacks, R.id.nav_resource_packs, R.id.nav_shaders,
                 R.id.nav_downloads, R.id.nav_settings
         };
-        mNavItems = new TextView[navIds.length];
+        mNavItems = new ImageView[navIds.length];
         for (int i = 0; i < navIds.length; i++) {
             mNavItems[i] = findViewById(navIds[i]);
         }
@@ -400,8 +412,43 @@ public class LauncherActivity extends BaseActivity {
         setNavAction(NAV_DOWNLOADS, () ->
                 navigateTo(DownloadsFragment.class, DownloadsFragment.TAG, null));
         setNavAction(NAV_SETTINGS, this::openSettings);
+    }
 
-        applyNavSelection(NAV_HOME);
+    /** Wires the content tabs shown above the browse screens */
+    private void bindContentTabs() {
+        int[] tabIds = {
+                R.id.tab_modpacks, R.id.tab_mods, R.id.tab_resource_packs, R.id.tab_shaders,
+                R.id.tab_worlds, R.id.tab_vanilla, R.id.tab_favorites
+        };
+        mTabItems = new TextView[tabIds.length];
+        for (int i = 0; i < tabIds.length; i++) mTabItems[i] = findViewById(tabIds[i]);
+
+        setTabAction(TAB_MODPACKS, () ->
+                navigateTo(SearchModFragment.class, SearchModFragment.TAG,
+                        SearchModFragment.newInstance(true).getArguments()));
+        setTabAction(TAB_MODS, () ->
+                navigateTo(SearchModFragment.class, SearchModFragment.TAG,
+                        SearchModFragment.newInstance(false).getArguments()));
+        setTabAction(TAB_RESOURCE_PACKS, () ->
+                navigateTo(LocalPacksFragment.class, LocalPacksFragment.TAG,
+                        LocalPacksFragment.newInstance(LocalPacksFragment.FOLDER_RESOURCE_PACKS,
+                                getString(R.string.zyro_resource_packs)).getArguments()));
+        setTabAction(TAB_SHADERS, () ->
+                navigateTo(LocalPacksFragment.class, LocalPacksFragment.TAG,
+                        LocalPacksFragment.newInstance(LocalPacksFragment.FOLDER_SHADER_PACKS,
+                                getString(R.string.zyro_shaders)).getArguments()));
+        setTabAction(TAB_WORLDS, () ->
+                navigateTo(WorldsFragment.class, WorldsFragment.TAG, null));
+        setTabAction(TAB_VANILLA, () ->
+                navigateTo(VersionsFragment.class, VersionsFragment.TAG, null));
+        setTabAction(TAB_FAVORITES, () ->
+                navigateTo(SearchModFragment.class, SearchModFragment.TAG,
+                        SearchModFragment.newFavorites().getArguments()));
+    }
+
+    private void setTabAction(int index, Runnable action) {
+        if (mTabItems == null || mTabItems[index] == null) return;
+        mTabItems[index].setOnClickListener(v -> action.run());
     }
 
     private void setNavAction(int index, Runnable action) {
@@ -440,64 +487,73 @@ public class LauncherActivity extends BaseActivity {
         Tools.swapFragment(this, LauncherPreferenceFragment.class, SETTING_FRAGMENT_TAG, null);
     }
 
-    /** Highlights the rail entry matching the visible fragment */
+    /** Highlights the rail entry and the content tab matching the visible fragment */
     private void updateNavSelection(@NonNull Fragment fragment) {
-        int selected = NAV_NONE;
+        int rail = NAV_NONE;
+        int tab = TAB_NONE;
         if (fragment instanceof MainMenuFragment) {
-            selected = NAV_HOME;
+            rail = NAV_HOME;
         } else if (fragment instanceof InstancesFragment) {
-            selected = NAV_INSTANCES;
+            rail = NAV_INSTANCES;
         } else if (fragment instanceof VersionsFragment) {
-            selected = NAV_VERSIONS;
+            rail = NAV_VERSIONS;
+            tab = TAB_VANILLA;
         } else if (fragment instanceof SearchModFragment) {
-            Bundle args = fragment.getArguments();
-            boolean isModpack = args == null || args.getBoolean(SearchModFragment.ARG_IS_MODPACK, true);
-            selected = isModpack ? NAV_MODPACKS : NAV_MODS;
+            if (SearchModFragment.isFavorites(fragment)) {
+                tab = TAB_FAVORITES;
+            } else {
+                Bundle args = fragment.getArguments();
+                boolean isModpack = args == null || args.getBoolean(SearchModFragment.ARG_IS_MODPACK, true);
+                rail = isModpack ? NAV_MODPACKS : NAV_MODS;
+                tab = isModpack ? TAB_MODPACKS : TAB_MODS;
+            }
         } else if (fragment instanceof LocalPacksFragment) {
             Bundle args = fragment.getArguments();
             String folder = args == null ? null : args.getString(LocalPacksFragment.ARG_FOLDER);
-            selected = LocalPacksFragment.FOLDER_SHADER_PACKS.equals(folder) ? NAV_SHADERS : NAV_RESOURCE_PACKS;
+            boolean shaders = LocalPacksFragment.FOLDER_SHADER_PACKS.equals(folder);
+            rail = shaders ? NAV_SHADERS : NAV_RESOURCE_PACKS;
+            tab = shaders ? TAB_SHADERS : TAB_RESOURCE_PACKS;
+        } else if (fragment instanceof WorldsFragment) {
+            tab = TAB_WORLDS;
         } else if (fragment instanceof DownloadsFragment) {
-            selected = NAV_DOWNLOADS;
+            rail = NAV_DOWNLOADS;
         } else if (fragment instanceof LauncherPreferenceFragment) {
-            selected = NAV_SETTINGS;
+            rail = NAV_SETTINGS;
         }
-        applyNavSelection(selected);
+        applyNavSelection(rail);
+        applyTabSelection(tab);
     }
 
     private void applyNavSelection(int selected) {
-        if (mScreenTitle != null) {
-            int titleRes = navTitleRes(selected);
-            if (titleRes != 0) mScreenTitle.setText(titleRes);
-        }
         if (mNavItems == null) return;
         int activeColor = ContextCompat.getColor(this, R.color.zyro_neon);
         int idleColor = ContextCompat.getColor(this, R.color.zyro_text_secondary);
         for (int i = 0; i < mNavItems.length; i++) {
-            TextView item = mNavItems[i];
+            ImageView item = mNavItems[i];
             if (item == null) continue;
             boolean isSelected = i == selected;
             int color = isSelected ? activeColor : idleColor;
-            item.setTextColor(color);
+            item.setImageTintList(ColorStateList.valueOf(color));
             item.setBackgroundResource(isSelected
-                    ? R.drawable.zyro_nav_selected
-                    : R.drawable.zyro_nav_item_bg);
-            item.setCompoundDrawableTintList(ColorStateList.valueOf(color));
+                    ? R.drawable.zyro_nav_icon_selected
+                    : R.drawable.zyro_nav_icon_bg);
         }
     }
 
-    private static int navTitleRes(int index) {
-        switch (index) {
-            case NAV_HOME: return R.string.zyro_home;
-            case NAV_INSTANCES: return R.string.zyro_instances;
-            case NAV_VERSIONS: return R.string.zyro_versions;
-            case NAV_MODS: return R.string.zyro_mods;
-            case NAV_MODPACKS: return R.string.zyro_modpacks;
-            case NAV_RESOURCE_PACKS: return R.string.zyro_resource_packs;
-            case NAV_SHADERS: return R.string.zyro_shaders;
-            case NAV_DOWNLOADS: return R.string.zyro_downloads;
-            case NAV_SETTINGS: return R.string.zyro_settings;
-            default: return 0;
+    private void applyTabSelection(int selected) {
+        if (mTabItems == null) return;
+        int activeColor = ContextCompat.getColor(this, R.color.zyro_neon);
+        int idleColor = ContextCompat.getColor(this, R.color.zyro_text_secondary);
+        for (int i = 0; i < mTabItems.length; i++) {
+            TextView tab = mTabItems[i];
+            if (tab == null) continue;
+            boolean isSelected = i == selected;
+            int color = isSelected ? activeColor : idleColor;
+            tab.setTextColor(color);
+            tab.setBackgroundResource(isSelected
+                    ? R.drawable.zyro_tab_selected
+                    : R.drawable.zyro_tab_bg);
+            tab.setCompoundDrawableTintList(ColorStateList.valueOf(color));
         }
     }
 }

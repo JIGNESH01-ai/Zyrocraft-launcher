@@ -62,6 +62,8 @@ public class ModrinthApi implements ModpackApi{
             facetString.append(String.format(",[\"versions:%s\"]", searchFilters.mcVersion));
         if(searchFilters.category != null && !searchFilters.category.isEmpty())
             facetString.append(String.format(",[\"categories:%s\"]", searchFilters.category));
+        if(searchFilters.loader != null && !searchFilters.loader.isEmpty())
+            facetString.append(String.format(",[\"categories:%s\"]", searchFilters.loader));
         facetString.append("]");
         params.put("facets", facetString.toString());
         params.put("query", searchFilters.name);
@@ -70,6 +72,8 @@ public class ModrinthApi implements ModpackApi{
                 ? searchFilters.sort : "relevance");
         if(modrinthSearchResult != null)
             params.put("offset", modrinthSearchResult.previousOffset);
+        else if(searchFilters.offset > 0)
+            params.put("offset", searchFilters.offset);
 
         JsonObject response = mApiHandler.get("search", params, JsonObject.class);
         if(response == null) return null;
@@ -85,7 +89,8 @@ public class ModrinthApi implements ModpackApi{
                     hit.get("project_id").getAsString(),
                     hit.get("title").getAsString(),
                     hit.get("description").getAsString(),
-                    hit.get("icon_url").getAsString()
+                    hit.get("icon_url").getAsString(),
+                    readDownloadCount(hit)
             );
         }
         if(modrinthSearchResult == null) modrinthSearchResult = new ModrinthSearchResult();
@@ -93,6 +98,16 @@ public class ModrinthApi implements ModpackApi{
         modrinthSearchResult.results = items;
         modrinthSearchResult.totalResultCount = response.get("total_hits").getAsInt();
         return modrinthSearchResult;
+    }
+
+    /** Modrinth reports a download counter for every search hit */
+    private static long readDownloadCount(JsonObject hit) {
+        if(hit.get("downloads") == null || hit.get("downloads").isJsonNull()) return 0;
+        try {
+            return hit.get("downloads").getAsLong();
+        } catch (RuntimeException e) {
+            return 0;
+        }
     }
 
     @Override

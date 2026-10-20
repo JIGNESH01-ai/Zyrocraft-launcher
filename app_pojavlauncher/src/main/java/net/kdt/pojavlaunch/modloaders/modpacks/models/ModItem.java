@@ -8,6 +8,8 @@ public class ModItem extends ModSource {
     public String title;
     public String description;
     public String imageUrl;
+    /** Total download count as reported by the source API, 0 when unknown */
+    public long downloads;
 
     public ModItem(int apiSource, boolean isModpack, String id, String title, String description, String imageUrl) {
         this.apiSource = apiSource;
@@ -16,6 +18,12 @@ public class ModItem extends ModSource {
         this.title = title;
         this.description = description;
         this.imageUrl = imageUrl;
+    }
+
+    public ModItem(int apiSource, boolean isModpack, String id, String title, String description,
+                   String imageUrl, long downloads) {
+        this(apiSource, isModpack, id, title, description, imageUrl);
+        this.downloads = downloads;
     }
 
     @NonNull

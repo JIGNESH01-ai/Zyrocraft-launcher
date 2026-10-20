@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- ZYROCRAFT left navigation rail. Included by the landscape launcher layout.
-     Every feature screen of the launcher is reachable from here, in two compact
-     columns so that all nine entries fit on a phone held in landscape. -->
+<!-- ZYROCRAFT left navigation: one straight vertical bar of icon buttons.
+     It scrolls on its own when the screen is too short to show every entry. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/zyro_nav_rail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/zyro_nav_bg"
     android:orientation="vertical"
-    android:paddingStart="@dimen/padding_small"
+    android:paddingHorizontal="@dimen/padding_moderate"
     android:paddingTop="@dimen/padding_moderate"
-    android:paddingEnd="@dimen/padding_small">
+    android:paddingBottom="@dimen/padding_moderate">
 
-    <!-- Brand -->
     <ImageView
         android:id="@+id/zyro_nav_logo"
         android:layout_width="@dimen/_26sdp"
@@ -23,23 +20,12 @@
         android:contentDescription="@string/zyro_brand"
         android:src="@drawable/ic_zyro_logo"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/padding_tiny"
-        android:letterSpacing="0.12"
-        android:text="@string/zyro_brand"
-        android:textColor="@color/zyro_text_primary"
-        android:textSize="7sp"
-        android:textStyle="bold"/>
-
     <View
         android:layout_width="@dimen/_20sdp"
         android:layout_height="@dimen/zyro_nav_border"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/padding_moderate"
-        android:layout_marginBottom="@dimen/padding_moderate"
+        android:layout_marginBottom="@dimen/padding_medium"
         android:background="@color/zyro_stroke_neon_strong"/>
 
     <ScrollView
@@ -52,146 +38,68 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/nav_home"
+                style="@style/ZyroNavIcon"
+                android:contentDescription="@string/zyro_home"
+                android:src="@drawable/ic_px_home"/>
 
-                <fr.spse.extended_view.ExtendedTextView
-                    android:id="@+id/nav_home"
-                    style="@style/ZyroNavItem"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_px_home"
-                    android:text="@string/zyro_home"
-                    app:drawableTopPadding="@dimen/padding_tiny"
-                    app:drawableTopSize="@dimen/_18sdp"/>
+            <ImageView
+                android:id="@+id/nav_instances"
+                style="@style/ZyroNavIcon"
+                android:contentDescription="@string/zyro_instances"
+                android:src="@drawable/ic_zyro_cube"/>
 
-                <fr.spse.extended_view.ExtendedTextView
-                    android:id="@+id/nav_instances"
-                    style="@style/ZyroNavItem"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_zyro_cube"
-                    android:text="@string/zyro_instances"
-                    app:drawableTopPadding="@dimen/padding_tiny"
-                    app:drawableTopSize="@dimen/_18sdp"/>
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/nav_versions"
+                style="@style/ZyroNavIcon"
+                android:contentDescription="@string/zyro_versions"
+                android:src="@drawable/ic_zyro_blocks"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/nav_mods"
+                style="@style/ZyroNavIcon"
+                android:contentDescription="@string/zyro_mods"
+                android:src="@drawable/ic_zyro_puzzle"/>
 
-                <fr.spse.extended_view.ExtendedTextView
-                    android:id="@+id/nav_versions"
-                    style="@style/ZyroNavItem"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_zyro_blocks"
-                    android:text="@string/zyro_versions"
-                    app:drawableTopPadding="@dimen/padding_tiny"
-                    app:drawableTopSize="@dimen/_18sdp"/>
+            <ImageView
+                android:id="@+id/nav_modpacks"
+                style="@style/ZyroNavIcon"
+                android:contentDescription="@string/zyro_modpacks"
+                android:src="@drawable/ic_zyro_layers"/>
 
-                <fr.spse.extended_view.ExtendedTextView
-                    android:id="@+id/nav_mods"
-                    style="@style/ZyroNavItem"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_zyro_puzzle"
-                    android:text="@string/zyro_mods"
-                    app:drawableTopPadding="@dimen/padding_tiny"
-                    app:drawableTopSize="@dimen/_18sdp"/>
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/nav_resource_packs"
+                style="@style/ZyroNavIcon"
+                android:contentDescription="@string/zyro_resource_packs"
+                android:src="@drawable/ic_zyro_image"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/nav_shaders"
+                style="@style/ZyroNavIcon"
+                android:contentDescription="@string/zyro_shaders"
+                android:src="@drawable/ic_zyro_sparkle"/>
 
-                <fr.spse.extended_view.ExtendedTextView
-                    android:id="@+id/nav_modpacks"
-                    style="@style/ZyroNavItem"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_zyro_layers"
-                    android:text="@string/zyro_modpacks"
-                    app:drawableTopPadding="@dimen/padding_tiny"
-                    app:drawableTopSize="@dimen/_18sdp"/>
-
-                <fr.spse.extended_view.ExtendedTextView
-                    android:id="@+id/nav_resource_packs"
-                    style="@style/ZyroNavItem"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_zyro_image"
-                    android:text="@string/zyro_resource_packs"
-                    app:drawableTopPadding="@dimen/padding_tiny"
-                    app:drawableTopSize="@dimen/_18sdp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
-
-                <fr.spse.extended_view.ExtendedTextView
-                    android:id="@+id/nav_shaders"
-                    style="@style/ZyroNavItem"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_zyro_sparkle"
-                    android:text="@string/zyro_shaders"
-                    app:drawableTopPadding="@dimen/padding_tiny"
-                    app:drawableTopSize="@dimen/_18sdp"/>
-
-                <fr.spse.extended_view.ExtendedTextView
-                    android:id="@+id/nav_downloads"
-                    style="@style/ZyroNavItem"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_zyro_download"
-                    android:text="@string/zyro_downloads"
-                    app:drawableTopPadding="@dimen/padding_tiny"
-                    app:drawableTopSize="@dimen/_18sdp"/>
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/nav_downloads"
+                style="@style/ZyroNavIcon"
+                android:contentDescription="@string/zyro_downloads"
+                android:src="@drawable/ic_zyro_download"/>
 
             <View
-                android:layout_width="match_parent"
+                android:layout_width="@dimen/_22sdp"
                 android:layout_height="@dimen/zyro_nav_border"
-                android:layout_marginHorizontal="@dimen/padding_medium"
-                android:layout_marginTop="@dimen/padding_tiny"
-                android:layout_marginBottom="@dimen/padding_small"
+                android:layout_marginVertical="@dimen/padding_small"
                 android:background="@color/zyro_stroke"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
-
-                <fr.spse.extended_view.ExtendedTextView
-                    android:id="@+id/nav_settings"
-                    style="@style/ZyroNavItem"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_zyro_gear"
-                    android:text="@string/zyro_settings"
-                    app:drawableTopPadding="@dimen/padding_tiny"
-                    app:drawableTopSize="@dimen/_18sdp"/>
-
-                <!-- Keeps the settings entry in the left column, aligned with the grid above -->
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/zyro_nav_item_height"
-                    android:layout_weight="1"/>
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/nav_settings"
+                style="@style/ZyroNavIcon"
+                android:contentDescription="@string/zyro_settings"
+                android:src="@drawable/ic_zyro_gear"/>
 
         </LinearLayout>
     </ScrollView>

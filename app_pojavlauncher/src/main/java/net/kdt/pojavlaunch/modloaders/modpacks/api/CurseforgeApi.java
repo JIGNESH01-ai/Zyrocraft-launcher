@@ -71,6 +71,8 @@ public class CurseforgeApi implements ModpackApi{
             params.put("gameVersion", searchFilters.mcVersion);
         if(previousPageResult != null)
             params.put("index", curseforgeSearchResult.previousOffset);
+        else if(searchFilters.offset > 0)
+            params.put("index", searchFilters.offset);
 
         JsonObject response = mApiHandler.get("mods/search", params, JsonObject.class);
         if(response == null) return null;
@@ -87,12 +89,16 @@ public class CurseforgeApi implements ModpackApi{
                 Log.i("CurseforgeApi", "Skipping modpack "+dataElement.get("name").getAsString() + " because curseforge sucks");
                 continue;
             }
+            long downloads = 0;
+            if(dataElement.get("downloadCount") != null && !dataElement.get("downloadCount").isJsonNull())
+                downloads = dataElement.get("downloadCount").getAsLong();
             ModItem modItem = new ModItem(Constants.SOURCE_CURSEFORGE,
                     searchFilters.isModpack,
                     dataElement.get("id").getAsString(),
                     dataElement.get("name").getAsString(),
                     dataElement.get("summary").getAsString(),
-                    dataElement.getAsJsonObject("logo").get("thumbnailUrl").getAsString());
+                    dataElement.getAsJsonObject("logo").get("thumbnailUrl").getAsString(),
+                    downloads);
             modItemList.add(modItem);
         }
         if(curseforgeSearchResult == null) curseforgeSearchResult = new CurseforgeSearchResult();

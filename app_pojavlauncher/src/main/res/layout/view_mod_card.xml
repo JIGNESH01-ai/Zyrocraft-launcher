@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One browse card: icon, name, downloads, description, source, favorite and
+     the install action. -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_168sdp"
+    android:layout_margin="@dimen/padding_moderate"
+    android:background="@drawable/zyro_card_bg"
+    android:padding="@dimen/padding_heavy">
+
+    <ImageView
+        android:id="@+id/mod_thumbnail_imageview"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:background="@drawable/zyro_avatar_frame"
+        android:contentDescription="@string/zyro_mods"
+        android:padding="@dimen/padding_small"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@mipmap/ic_launcher_foreground"/>
+
+    <TextView
+        android:id="@+id/mod_title_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding_moderate"
+        android:ellipsize="end"
+        android:fontFamily="@font/noto_sans_bold"
+        android:maxLines="1"
+        android:textColor="@color/zyro_text_primary"
+        android:textSize="@dimen/_12ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/mod_thumbnail_imageview"
+        app:layout_constraintEnd_toStartOf="@id/mod_downloads_textview"
+        app:layout_constraintStart_toEndOf="@id/mod_thumbnail_imageview"
+        app:layout_constraintTop_toTopOf="@id/mod_thumbnail_imageview"
+        tools:text="Fabulously Optimized"/>
+
+    <TextView
+        android:id="@+id/mod_downloads_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_zyro_download_small"
+        android:drawablePadding="@dimen/padding_small"
+        android:drawableTint="@color/zyro_text_secondary"
+        android:gravity="center_vertical"
+        android:textColor="@color/zyro_text_secondary"
+        android:textSize="@dimen/_9ssp"
+        app:layout_constraintBottom_toBottomOf="@id/mod_thumbnail_imageview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/mod_thumbnail_imageview"
+        tools:text="19.0M"/>
+
+    <TextView
+        android:id="@+id/mod_body_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_moderate"
+        android:ellipsize="end"
+        android:lineSpacingExtra="@dimen/padding_tiny"
+        android:maxLines="3"
+        android:textColor="@color/zyro_text_secondary"
+        android:textSize="@dimen/_9ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mod_thumbnail_imageview"
+        tools:text="Beautiful graphics, speedy performance and familiar features."/>
+
+    <TextView
+        android:id="@+id/mod_source_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:textColor="@color/zyro_text_primary"
+        android:textSize="@dimen/_9ssp"
+        app:layout_constraintBottom_toTopOf="@id/mod_install_button"
+        app:layout_constraintEnd_toStartOf="@id/mod_favorite_button"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Modrinth"/>
+
+    <ImageView
+        android:id="@+id/mod_favorite_button"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:background="@drawable/zyro_pager_bg"
+        android:contentDescription="@string/zyro_favorite"
+        android:padding="@dimen/padding_moderate"
+        android:src="@drawable/ic_zyro_heart_outline"
+        app:layout_constraintBottom_toTopOf="@id/mod_install_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/zyro_text_secondary"/>
+
+    <Button
+        android:id="@+id/mod_install_button"
+        style="@style/ZyroButton.Primary"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_34sdp"
+        android:layout_marginTop="@dimen/padding_moderate"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:text="@string/zyro_install"
+        android:textSize="@dimen/_10ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

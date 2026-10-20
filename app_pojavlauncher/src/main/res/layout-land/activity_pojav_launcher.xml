@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/zyro_page_bg">
 
-    <!-- Navigation lives on the left: every launcher section is one tap away -->
+    <!-- Navigation lives on the left: one straight vertical bar of icons -->
     <include
         layout="@layout/view_zyro_nav_rail"
         android:layout_width="@dimen/zyro_nav_width"
@@ -16,42 +16,37 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <!-- Account switcher, kept on the top right of the content area -->
+    <!-- Account switcher + content tabs -->
     <LinearLayout
         android:id="@+id/zyro_top_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical|end"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/padding_heavy"
-        android:paddingVertical="@dimen/padding_moderate"
+        android:paddingStart="@dimen/padding_heavy"
+        android:paddingTop="@dimen/padding_moderate"
+        android:paddingEnd="@dimen/padding_heavy"
+        android:paddingBottom="@dimen/padding_moderate"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/zyro_nav_rail"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/zyro_screen_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ellipsize="end"
-            android:fontFamily="@font/noto_sans_bold"
-            android:letterSpacing="0.04"
-            android:maxLines="1"
-            android:text="@string/zyro_home"
-            android:textColor="@color/zyro_text_primary"
-            android:textSize="@dimen/_14ssp"
-            android:textStyle="bold"/>
-
         <com.kdt.mcgui.AccountSpinner
             android:id="@+id/account_spinner"
-            android:layout_width="@dimen/_200sdp"
+            android:layout_width="@dimen/_150sdp"
             android:layout_height="@dimen/_40sdp"
+            android:layout_marginEnd="@dimen/padding_moderate"
             android:background="@drawable/zyro_avatar_frame"
             android:dropDownWidth="@dimen/_250sdp"
             android:dropDownVerticalOffset="@dimen/_44sdp"
             android:paddingEnd="@dimen/_8sdp"
             tools:ignore="RtlSymmetry"/>
+
+        <include
+            layout="@layout/view_zyro_browse_tabs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
     </LinearLayout>
 
     <!-- Holding most of the dynamic content -->

@@ -13,4 +13,8 @@ public class SearchFilters {
     @Nullable public String sort;
     /** Modrinth category facet, for example technology, adventure, magic or quests */
     @Nullable public String category;
+    /** Mod loader facet, for example fabric, forge, neoforge or quilt */
+    @Nullable public String loader;
+    /** Result offset for the first request of a page, in number of entries */
+    public int offset;
 }
