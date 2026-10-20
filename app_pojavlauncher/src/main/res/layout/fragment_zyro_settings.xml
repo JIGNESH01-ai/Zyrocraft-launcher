@@ -30,50 +30,41 @@
             <TextView
                 android:id="@+id/stab_renderer"
                 style="@style/ZyroSettingsTab"
-                android:drawableStart="@drawable/ic_px_image"
-                android:text="@string/zyro_settings_tab_renderer"
-                tools:ignore="RelativeOverlap"/>
+                android:text="@string/zyro_settings_tab_renderer"/>
 
             <TextView
                 android:id="@+id/stab_game"
                 style="@style/ZyroSettingsTab"
-                android:drawableStart="@drawable/ic_px_zap"
                 android:text="@string/zyro_settings_tab_game"/>
 
             <TextView
                 android:id="@+id/stab_java"
                 style="@style/ZyroSettingsTab"
-                android:drawableStart="@drawable/ic_px_java"
                 android:text="@string/zyro_settings_tab_java"/>
 
             <TextView
                 android:id="@+id/stab_launcher"
                 style="@style/ZyroSettingsTab"
-                android:drawableStart="@drawable/ic_px_alt_sliders"
                 android:text="@string/zyro_settings_tab_launcher"/>
 
             <TextView
                 android:id="@+id/stab_controls"
                 style="@style/ZyroSettingsTab"
-                android:drawableStart="@drawable/ic_px_gamepad"
                 android:text="@string/zyro_settings_tab_controls"/>
 
             <TextView
                 android:id="@+id/stab_gamepad"
                 style="@style/ZyroSettingsTab"
-                android:drawableStart="@drawable/ic_mat_remap_controller"
                 android:text="@string/zyro_settings_tab_gamepad"/>
 
             <TextView
                 android:id="@+id/stab_experimental"
                 style="@style/ZyroSettingsTab"
-                android:drawableStart="@drawable/ic_px_experiment"
                 android:text="@string/zyro_settings_tab_experimental"/>
 
             <TextView
                 android:id="@+id/stab_about"
                 style="@style/ZyroSettingsTab"
-                android:drawableStart="@drawable/ic_zyro_logo"
                 android:text="@string/zyro_settings_tab_about"/>
 
         </LinearLayout>

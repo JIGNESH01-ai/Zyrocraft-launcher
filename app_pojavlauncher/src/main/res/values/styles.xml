@@ -180,8 +180,6 @@
         <item name="android:layout_marginEnd">@dimen/_4sdp</item>
         <item name="android:background">@drawable/zyro_settings_tab_bg</item>
         <item name="android:clickable">true</item>
-        <item name="android:drawablePadding">@dimen/_6sdp</item>
-        <item name="android:drawableTint">@color/zyro_settings_tab_text</item>
         <item name="android:focusable">true</item>
         <item name="android:fontFamily">@font/noto_sans_bold</item>
         <item name="android:gravity">center_vertical</item>
