@@ -4,31 +4,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent">
+    android:background="@drawable/zyro_page_bg">
 
-    <com.kdt.mcgui.AccountSpinner
-        android:id="@+id/account_spinner"
+    <!-- Brand + account top bar -->
+    <LinearLayout
+        android:id="@+id/zyro_top_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_42sdp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/zyro_panel"
+        android:paddingHorizontal="@dimen/padding_heavy"
+        android:paddingVertical="@dimen/padding_moderate"
+        app:layout_constraintTop_toTopOf="parent">
 
-        android:dropDownWidth="wrap_content"
-        android:dropDownVerticalOffset="@dimen/_42sdp"
+        <ImageView
+            android:id="@+id/zyro_top_logo"
+            android:layout_width="@dimen/_28sdp"
+            android:layout_height="@dimen/_28sdp"
+            android:src="@drawable/ic_zyro_logo"
+            android:contentDescription="@string/zyro_brand"
+            app:tint="@null"/>
 
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/padding_medium"
+            android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/setting_button"
-        android:layout_width="@dimen/_52sdp"
-        android:layout_height="@dimen/_42sdp"
-        android:background="?attr/selectableItemBackground"
-        android:src="@drawable/ic_px_sliders"
-        android:scaleType="fitCenter"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zyro_brand"
+                android:textColor="@color/zyro_text_primary"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
+                android:fontFamily="@font/noto_sans_bold"
+                android:letterSpacing="0.08"/>
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zyro_brand_suffix"
+                android:textColor="@color/zyro_neon"
+                android:textSize="@dimen/_8ssp"
+                android:letterSpacing="0.35"/>
+        </LinearLayout>
 
+        <com.kdt.mcgui.AccountSpinner
+            android:id="@+id/account_spinner"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_weight="1.2"
+            android:background="@drawable/zyro_avatar_frame"
+            android:dropDownWidth="@dimen/_250sdp"
+            android:dropDownVerticalOffset="@dimen/_44sdp"
+            android:paddingEnd="@dimen/_8sdp"
+            tools:ignore="RtlSymmetry" />
 
+        <ImageButton
+            android:id="@+id/setting_button"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginStart="@dimen/padding_medium"
+            android:background="@drawable/zyro_btn_secondary"
+            android:src="@drawable/ic_px_sliders"
+            android:scaleType="fitCenter"
+            android:padding="@dimen/padding_heavy"
+            android:contentDescription="@string/zyro_settings"/>
+    </LinearLayout>
 
     <!-- Holding most of the dynamic content -->
     <androidx.fragment.app.FragmentContainerView
@@ -37,17 +82,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/progress_layout"
-        app:layout_constraintTop_toBottomOf="@+id/account_spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/zyro_top_bar" />
 
 
     <com.kdt.mcgui.ProgressLayout
         android:id="@+id/progress_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/zyro_panel_accent"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent" />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
