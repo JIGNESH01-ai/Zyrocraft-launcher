@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:key="">
+
+    <Preference
+        android:key="about_info"
+        android:title="@string/zyro_brand_full"
+        android:selectable="false"
+        android:icon="@drawable/ic_zyro_logo"/>
+
+    <Preference
+        android:key="about_version"
+        android:title="@string/zyro_about"
+        android:selectable="false"
+        android:icon="@drawable/ic_zyro_star"/>
+
+    <Preference
+        android:key="about_source"
+        android:title="@string/zyro_open_folder"
+        android:summary="https://github.com/JIGNESH01-ai/Zyrocraft-launcher"
+        android:icon="@drawable/ic_zyro_folder"/>
+</PreferenceScreen>

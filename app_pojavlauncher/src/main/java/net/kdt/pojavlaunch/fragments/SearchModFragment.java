@@ -33,6 +33,7 @@ import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.modloaders.modpacks.ModItemAdapter;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.CommonApi;
+import net.kdt.pojavlaunch.modloaders.modpacks.api.ModrinthApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.api.ModpackApi;
 import net.kdt.pojavlaunch.modloaders.modpacks.models.SearchFilters;
 import net.kdt.pojavlaunch.profiles.VersionSelectorDialog;
@@ -51,7 +52,10 @@ import java.io.OutputStream;
 public class SearchModFragment extends Fragment implements ModItemAdapter.SearchResultCallback {
 
     public static final String TAG = "SearchModFragment";
+    public static final String ARG_IS_MODPACK = "is_modpack";
     private View mOverlay;
+    private View mChipsRow;
+    private String mActiveChip = "all";
     private float mOverlayTopCache; // Padding cache reduce resource lookup
 
     private final RecyclerView.OnScrollListener mOverlayPositionListener = new RecyclerView.OnScrollListener() {
@@ -116,17 +120,37 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         mSearchFilters.isModpack = true;
     }
 
+    /** Modpacks by default; pass false to browse single mods */
+    public static SearchModFragment newInstance(boolean isModpack) {
+        SearchModFragment fragment = new SearchModFragment();
+        Bundle bundle = new Bundle(1);
+        bundle.putBoolean(ARG_IS_MODPACK, isModpack);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        modpackApi = new CommonApi(context.getString(R.string.curseforge_api_key));
+        Bundle args = getArguments();
+        if (args != null) mSearchFilters.isModpack = args.getBoolean(ARG_IS_MODPACK, true);
+        modpackApi = pickApi(context);
+    }
+
+    /**
+     * The combined API is used for unfiltered browsing. Modrinth-only is used when
+     * sort or category filters are active so that the chips always mean what they say.
+     */
+    private ModpackApi pickApi(Context context) {
+        boolean filtered = mSearchFilters.sort != null || mSearchFilters.category != null;
+        if (!mSearchFilters.isModpack || filtered) return new ModrinthApi();
+        return new CommonApi(context.getString(R.string.curseforge_api_key));
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         // You can only access resources after attaching to current context
-        mModItemAdapter = new ModItemAdapter(getResources(), modpackApi, this);
-        ProgressKeeper.addTaskCountListener(mModItemAdapter);
+        recreateAdapter();
         mOverlayTopCache = getResources().getDimension(R.dimen.fragment_padding_medium);
 
         mOverlay = view.findViewById(R.id.search_mod_overlay);
@@ -157,7 +181,14 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
                    mRecyclerview.getPaddingBottom());
         });
         mFilterButton.setOnClickListener(v -> displayFilterDialog());
+        setupChips(view);
+        if (!mSearchFilters.isModpack) {
+            mSearchEditText.setHint(R.string.zyro_search_mods);
+        }
         mImportButton = view.findViewById(R.id.mineButton_import_local_modpack);
+        if (!mSearchFilters.isModpack) {
+            mImportButton.setVisibility(View.GONE);
+        }
         mImportButton.setOnClickListener(v -> {
             mImportLauncher.launch("*/*");
         });
@@ -173,7 +204,7 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ProgressKeeper.removeTaskCountListener(mModItemAdapter);
+        if (mModItemAdapter != null) ProgressKeeper.removeTaskCountListener(mModItemAdapter);
         mRecyclerview.removeOnScrollListener(mOverlayPositionListener);
         if (mTaskCountListener != null) { ProgressKeeper.removeTaskCountListener(mTaskCountListener); }
     }
@@ -204,6 +235,58 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         mSearchProgressBar.setVisibility(View.VISIBLE);
         mSearchFilters.name = name == null ? "" : name;
         mModItemAdapter.performSearchQuery(mSearchFilters);
+    }
+
+    private void recreateAdapter() {
+        Context context = requireContext();
+        modpackApi = pickApi(context.getApplicationContext());
+        if (mModItemAdapter != null) ProgressKeeper.removeTaskCountListener(mModItemAdapter);
+        mModItemAdapter = new ModItemAdapter(getResources(), modpackApi, this);
+        ProgressKeeper.addTaskCountListener(mModItemAdapter);
+        RecyclerView list = getView() != null ? getView().findViewById(R.id.search_mod_list) : null;
+        if (list != null) list.setAdapter(mModItemAdapter);
+    }
+
+    private void setupChips(View view) {
+        mChipsRow = view.findViewById(R.id.search_mod_chips);
+        int[] ids = {R.id.chip_all, R.id.chip_popular, R.id.chip_new, R.id.chip_updated,
+                R.id.chip_tech, R.id.chip_adventure, R.id.chip_magic, R.id.chip_quests};
+        String[] chips = {"all", "popular", "new", "updated", "tech", "adventure", "magic", "quests"};
+        for (int i = 0; i < ids.length; i++) {
+            final String chip = chips[i];
+            Button button = view.findViewById(ids[i]);
+            button.setOnClickListener(v -> {
+                mActiveChip = chip;
+                switch (chip) {
+                    case "popular": mSearchFilters.sort = "downloads"; mSearchFilters.category = null; break;
+                    case "new": mSearchFilters.sort = "date"; mSearchFilters.category = null; break;
+                    case "updated": mSearchFilters.sort = "updated"; mSearchFilters.category = null; break;
+                    case "tech": mSearchFilters.sort = null; mSearchFilters.category = "technology"; break;
+                    case "adventure": mSearchFilters.sort = null; mSearchFilters.category = "adventure"; break;
+                    case "magic": mSearchFilters.sort = null; mSearchFilters.category = "magic"; break;
+                    case "quests": mSearchFilters.sort = null; mSearchFilters.category = "quests"; break;
+                    default: mSearchFilters.sort = null; mSearchFilters.category = null; break;
+                }
+                updateChipStyles();
+                recreateAdapter();
+                searchMods(mSearchEditText.getText().toString());
+            });
+        }
+        updateChipStyles();
+    }
+
+    private void updateChipStyles() {
+        if (mChipsRow == null) return;
+        String[] chips = {"all", "popular", "new", "updated", "tech", "adventure", "magic", "quests"};
+        int[] ids = {R.id.chip_all, R.id.chip_popular, R.id.chip_new, R.id.chip_updated,
+                R.id.chip_tech, R.id.chip_adventure, R.id.chip_magic, R.id.chip_quests};
+        for (int i = 0; i < ids.length; i++) {
+            Button b = mChipsRow.findViewById(ids[i]);
+            if (b == null) continue;
+            boolean selected = chips[i].equals(mActiveChip);
+            b.setBackgroundResource(selected ? R.drawable.zyro_chip_selected : R.drawable.zyro_chip_bg);
+            b.setTextColor(getResources().getColor(selected ? R.color.zyro_background : R.color.zyro_chip_text));
+        }
     }
 
     private void displayFilterDialog() {

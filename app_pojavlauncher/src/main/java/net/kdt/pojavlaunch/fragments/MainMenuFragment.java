@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -23,13 +25,16 @@ import net.kdt.pojavlaunch.CustomControlsActivity;
 import net.kdt.pojavlaunch.R;
 
 import net.kdt.pojavlaunch.Tools;
+import net.kdt.pojavlaunch.authenticator.accounts.Account;
 import net.kdt.pojavlaunch.contracts.OpenDocumentWithExtension;
 import net.kdt.pojavlaunch.extra.ExtraConstants;
 import net.kdt.pojavlaunch.extra.ExtraCore;
 import net.kdt.pojavlaunch.instances.Instance;
+import net.kdt.pojavlaunch.instances.InstanceIconProvider;
 import net.kdt.pojavlaunch.instances.Instances;
 import net.kdt.pojavlaunch.progresskeeper.ProgressKeeper;
 import net.kdt.pojavlaunch.utils.FileUtils;
+import net.kdt.pojavlaunch.utils.VersionDescriptor;
 import net.kdt.pojavlaunch.utils.jre.GameRunner;
 
 import java.io.File;
@@ -66,6 +71,8 @@ public class MainMenuFragment extends Fragment {
         mCustomControlButton.setOnClickListener(v -> startActivity(new Intent(requireContext(), CustomControlsActivity.class)));
         mInstallJarButton.setOnClickListener(v -> runInstallerWithConfirmation());
         mEditProfileButton.setOnClickListener(v -> mVersionSpinner.openProfileEditor(requireActivity()));
+
+        view.findViewById(R.id.change_instance_button).setOnClickListener(v -> mVersionSpinner.performClick());
 
         mPlayButton.setOnClickListener(v -> {
         Instance instance = Instances.loadSelectedInstance();
@@ -104,6 +111,63 @@ public class MainMenuFragment extends Fragment {
             Tools.swapFragment(requireActivity(), GamepadMapperFragment.class, GamepadMapperFragment.TAG, null);
             return true;
         });
+
+        // Quick access navigation
+        view.findViewById(R.id.card_instances).setOnClickListener(v ->
+                Tools.swapFragment(requireActivity(), InstancesFragment.class, InstancesFragment.TAG, null));
+        view.findViewById(R.id.card_mods).setOnClickListener(v ->
+                Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG,
+                        SearchModFragment.newInstance(false).getArguments()));
+        view.findViewById(R.id.card_modpacks).setOnClickListener(v ->
+                Tools.swapFragment(requireActivity(), SearchModFragment.class, SearchModFragment.TAG,
+                        SearchModFragment.newInstance(true).getArguments()));
+        view.findViewById(R.id.card_resource_packs).setOnClickListener(v ->
+                Tools.swapFragment(requireActivity(), LocalPacksFragment.class, LocalPacksFragment.TAG,
+                        LocalPacksFragment.newInstance(LocalPacksFragment.FOLDER_RESOURCE_PACKS,
+                                getString(R.string.zyro_resource_packs)).getArguments()));
+        view.findViewById(R.id.card_shaders).setOnClickListener(v ->
+                Tools.swapFragment(requireActivity(), LocalPacksFragment.class, LocalPacksFragment.TAG,
+                        LocalPacksFragment.newInstance(LocalPacksFragment.FOLDER_SHADER_PACKS,
+                                getString(R.string.zyro_shaders)).getArguments()));
+        view.findViewById(R.id.card_downloads).setOnClickListener(v ->
+                Tools.swapFragment(requireActivity(), DownloadsFragment.class, DownloadsFragment.TAG, null));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ExtraCore.setValue(ExtraConstants.REFRESH_ACCOUNT_SPINNER, true);
+        updateInstanceCard();
+    }
+
+    /** Fill the hero player name and the selected instance card */
+    private void updateInstanceCard() {
+        View view = getView();
+        if (view == null) return;
+        TextView playerName = view.findViewById(R.id.home_player_name);
+        TextView instanceName = view.findViewById(R.id.home_instance_name);
+        TextView instanceStatus = view.findViewById(R.id.home_instance_status);
+        TextView versionText = view.findViewById(R.id.home_instance_version_text);
+        TextView loaderText = view.findViewById(R.id.home_instance_loader_text);
+        ImageView avatar = view.findViewById(R.id.home_instance_avatar);
+
+        Account account = Account.getCurrent();
+        playerName.setText(account != null && account.username != null ? account.username : "Player");
+
+        Instance instance = Instances.loadSelectedInstance();
+        if (instance == null) {
+            instanceName.setText(R.string.no_instance);
+            instanceStatus.setText(R.string.zyro_instances_empty);
+            versionText.setText("");
+            loaderText.setText(R.string.zyro_filter_vanilla);
+            avatar.setImageResource(R.mipmap.ic_launcher);
+            return;
+        }
+        instanceName.setText(instance.name != null ? instance.name : instance.versionId);
+        instanceStatus.setText(R.string.zyro_launch_hint);
+        versionText.setText(VersionDescriptor.minecraftVersion(instance.versionId));
+        loaderText.setText(VersionDescriptor.loaderName(instance.versionId));
+        avatar.setImageDrawable(InstanceIconProvider.fetchIcon(getResources(), instance));
     }
 
     private void openGameDirectory(Context context) {
@@ -118,12 +182,6 @@ public class MainMenuFragment extends Fragment {
         }else {
             Toast.makeText(context, R.string.gamedir_open_failed, Toast.LENGTH_LONG).show();
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        ExtraCore.setValue(ExtraConstants.REFRESH_ACCOUNT_SPINNER, true);
     }
 
     private void runInstallerWithConfirmation() {

@@ -176,10 +176,20 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     mExtendedSpinner = mExtendedLayout.findViewById(R.id.mod_extended_version_spinner);
                     mExtendedErrorTextView = mExtendedLayout.findViewById(R.id.mod_extended_error_textview);
 
-                    mExtendedButton.setOnClickListener(v1 -> mModpackApi.handleModpackInstallation(
-                            mExtendedButton.getContext().getApplicationContext(),
-                            mModDetail,
-                            mExtendedSpinner.getSelectedItemPosition()));
+                    mExtendedButton.setOnClickListener(v1 -> {
+                        if (mModDetail == null) return;
+                        if (mModDetail.isModpack) {
+                            mModpackApi.handleModpackInstallation(
+                                    mExtendedButton.getContext().getApplicationContext(),
+                                    mModDetail,
+                                    mExtendedSpinner.getSelectedItemPosition());
+                        } else {
+                            ModInstallTask.install(
+                                    mExtendedButton.getContext().getApplicationContext(),
+                                    mModDetail,
+                                    mExtendedSpinner.getSelectedItemPosition());
+                        }
+                    });
                     mExtendedSpinner.setAdapter(mLoadingAdapter);
                 } else {
                     if(isExtended()) closeDetailedView();

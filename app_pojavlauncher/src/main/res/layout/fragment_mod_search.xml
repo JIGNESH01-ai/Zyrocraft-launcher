@@ -68,10 +68,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:indeterminate="true"
+            android:indeterminateTint="@color/zyro_neon"
             android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/search_mod_edittext"
             tools:layout_editor_absoluteX="13dp" />
 
+        <HorizontalScrollView
+            android:id="@+id/search_mod_chips_scroll"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:scrollbars="none"
+            app:layout_constraintTop_toBottomOf="@id/search_mod_progressbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:id="@+id/search_mod_chips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button android:id="@+id/chip_all" style="@style/ZyroChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/zyro_filter_all"/>
+                <Button android:id="@+id/chip_popular" style="@style/ZyroChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/zyro_tab_popular"/>
+                <Button android:id="@+id/chip_new" style="@style/ZyroChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/zyro_tab_new"/>
+                <Button android:id="@+id/chip_updated" style="@style/ZyroChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/zyro_tab_updated"/>
+                <Button android:id="@+id/chip_tech" style="@style/ZyroChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/zyro_cat_tech"/>
+                <Button android:id="@+id/chip_adventure" style="@style/ZyroChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/zyro_cat_adventure"/>
+                <Button android:id="@+id/chip_magic" style="@style/ZyroChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/zyro_cat_magic"/>
+                <Button android:id="@+id/chip_quests" style="@style/ZyroChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/zyro_cat_rpg"/>
+            </LinearLayout>
+        </HorizontalScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

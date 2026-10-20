@@ -60,11 +60,14 @@ public class ModrinthApi implements ModpackApi{
         facetString.append(String.format("[\"project_type:%s\"]", searchFilters.isModpack ? "modpack" : "mod"));
         if(searchFilters.mcVersion != null && !searchFilters.mcVersion.isEmpty())
             facetString.append(String.format(",[\"versions:%s\"]", searchFilters.mcVersion));
+        if(searchFilters.category != null && !searchFilters.category.isEmpty())
+            facetString.append(String.format(",[\"categories:%s\"]", searchFilters.category));
         facetString.append("]");
         params.put("facets", facetString.toString());
         params.put("query", searchFilters.name);
         params.put("limit", 50);
-        params.put("index", "relevance");
+        params.put("index", searchFilters.sort != null && !searchFilters.sort.isEmpty()
+                ? searchFilters.sort : "relevance");
         if(modrinthSearchResult != null)
             params.put("offset", modrinthSearchResult.previousOffset);
 

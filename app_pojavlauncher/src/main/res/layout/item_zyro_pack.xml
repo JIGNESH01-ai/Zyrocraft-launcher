@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/padding_medium"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/zyro_panel"
+    android:paddingHorizontal="@dimen/padding_heavy"
+    android:paddingVertical="@dimen/padding_medium">
+
+    <ImageView
+        android:id="@+id/zyro_pack_icon"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_24sdp"
+        android:src="@drawable/ic_zyro_image"
+        app:tint="@color/zyro_neon"
+        android:importantForAccessibility="no"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="@dimen/padding_heavy"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/zyro_pack_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/zyro_text_primary"
+            android:textSize="@dimen/_11ssp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="middle"/>
+
+        <TextView
+            android:id="@+id/zyro_pack_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/zyro_text_secondary"
+            android:textSize="@dimen/_9ssp"/>
+    </LinearLayout>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/zyro_pack_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/padding_medium"/>
+
+    <ImageButton
+        android:id="@+id/zyro_pack_delete"
+        android:layout_width="@dimen/_32sdp"
+        android:layout_height="@dimen/_32sdp"
+        android:background="@drawable/zyro_btn_danger"
+        android:padding="@dimen/padding_medium"
+        android:src="@drawable/ic_zyro_trash"
+        app:tint="@color/zyro_danger"
+        android:contentDescription="@string/global_delete"/>
+</LinearLayout>

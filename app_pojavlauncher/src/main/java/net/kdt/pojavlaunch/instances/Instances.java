@@ -137,6 +137,39 @@ public class Instances {
     }
 
     /**
+     * Load the full instance metadata for an instance shown in a list.
+     * @param displayInstance lightweight display model
+     * @return the full instance, or null if unreadable
+     */
+    public static Instance loadFullInstance(DisplayInstance displayInstance) {
+        if(displayInstance == null || displayInstance.mInstanceRoot == null) return null;
+        Instance instance = read(displayInstance.mInstanceRoot, Instance.class);
+        if(instance != null) instance.sanitize();
+        return instance;
+    }
+
+    /**
+     * Duplicate an existing instance, including its game data.
+     * @param source the instance to copy
+     * @param newName name for the copy, may be null
+     * @return the newly created instance
+     * @throws IOException in case of copy or metadata write errors
+     */
+    public static Instance copyInstance(DisplayInstance source, String newName) throws IOException {
+        if(source == null || source.mInstanceRoot == null)
+            throw new IOException("Source instance is missing");
+        File targetRoot = findNewInstanceRoot(FileUtils.escapeFileName(
+                newName == null || newName.trim().isEmpty() ? source.name + "-copy" : newName));
+        org.apache.commons.io.FileUtils.copyDirectory(source.mInstanceRoot, targetRoot);
+        Instance copy = read(targetRoot, Instance.class);
+        if(copy == null) throw new IOException("Copied instance metadata is unreadable");
+        if(newName != null && !newName.trim().isEmpty()) copy.name = newName;
+        else if(copy.name != null) copy.name = copy.name + " (Copy)";
+        copy.write();
+        return copy;
+    }
+
+    /**
      * Create a new instance intended for first-time launcher users.
      */
     private static void createFirstTimeInstance() throws IOException {

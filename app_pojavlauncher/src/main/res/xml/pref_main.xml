@@ -52,6 +52,13 @@
             android:summary="@string/preference_experimental_description"
             android:fragment="net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceExperimentalFragment"
             android:icon="@drawable/ic_px_experiment"/>
+
+        <Preference
+            android:key="about_screen_setting"
+            android:title="@string/zyro_about"
+            android:summary="@string/zyro_brand_full"
+            android:fragment="net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceAboutFragment"
+            android:icon="@drawable/ic_zyro_logo"/>
     </PreferenceCategory>
 
     <SwitchPreferenceCompat

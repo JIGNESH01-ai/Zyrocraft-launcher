@@ -374,6 +374,8 @@ public final class Tools {
             ContextExecutor.execute((ContextExecutorTask) e);
             return;
         }
+        net.kdt.pojavlaunch.progresskeeper.TaskHistory.recordFailed(
+                e != null && e.getMessage() != null ? e.getMessage() : String.valueOf(e));
 
         Runnable runnable = () -> {
             final String errMsg = showMore ? printToString(e) : rolledMessage != null ? rolledMessage : e.getMessage();
@@ -427,6 +429,9 @@ public final class Tools {
         showErrorRemote(context.getString(rolledMessage), e);
     }
     public static void showErrorRemote(String rolledMessage, Throwable e) {
+        net.kdt.pojavlaunch.progresskeeper.TaskHistory.recordFailed(
+                rolledMessage != null ? rolledMessage :
+                        (e != null && e.getMessage() != null ? e.getMessage() : String.valueOf(e)));
         // I WILL embrace layer violations because Android's concept of layers is STUPID
         // We live in the same process anyway, why make it any more harder with this needless
         // abstraction?

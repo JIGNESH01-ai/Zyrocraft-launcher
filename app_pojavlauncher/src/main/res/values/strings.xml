@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <!-- App name part -->
-    <string name="app_short_name">PojavLauncher</string>
+    <string name="app_short_name">ZYROCRAFT Launcher</string>
 
     <!-- Action bar part -->
 
@@ -21,7 +21,7 @@
     <string name="alerttitle_installmod">Select a mod installer</string>
 
     <!-- Error messages -->
-    <string name="error_fatal">PojavLauncher has unexpectedly crashed</string>
+    <string name="error_fatal">ZYROCRAFT Launcher has unexpectedly crashed</string>
     <string name="error_no_version">No version!</string>
     <string name="error_show_more">Show more</string>
     <string name="error_show_less">Show less</string>
@@ -249,7 +249,7 @@
     <string name="color_default_hex" translatable="false">FFFF0000</string>
     <string name="notif_channel_name">General</string>
     <string name="notif_channel_id" translatable="false">channel_id</string>
-    <string name="lazy_service_default_title">Pojav Foreground Service</string>
+    <string name="lazy_service_default_title">ZYROCRAFT Foreground Service</string>
     <string name="mcl_setting_veroption_installed">Installed</string>
     <string name="use_global_default">(Use global default)</string>
     <string name="default_control">Default controlmap</string>
@@ -279,7 +279,7 @@
     <string name="preference_gyro_sample_rate_title">Gyroscope sampling rate</string>
     <string name="preference_gyro_sample_rate_description">If you have performance issues with gyroscope controls, increase this.</string>
     <string name="microsoft_login_retry_later">Too many requests, please try again later.</string>
-    <string name="storage_required">PojavLauncher requires external storage to be attached. Please reconnect it and restart the app.</string>
+    <string name="storage_required">ZYROCRAFT Launcher requires external storage to be attached. Please reconnect it and restart the app.</string>
     <string name="microsoft_login_generic">Error: %s</string>
     <string name="mcl_setting_title_buttonallcaps">Only use capital letters in button labels</string>
     <string name="mcl_setting_subtitle_buttonallcaps">Disable this if you want to use lowercase letters in your controls.</string>
@@ -352,7 +352,7 @@
     <string name="modpack_download_downloading_mods">Downloading mods (%.2f MB / %.2f MB)</string>
     <string name="modpack_download_downloading_mods_fc">Downloading mods (File %d out of %d)</string>
     <string name="modpack_download_applying_overrides">Applying overrides (%d/%d)</string>
-    <string name="modpack_install_notification_title">Pojav Modpack Installer</string>
+    <string name="modpack_install_notification_title">ZYROCRAFT Modpack Installer</string>
     <string name="modpack_install_notification_success">Click here to finish modpack installation</string>
     <string name="modpack_install_notification_data_not_available">Failed to download mod loader information</string>
     <string name="modpack_install_modloader_download_failed">Failed to download the mod loader files</string>
@@ -385,7 +385,7 @@
     <string name="preference_category_miscellaneous">Miscellaneous settings</string>
     <string name="preference_category_video">Video settings</string>
     <string name="notification_permission_dialog_title">Permission request</string>
-    <string name="notification_permission_dialog_text">PojavLauncher requires a permission to post notifications to prevent game/modpack downloads from stopping when you leave the app. Without this permission, Android may shut down your downloads when you put PojavLauncher in background mode.</string>
+    <string name="notification_permission_dialog_text">ZYROCRAFT Launcher requires a permission to post notifications to prevent game/modpack downloads from stopping when you leave the app. Without this permission, Android may shut down your downloads when you put PojavLauncher in background mode.</string>
     <string name="notification_permission_toast">You can always change your mind later by going into Settings</string>
     <string name="preference_ask_for_notification_title">Allow notifications</string>
     <string name="preference_ask_for_notification_description">Click to re-request the notification permission, required for game/modpack background downloads to work properly.</string>
@@ -569,4 +569,106 @@
     <string name="bta_configuring">Configuring BTA…</string>
     <string name="pref_blocklist_disable_title">Disable server blocklist</string>
     <string name="pref_blocklist_disable_description">Prevent the MC server blocklist from loading. This allows you to play on blocked servers (like 6b6t.org)</string>
+
+    <!-- ZYROCRAFT UI -->
+    <string name="zyro_brand">ZYROCRAFT</string>
+    <string name="zyro_change">Change</string>
+    <string name="zyro_edit">Edit</string>
+    <string name="zyro_brand_suffix" translatable="false">LAUNCHER</string>
+    <string name="zyro_brand_full">ZYROCRAFT LAUNCHER</string>
+    <string name="zyro_welcome">Welcome back,</string>
+    <string name="zyro_tagline">Ready to explore new worlds?</string>
+    <string name="zyro_launch_hint">Launch Minecraft Java Edition</string>
+    <string name="zyro_home">Home</string>
+    <string name="zyro_instances">Instances</string>
+    <string name="zyro_mods">Mods</string>
+    <string name="zyro_modpacks">Modpacks</string>
+    <string name="zyro_resource_packs">Resource Packs</string>
+    <string name="zyro_shaders">Shaders</string>
+    <string name="zyro_downloads">Downloads</string>
+    <string name="zyro_versions">Versions</string>
+    <string name="zyro_settings">Settings</string>
+    <string name="zyro_quick_access">Quick Access</string>
+    <string name="zyro_utilities">Utilities</string>
+    <string name="zyro_manage_instances">Manage your game instances</string>
+    <string name="zyro_browse_mods">Browse and install mods</string>
+    <string name="zyro_play_modpacks">Play curated modpacks</string>
+    <string name="zyro_customize_world">Customize your world</string>
+    <string name="zyro_enhance_visuals">Enhance your visuals</string>
+    <string name="zyro_view_downloads">View download progress</string>
+    <string name="zyro_instance_subtitle">Installed Minecraft instances</string>
+    <string name="zyro_create_instance">Create Instance</string>
+    <string name="zyro_duplicate">Duplicate</string>
+    <string name="zyro_instance_play">Play</string>
+    <string name="zyro_instances_empty">No instances yet. Create one to start playing!</string>
+    <string name="zyro_instances_loading">Loading instances…</string>
+    <string name="zyro_duplicate_success">Instance duplicated</string>
+    <string name="zyro_duplicate_failed">Could not duplicate instance</string>
+    <string name="zyro_delete_instance_title">Delete instance?</string>
+    <string name="zyro_delete_instance_message">The instance and its game data will be removed. This cannot be undone.</string>
+    <string name="zyro_filter_all">All</string>
+    <string name="zyro_filter_vanilla">Vanilla</string>
+    <string name="zyro_filter_forge">Forge</string>
+    <string name="zyro_filter_fabric">Fabric</string>
+    <string name="zyro_filter_neoforge">NeoForge</string>
+    <string name="zyro_filter_quilt">Quilt</string>
+    <string name="zyro_versions_subtitle">Manage and install Minecraft versions</string>
+    <string name="zyro_tab_release">Release</string>
+    <string name="zyro_tab_snapshot">Snapshot</string>
+    <string name="zyro_tab_modded">Modded</string>
+    <string name="zyro_install">Install</string>
+    <string name="zyro_installed">Installed</string>
+    <string name="zyro_install_created">Instance created. Installation finishes on first launch.</string>
+    <string name="zyro_versions_empty">No versions found</string>
+    <string name="zyro_versions_error">Could not load the version list. Check your connection and retry.</string>
+    <string name="zyro_versions_loading">Loading versions…</string>
+    <string name="zyro_modded_subtitle">Install a mod loader for an instance</string>
+    <string name="zyro_tab_popular">Popular</string>
+    <string name="zyro_tab_new">New</string>
+    <string name="zyro_tab_updated">Updated</string>
+    <string name="zyro_cat_adventure">Adventure</string>
+    <string name="zyro_cat_tech">Tech</string>
+    <string name="zyro_cat_magic">Magic</string>
+    <string name="zyro_cat_rpg">Quests</string>
+    <string name="zyro_install_mod">Install mod</string>
+    <string name="zyro_mod_installed">Mod installed into %1$s</string>
+    <string name="zyro_mod_install_failed">Mod installation failed</string>
+    <string name="zyro_no_instance_for_mod">Create and select an instance first</string>
+    <string name="zyro_my_mods">My Mods</string>
+    <string name="zyro_manage_packs">Manage packs</string>
+    <string name="zyro_tab_enabled">Enabled</string>
+    <string name="zyro_tab_disabled">Disabled</string>
+    <string name="zyro_pack_import">Import pack</string>
+    <string name="zyro_packs_empty">No packs found. Import one to get started.</string>
+    <string name="zyro_mods_empty">No mods installed in this instance.</string>
+    <string name="zyro_shader_warning">Shaders require a compatible renderer (Zink or GL4ES) and a GPU with sufficient OpenGL support. Some devices may not run shaders.</string>
+    <string name="zyro_rp_info">Resource packs apply to the selected instance.</string>
+    <string name="zyro_tab_in_progress">In Progress</string>
+    <string name="zyro_tab_completed">Completed</string>
+    <string name="zyro_tab_failed">Failed</string>
+    <string name="zyro_downloads_empty">No downloads running</string>
+    <string name="zyro_completed_empty">Completed tasks will appear here</string>
+    <string name="zyro_failed_empty">Failed tasks will appear here</string>
+    <string name="zyro_downloads_note">Tasks run through the launcher installer pipeline. Cancelling a running task is not supported; you can retry failed operations from their original screen.</string>
+    <string name="zyro_search_instances">Search instances…</string>
+    <string name="zyro_search_mods">Search mods…</string>
+    <string name="zyro_my_mods_manage">Browse and manage mods for the selected instance</string>
+    <string name="zyro_modpacks_subtitle">Discover and play curated modpacks</string>
+    <string name="zyro_search_versions">Search versions…</string>
+    <string name="zyro_refresh_versions">Refresh</string>
+    <string name="zyro_about">About</string>
+    <string name="zyro_about_text">ZYROCRAFT Launcher is a Minecraft: Java Edition launcher for Android, based on the open-source PojavLauncher project.
+
+Version %1$s</string>
+    <string name="zyro_open_folder">Open folder</string>
+    <string name="zyro_import_local">Import local</string>
+    <string name="zyro_pack_enabled">Enabled</string>
+    <string name="zyro_pack_disabled">Disabled</string>
+    <string name="zyro_error_no_game_dir">Game directory unavailable</string>
+    <string name="zyro_version_type_latest">Latest</string>
+    <string name="zyro_status_downloading">Downloading…</string>
+    <string name="zyro_status_installing">Installing…</string>
+    <string name="zyro_status_waiting">Waiting…</string>
+    <string name="zyro_status_done">Completed</string>
+    <string name="zyro_status_failed">Failed</string>
 </resources>

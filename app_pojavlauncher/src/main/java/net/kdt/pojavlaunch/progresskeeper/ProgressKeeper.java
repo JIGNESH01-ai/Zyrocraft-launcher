@@ -16,7 +16,10 @@ public class ProgressKeeper {
         boolean shouldCallEnded = resid == -1 && progress == -1;
         if(shouldCallEnded) {
             shouldCallStarted = false;
-            sProgressStates.remove(progressRecord);
+            ProgressState endedState = sProgressStates.remove(progressRecord);
+            if(endedState != null && endedState.resid != -1) {
+                TaskHistory.recordCompleted(endedState.resid, endedState.varArg);
+            }
         }else if(shouldCallStarted){
             sProgressStates.put(progressRecord, (progressState = new ProgressState()));
         }
@@ -112,5 +115,29 @@ public class ProgressKeeper {
 
     public static boolean hasOngoingTasks() {
         return getTaskCount() > 0;
+    }
+
+    /** Immutable view of a running task, used by the Downloads screen */
+    public static final class RunningTask {
+        public final String key;
+        public final int progress;
+        public final int titleRes;
+        public final Object[] args;
+
+        RunningTask(String key, int progress, int titleRes, Object[] args) {
+            this.key = key;
+            this.progress = progress;
+            this.titleRes = titleRes;
+            this.args = args;
+        }
+    }
+
+    public static synchronized List<RunningTask> getRunningTasks() {
+        List<RunningTask> running = new ArrayList<>(sProgressStates.size());
+        for(HashMap.Entry<String, ProgressState> entry : sProgressStates.entrySet()) {
+            ProgressState state = entry.getValue();
+            running.add(new RunningTask(entry.getKey(), state.progress, state.resid, state.varArg));
+        }
+        return running;
     }
 }
