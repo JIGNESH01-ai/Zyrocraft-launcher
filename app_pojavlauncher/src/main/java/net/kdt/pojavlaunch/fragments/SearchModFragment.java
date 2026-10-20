@@ -271,6 +271,16 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
             search(0);
             return true;
         });
+        // Clearing the field brings the unfiltered list back without another tap
+        mSearchEditText.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int a, int b, int c) {}
+            @Override public void onTextChanged(CharSequence s, int a, int b, int c) {}
+            @Override
+            public void afterTextChanged(Editable s) {
+                String previous = mFilters.name == null ? "" : mFilters.name;
+                if (s.length() == 0 && !previous.isEmpty()) search(0);
+            }
+        });
 
         mSourceButton.setOnClickListener(v -> showSourceMenu());
         mCategoriesButton.setOnClickListener(v -> showCategoryMenu());
@@ -439,7 +449,7 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         PojavApplication.sExecutorService.execute(() -> {
             final List<CategoryEntry> categories = api.fetchCategories(mProjectType);
             runOnUiThread(() -> {
-                if (getView() == null) return;
+                if (!isAdded() || getView() == null) return;
                 if (categories == null || categories.isEmpty()) {
                     Toast.makeText(requireContext(), R.string.zyro_source_error_curseforge,
                             Toast.LENGTH_LONG).show();

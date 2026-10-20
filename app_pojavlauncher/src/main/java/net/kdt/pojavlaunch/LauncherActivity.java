@@ -97,6 +97,7 @@ public class LauncherActivity extends BaseActivity {
     private TextView[] mTabItems;
     private int mSelectedTab = TAB_NONE;
     private ValueAnimator mHeaderAnimator;
+    private int mHeaderFullHeight;
 
     /* Content tabs declared in view_zyro_browse_tabs.xml */
     private static final int TAB_MODPACKS = 0;
@@ -625,16 +626,21 @@ public class LauncherActivity extends BaseActivity {
         animator.start();
     }
 
-    /** Height the header needs when every tab fits on one row */
+    /**
+     * Height the header needs when every tab fits on one row. Measured once and
+     * kept, so an animation started halfway through another one still expands to
+     * the real height instead of the current, partially collapsed one.
+     */
     private int measureHeaderHeight() {
-        if (mTopBar.getHeight() > 0) return mTopBar.getHeight();
+        if (mHeaderFullHeight > 0) return mHeaderFullHeight;
         int width = mRootLayout == null ? 0 : mRootLayout.getWidth()
                 - (int) getResources().getDimension(R.dimen.zyro_nav_width);
         if (width <= 0) width = getResources().getDisplayMetrics().widthPixels;
         int widthSpec = View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.AT_MOST);
         int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         mTopBar.measure(widthSpec, heightSpec);
-        return Math.max(mTopBar.getMeasuredHeight(), 0);
+        mHeaderFullHeight = Math.max(mTopBar.getMeasuredHeight(), 0);
+        return mHeaderFullHeight;
     }
 
     private void applyNavSelection(int selected) {
