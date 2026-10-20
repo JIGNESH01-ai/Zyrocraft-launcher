@@ -65,9 +65,11 @@ jobs:
             grep -nE -A 8 "error:|e: |FAILURE:|What went wrong|Caused by:|AAPT|Exception" gradle-build.log | head -80
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
-          grep -nE "error:|e: |FAILURE:|What went wrong|Caused by:|AAPT" gradle-build.log | head -30 | while IFS= read -r line; do
+          grep -nE "error:|e: |FAILURE:|What went wrong|Caused by:|AAPT" gradle-build.log | head -8 | while IFS= read -r line; do
             echo "::error::${line}"
           done
+          MSG=$(tail -n 40 gradle-build.log | sed -e 's/%/%25/g' -e 's/\r//g' | awk '{printf "%s%%0A", $0}')
+          echo "::error title=Gradle failure tail::${MSG}"
           tail -n 80 gradle-build.log
           exit 1
 
