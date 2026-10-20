@@ -96,6 +96,7 @@ public class LauncherActivity extends BaseActivity {
     private ImageView[] mNavItems;
     private TextView[] mTabItems;
     private int mSelectedTab = TAB_NONE;
+    private ValueAnimator mHeaderAnimator;
 
     /* Content tabs declared in view_zyro_browse_tabs.xml */
     private static final int TAB_MODPACKS = 0;
@@ -584,9 +585,11 @@ public class LauncherActivity extends BaseActivity {
         }
 
         final int fullHeight = measureHeaderHeight();
-        final int startHeight = visible ? 0 : mTopBar.getHeight();
+        final int startHeight = mTopBar.getVisibility() == View.VISIBLE
+                ? mTopBar.getHeight() : 0;
+        if (mHeaderAnimator != null) mHeaderAnimator.cancel();
         mTopBar.setVisibility(View.VISIBLE);
-        mTopBar.setAlpha(visible ? 0f : 1f);
+        mTopBar.setAlpha(fullHeight <= 0 ? 0f : (float) startHeight / fullHeight);
 
         ValueAnimator animator = ValueAnimator.ofInt(startHeight, visible ? fullHeight : 0);
         animator.setDuration(HEADER_ANIM_DURATION);
@@ -604,6 +607,8 @@ public class LauncherActivity extends BaseActivity {
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
+                if (mHeaderAnimator != animation || mBrowseHeaderVisible != visible) return;
+                mHeaderAnimator = null;
                 ViewGroup.LayoutParams params = mTopBar.getLayoutParams();
                 params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 mTopBar.setLayoutParams(params);
@@ -616,6 +621,7 @@ public class LauncherActivity extends BaseActivity {
                 }
             }
         });
+        mHeaderAnimator = animator;
         animator.start();
     }
 

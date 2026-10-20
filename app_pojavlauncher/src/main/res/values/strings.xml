@@ -631,8 +631,8 @@
     <string name="zyro_cat_magic">Magic</string>
     <string name="zyro_cat_rpg">Quests</string>
     <string name="zyro_install_mod">Install mod</string>
-    <string name="zyro_mod_installed">Mod installed into %1$s</string>
-    <string name="zyro_mod_install_failed">Mod installation failed</string>
+    <string name="zyro_mod_installed">Installed into %1$s</string>
+    <string name="zyro_mod_install_failed">Installation failed</string>
     <string name="zyro_no_instance_for_mod">Create and select an instance first</string>
     <string name="zyro_my_mods">My Mods</string>
     <string name="zyro_manage_packs">Manage packs</string>
