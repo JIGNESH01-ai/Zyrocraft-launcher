@@ -48,18 +48,18 @@ public class WorldsFragment extends Fragment {
     private TextView mStatus;
 
     public WorldsFragment() {
-        super(R.layout.fragment_zyro_worlds);
+        super(R.layout.fragment_rc_worlds);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        mStatus = view.findViewById(R.id.zyro_worlds_status);
-        RecyclerView list = view.findViewById(R.id.zyro_worlds_list);
+        mStatus = view.findViewById(R.id.rc_worlds_status);
+        RecyclerView list = view.findViewById(R.id.rc_worlds_list);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         mAdapter = new WorldAdapter();
         list.setAdapter(mAdapter);
 
-        ImageButton refresh = view.findViewById(R.id.zyro_worlds_refresh);
+        ImageButton refresh = view.findViewById(R.id.rc_worlds_refresh);
         refresh.setOnClickListener(v -> reload());
 
         reload();
@@ -82,7 +82,7 @@ public class WorldsFragment extends Fragment {
         if (mAdapter != null) mAdapter.notifyDataSetChanged();
         if (mStatus != null) {
             mStatus.setVisibility(mWorlds.isEmpty() ? View.VISIBLE : View.GONE);
-            mStatus.setText(R.string.zyro_worlds_empty);
+            mStatus.setText(R.string.rc_worlds_empty);
         }
     }
 
@@ -94,9 +94,9 @@ public class WorldsFragment extends Fragment {
 
     private void confirmDelete(File world) {
         new AlertDialog.Builder(requireContext())
-                .setTitle(R.string.zyro_world_delete_title)
-                .setMessage(getString(R.string.zyro_world_delete_message, world.getName()))
-                .setPositiveButton(R.string.zyro_world_delete, (dialog, which) ->
+                .setTitle(R.string.rc_world_delete_title)
+                .setMessage(getString(R.string.rc_world_delete_message, world.getName()))
+                .setPositiveButton(R.string.rc_world_delete, (dialog, which) ->
                         PojavApplication.sExecutorService.execute(() -> {
                             boolean deleted;
                             try {
@@ -109,8 +109,8 @@ public class WorldsFragment extends Fragment {
                             Tools.runOnUiThread(() -> {
                                 if (!isAdded()) return;
                                 Toast.makeText(requireContext(), finalDeleted
-                                        ? R.string.zyro_world_deleted
-                                        : R.string.zyro_world_delete_failed, Toast.LENGTH_SHORT).show();
+                                        ? R.string.rc_world_deleted
+                                        : R.string.rc_world_delete_failed, Toast.LENGTH_SHORT).show();
                                 reload();
                             });
                         }))
@@ -124,7 +124,7 @@ public class WorldsFragment extends Fragment {
         @Override
         public WorldHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_zyro_world, parent, false);
+                    .inflate(R.layout.item_rc_world, parent, false);
             return new WorldHolder(view);
         }
 

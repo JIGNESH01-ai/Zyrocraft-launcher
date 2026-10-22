@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:paddingHorizontal="@dimen/padding_heavy">
+
+    <TextView
+        android:id="@+id/rc_worlds_title"
+        style="@style/RcTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_heavy"
+        android:text="@string/rc_tab_worlds"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/rc_worlds_subtitle"
+        style="@style/RcSubtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/rc_worlds_subtitle"
+        app:layout_constraintEnd_toStartOf="@id/rc_worlds_refresh"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rc_worlds_title"/>
+
+    <ImageButton
+        android:id="@+id/rc_worlds_refresh"
+        android:layout_width="@dimen/_34sdp"
+        android:layout_height="@dimen/_34sdp"
+        android:background="@drawable/rc_btn_secondary"
+        android:contentDescription="@string/rc_worlds_refresh"
+        android:padding="@dimen/padding_moderate"
+        android:src="@drawable/ic_rc_refresh"
+        app:layout_constraintBottom_toBottomOf="@id/rc_worlds_subtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/rc_worlds_title"
+        app:tint="@color/rc_neon"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_worlds_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/padding_moderate"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/padding_large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rc_worlds_subtitle"/>
+
+    <TextView
+        android:id="@+id/rc_worlds_status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/rc_text_secondary"
+        android:textSize="@dimen/_11ssp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/rc_worlds_list"
+        app:layout_constraintEnd_toEndOf="@id/rc_worlds_list"
+        app:layout_constraintStart_toStartOf="@id/rc_worlds_list"
+        app:layout_constraintTop_toTopOf="@id/rc_worlds_list"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

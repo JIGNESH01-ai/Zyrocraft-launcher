@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:paddingHorizontal="@dimen/padding_heavy">
+
+    <TextView
+        android:id="@+id/rc_downloads_title"
+        style="@style/RcTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_heavy"
+        android:text="@string/rc_downloads"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/rc_view_downloads"
+        app:layout_constraintTop_toBottomOf="@id/rc_downloads_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/RcSubtitle"/>
+
+    <HorizontalScrollView
+        android:id="@+id/rc_downloads_tabs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_heavy"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@id/rc_downloads_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button android:id="@+id/tab_in_progress" style="@style/RcChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/rc_tab_in_progress"/>
+            <Button android:id="@+id/tab_completed" style="@style/RcChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/rc_tab_completed"/>
+            <Button android:id="@+id/tab_failed" style="@style/RcChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/rc_tab_failed"/>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_downloads_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/rc_downloads_tabs"
+        app:layout_constraintBottom_toTopOf="@id/rc_downloads_note"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/rc_downloads_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/rc_text_secondary"
+        android:textSize="@dimen/_12ssp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/rc_downloads_list"
+        app:layout_constraintBottom_toBottomOf="@id/rc_downloads_list"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/rc_downloads_note"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/padding_medium"
+        android:background="@drawable/rc_panel_secondary"
+        android:padding="@dimen/padding_heavy"
+        android:text="@string/rc_downloads_note"
+        android:textColor="@color/rc_text_secondary"
+        android:textSize="@dimen/_9ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

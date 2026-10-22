@@ -29,7 +29,7 @@ def getVersionName = {
     }else {
         def branchName = currentBranch.getName()
         def commitAbbreviation = latestCommit.abbreviatedId
-        return "zyro-${dateToday}-${commitAbbreviation}"
+        return "rc-${dateToday}-${commitAbbreviation}"
     }
 }
 
@@ -124,8 +124,8 @@ android {
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.customDebug
-            resValue "string", "app_name", "ZYROCRAFT Launcher (Debug)"
-            resValue "string", "app_short_name", "ZYROCRAFT (Debug)"
+            resValue "string", "app_name", "RC Launcher (Debug)"
+            resValue "string", "app_short_name", "RC (Debug)"
             resValue 'string', 'application_package', 'net.kdt.pojavlaunch.debug'
             resValue 'string', 'storageProviderAuthorities', 'net.kdt.pojavlaunch.scoped.gamefolder.debug'
         }
@@ -145,8 +145,8 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.customRelease
-            resValue "string", "app_name", "ZYROCRAFT Launcher - Minecraft Java Edition"
-            resValue "string", "app_short_name", "ZYROCRAFT Launcher"
+            resValue "string", "app_name", "RC Launcher - Minecraft Java Edition"
+            resValue "string", "app_short_name", "RC Launcher"
             resValue 'string', 'application_package', 'net.kdt.pojavlaunch'
             resValue 'string', 'storageProviderAuthorities', 'net.kdt.pojavlaunch.scoped.gamefolder'
         }
@@ -159,8 +159,8 @@ android {
             initWith release
             signingConfig signingConfigs.customDebug // WIP, changeme
             applicationIdSuffix '.pub'
-            resValue "string", "app_name", "ZYROCRAFT Launcher (Nightly)"
-            resValue "string", "app_short_name", "ZYROCRAFT (Nightly)"
+            resValue "string", "app_name", "RC Launcher (Nightly)"
+            resValue "string", "app_short_name", "RC (Nightly)"
             resValue 'string', 'application_package', 'net.kdt.pojavlaunch.pub'
             resValue 'string', 'storageProviderAuthorities', 'net.kdt.pojavlaunch.pub.scoped.gamefolder'
             matchingFallbacks += List.of("release")

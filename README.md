@@ -1,10 +1,10 @@
-<h1 align="center">PojavLauncher (a.k.a. Pojav Reborn)</h1>
+<h1 align="center">RC Launcher</h1>
 
 <a href="./README_RU.md">Readme на русском</a>
 
 <a href="./README_BN.md">Readme বাংলা ভাষায়</a>
 
-<img src="https://github.com/PojavLauncherTeam/PojavLauncher/blob/v3_openjdk/app_pojavlauncher/src/main/assets/pojavlauncher.png" align="left" width="130" height="150" alt="PojavLauncher logo">
+<img src="./app_pojavlauncher/src/main/res/drawable-nodpi/rc_logo.png" align="left" width="150" height="150" alt="RC Launcher logo">
 
 [![Android CI](https://github.com/TeamPojavLauncher/PojavLauncher/workflows/Android%20CI/badge.svg)](https://github.com/TeamPojavLauncher/PojavLauncher/actions)
 [![Github commit activity](https://img.shields.io/github/commit-activity/m/TeamPojavLauncher/PojavLauncher.svg?style=flat)](https://github.com/TeamPojavLauncher/PojavLauncher/graphs/commit-activity)
@@ -13,9 +13,11 @@
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue)](https://github.com/PojavLauncherTeam/PojavLauncher/blob/v3_openjdk/LICENSE)
 [![Twitter Follow](https://img.shields.io/twitter/follow/PLaunchTeam.svg?style=social)](https://x.com/PLaunchTeam)
 
-*From [Boardwalk](https://github.com/zhuowei/Boardwalk)'s ashes here comes PojavLauncher!*
+RC Launcher is an Android launcher for Minecraft: Java Edition, built on the open-source
+[PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher) project.
 
-PojavLauncher is a launcher that allows you to play Minecraft: Java Edition on your Android and [iOS](https://github.com/PojavLauncherTeam/PojavLauncher_iOS) devices.
+RC Launcher runs Minecraft: Java Edition on your Android device with its own card-based
+interface, mod/pack browsing through CurseForge and Modrinth, and a tabbed settings screen.
 
 For more details, check out our [wiki](https://pojavlauncher.app/)!
 

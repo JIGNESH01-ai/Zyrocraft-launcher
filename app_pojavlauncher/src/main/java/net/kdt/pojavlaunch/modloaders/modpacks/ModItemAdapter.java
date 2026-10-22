@@ -181,7 +181,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<ModItemAdapter.ViewHold
             mTitleView.setText(item.title);
             mDescriptionView.setText(item.description);
             mSourceView.setText(item.apiSource == Constants.SOURCE_CURSEFORGE
-                    ? R.string.zyro_source_curseforge : R.string.zyro_source_modrinth);
+                    ? R.string.rc_source_curseforge : R.string.rc_source_modrinth);
 
             if (item.downloads > 0) {
                 mDownloadsView.setVisibility(View.VISIBLE);
@@ -199,10 +199,10 @@ public class ModItemAdapter extends RecyclerView.Adapter<ModItemAdapter.ViewHold
             Context context = mFavoriteView.getContext();
             boolean favorite = ModFavorites.contains(context, mItem);
             mFavoriteView.setImageResource(favorite
-                    ? R.drawable.ic_zyro_heart : R.drawable.ic_zyro_heart_outline);
+                    ? R.drawable.ic_rc_heart : R.drawable.ic_rc_heart_outline);
             mFavoriteView.setImageTintList(android.content.res.ColorStateList.valueOf(
                     ContextCompat.getColor(context, favorite
-                            ? R.color.zyro_purple : R.color.zyro_text_secondary)));
+                            ? R.color.rc_purple : R.color.rc_text_secondary)));
         }
 
         private void toggleFavorite() {
@@ -236,7 +236,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<ModItemAdapter.ViewHold
             AlertDialog dialog = new AlertDialog.Builder(context)
                     .setTitle(mItem.title)
                     .setView(content)
-                    .setPositiveButton(R.string.zyro_install, null)
+                    .setPositiveButton(R.string.rc_install, null)
                     .setNegativeButton(android.R.string.cancel, null)
                     .create();
 
@@ -263,7 +263,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<ModItemAdapter.ViewHold
                     if (myFuture.isCancelled() || !dialog.isShowing()) return;
                     detailHolder[0] = detail;
                     if (detail == null || detail.versionNames == null || detail.versionNames.length == 0) {
-                        status.setText(R.string.zyro_versions_unavailable);
+                        status.setText(R.string.rc_versions_unavailable);
                         spinner.setVisibility(View.GONE);
                         return;
                     }

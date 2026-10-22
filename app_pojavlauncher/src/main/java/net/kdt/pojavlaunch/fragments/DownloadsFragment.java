@@ -71,13 +71,13 @@ public class DownloadsFragment extends Fragment {
     };
 
     public DownloadsFragment() {
-        super(R.layout.fragment_zyro_downloads);
+        super(R.layout.fragment_rc_downloads);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        mList = view.findViewById(R.id.zyro_downloads_list);
-        mStatus = view.findViewById(R.id.zyro_downloads_status);
+        mList = view.findViewById(R.id.rc_downloads_list);
+        mStatus = view.findViewById(R.id.rc_downloads_status);
         mList.setLayoutManager(new LinearLayoutManager(getContext()));
         mAdapter = new TaskAdapter();
         mList.setAdapter(mAdapter);
@@ -121,8 +121,8 @@ public class DownloadsFragment extends Fragment {
             Button b = root.findViewById(ids[i]);
             if (b == null) continue;
             boolean selected = tabs[i].equals(mTab);
-            b.setBackgroundResource(selected ? R.drawable.zyro_chip_selected : R.drawable.zyro_chip_bg);
-            b.setTextColor(getResources().getColor(selected ? R.color.zyro_background : R.color.zyro_chip_text));
+            b.setBackgroundResource(selected ? R.drawable.rc_chip_selected : R.drawable.rc_chip_bg);
+            b.setTextColor(getResources().getColor(selected ? R.color.rc_background : R.color.rc_chip_text));
         }
     }
 
@@ -131,10 +131,10 @@ public class DownloadsFragment extends Fragment {
             try {
                 return args != null ? getString(titleRes, args) : getString(titleRes);
             } catch (Exception ignored) {
-                return fallback != null ? fallback : getString(R.string.zyro_downloads);
+                return fallback != null ? fallback : getString(R.string.rc_downloads);
             }
         }
-        return fallback != null ? fallback : getString(R.string.zyro_downloads);
+        return fallback != null ? fallback : getString(R.string.rc_downloads);
     }
 
     private void refreshRows() {
@@ -147,29 +147,29 @@ public class DownloadsFragment extends Fragment {
                     boolean determinate = task.progress >= 0 && task.progress <= 100;
                     mRows.add(new Row(
                             resolveTitle(task.titleRes, task.key, task.args),
-                            determinate ? getString(R.string.zyro_status_downloading)
-                                    : getString(R.string.zyro_status_installing),
+                            determinate ? getString(R.string.rc_status_downloading)
+                                    : getString(R.string.rc_status_installing),
                             Math.max(0, task.progress),
                             determinate,
-                            R.drawable.ic_zyro_download));
+                            R.drawable.ic_rc_download));
                 }
                 break;
             case TAB_DONE:
                 for (TaskHistory.Entry entry : TaskHistory.getCompleted()) {
                     mRows.add(new Row(
                             resolveTitle(entry.titleRes, entry.titleFallback, entry.args),
-                            getString(R.string.zyro_status_done) + " · "
+                            getString(R.string.rc_status_done) + " · "
                                     + format.format(new Date(entry.timestamp)),
-                            100, false, R.drawable.ic_zyro_check));
+                            100, false, R.drawable.ic_rc_check));
                 }
                 break;
             case TAB_FAILED:
                 for (TaskHistory.Entry entry : TaskHistory.getFailed()) {
                     mRows.add(new Row(
-                            getString(R.string.zyro_status_failed),
+                            getString(R.string.rc_status_failed),
                             entry.titleFallback == null ? "" : entry.titleFallback
                                     + " · " + format.format(new Date(entry.timestamp)),
-                            0, false, R.drawable.ic_zyro_warn));
+                            0, false, R.drawable.ic_rc_warn));
                 }
                 break;
         }
@@ -178,9 +178,9 @@ public class DownloadsFragment extends Fragment {
         mStatus.setVisibility(empty ? View.VISIBLE : View.GONE);
         if (empty) {
             switch (mTab) {
-                case TAB_ACTIVE: mStatus.setText(R.string.zyro_downloads_empty); break;
-                case TAB_DONE: mStatus.setText(R.string.zyro_completed_empty); break;
-                default: mStatus.setText(R.string.zyro_failed_empty); break;
+                case TAB_ACTIVE: mStatus.setText(R.string.rc_downloads_empty); break;
+                case TAB_DONE: mStatus.setText(R.string.rc_completed_empty); break;
+                default: mStatus.setText(R.string.rc_failed_empty); break;
             }
         }
     }
@@ -189,7 +189,7 @@ public class DownloadsFragment extends Fragment {
         @NonNull @Override
         public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             return new Holder(LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_zyro_download, parent, false));
+                    .inflate(R.layout.item_rc_download, parent, false));
         }
 
         @Override
@@ -218,11 +218,11 @@ public class DownloadsFragment extends Fragment {
 
             Holder(View v) {
                 super(v);
-                title = v.findViewById(R.id.zyro_download_title);
-                detail = v.findViewById(R.id.zyro_download_detail);
-                percent = v.findViewById(R.id.zyro_download_percent);
-                icon = v.findViewById(R.id.zyro_download_icon);
-                progress = v.findViewById(R.id.zyro_download_progress);
+                title = v.findViewById(R.id.rc_download_title);
+                detail = v.findViewById(R.id.rc_download_detail);
+                percent = v.findViewById(R.id.rc_download_percent);
+                icon = v.findViewById(R.id.rc_download_icon);
+                progress = v.findViewById(R.id.rc_download_progress);
             }
         }
     }

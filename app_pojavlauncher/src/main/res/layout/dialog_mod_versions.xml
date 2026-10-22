@@ -11,8 +11,8 @@
         android:id="@+id/mod_dialog_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/zyro_loading_versions"
-        android:textColor="@color/zyro_text_secondary"
+        android:text="@string/rc_loading_versions"
+        android:textColor="@color/rc_text_secondary"
         android:textSize="@dimen/_11ssp"/>
 
     <Spinner

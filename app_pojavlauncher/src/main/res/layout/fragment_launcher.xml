@@ -35,15 +35,15 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					android:scaleType="centerCrop"
-					android:src="@drawable/zyro_hero_bg"
-					android:background="@drawable/zyro_hero_round"
+					android:src="@drawable/rc_hero_bg"
+					android:background="@drawable/rc_hero_round"
 					android:clipToOutline="true"
-					android:contentDescription="@string/zyro_tagline"/>
+					android:contentDescription="@string/rc_tagline"/>
 
 				<View
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
-					android:background="@drawable/zyro_hero_scrim"/>
+					android:background="@drawable/rc_hero_scrim"/>
 
 				<LinearLayout
 					android:layout_width="match_parent"
@@ -55,8 +55,8 @@
 					<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:text="@string/zyro_welcome"
-						android:textColor="@color/zyro_text_secondary"
+						android:text="@string/rc_welcome"
+						android:textColor="@color/rc_text_secondary"
 						android:textSize="@dimen/_12ssp"/>
 
 					<TextView
@@ -64,7 +64,7 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:text="Player"
-						android:textColor="@color/zyro_text_primary"
+						android:textColor="@color/rc_text_primary"
 						android:textSize="@dimen/_22ssp"
 						android:textStyle="bold"
 						android:fontFamily="@font/noto_sans_bold"
@@ -74,8 +74,8 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_marginTop="@dimen/padding_small"
-						android:text="@string/zyro_tagline"
-						android:textColor="@color/zyro_neon"
+						android:text="@string/rc_tagline"
+						android:textColor="@color/rc_neon"
 						android:textSize="@dimen/_11ssp"/>
 				</LinearLayout>
 			</FrameLayout>
@@ -86,7 +86,7 @@
 				android:layout_height="wrap_content"
 				android:layout_marginTop="@dimen/padding_heavy"
 				android:orientation="vertical"
-				android:background="@drawable/zyro_panel_ripple"
+				android:background="@drawable/rc_panel_ripple"
 				android:padding="@dimen/padding_heavy">
 
 				<LinearLayout
@@ -99,10 +99,10 @@
 						android:id="@+id/home_instance_avatar"
 						android:layout_width="@dimen/_44sdp"
 						android:layout_height="@dimen/_44sdp"
-						android:background="@drawable/zyro_avatar_frame"
+						android:background="@drawable/rc_avatar_frame"
 						android:padding="@dimen/padding_small"
 						android:scaleType="fitCenter"
-						android:contentDescription="@string/zyro_instances"
+						android:contentDescription="@string/rc_instances"
 						tools:src="@mipmap/ic_launcher"/>
 
 					<LinearLayout
@@ -116,10 +116,10 @@
 							android:id="@+id/home_instance_name"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
-							android:textColor="@color/zyro_text_primary"
+							android:textColor="@color/rc_text_primary"
 							android:textSize="@dimen/_14ssp"
 							android:textStyle="bold"
-							android:text="@string/zyro_filter_all"
+							android:text="@string/rc_filter_all"
 							tools:text="Default"/>
 
 						<LinearLayout
@@ -131,29 +131,29 @@
 							<View
 								android:layout_width="@dimen/_6sdp"
 								android:layout_height="@dimen/_6sdp"
-								android:background="@drawable/zyro_badge_bg"/>
+								android:background="@drawable/rc_badge_bg"/>
 
 							<TextView
 								android:id="@+id/home_instance_status"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"
 								android:layout_marginStart="@dimen/padding_medium"
-								android:textColor="@color/zyro_text_secondary"
+								android:textColor="@color/rc_text_secondary"
 								android:textSize="@dimen/_10ssp"
-								android:text="@string/zyro_installed"
+								android:text="@string/rc_installed"
 								tools:text="Offline Profile"/>
 						</LinearLayout>
 					</LinearLayout>
 
 					<Button
 						android:id="@+id/change_instance_button"
-						style="@style/ZyroButton.Secondary"
+						style="@style/RcButton.Secondary"
 						android:layout_width="wrap_content"
 						android:layout_height="@dimen/_32sdp"
 						android:minWidth="0dp"
 						android:minHeight="0dp"
 						android:paddingHorizontal="@dimen/padding_heavy"
-						android:text="@string/zyro_change"
+						android:text="@string/rc_change"
 						android:textSize="@dimen/_10ssp"/>
 				</LinearLayout>
 
@@ -161,7 +161,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="@dimen/_1sdp"
 					android:layout_marginVertical="@dimen/padding_heavy"
-					android:background="@color/zyro_stroke"/>
+					android:background="@color/rc_stroke"/>
 
 				<LinearLayout
 					android:layout_width="match_parent"
@@ -172,9 +172,9 @@
 					<ImageView
 						android:layout_width="@dimen/_16sdp"
 						android:layout_height="@dimen/_16sdp"
-						android:src="@drawable/ic_zyro_blocks"
-						app:tint="@color/zyro_purple"
-						android:contentDescription="@string/zyro_versions"/>
+						android:src="@drawable/ic_rc_blocks"
+						app:tint="@color/rc_purple"
+						android:contentDescription="@string/rc_versions"/>
 
 					<TextView
 						android:id="@+id/home_instance_version_text"
@@ -182,7 +182,7 @@
 						android:layout_height="wrap_content"
 						android:layout_weight="1"
 						android:layout_marginStart="@dimen/padding_medium"
-						android:textColor="@color/zyro_text_primary"
+						android:textColor="@color/rc_text_primary"
 						android:textSize="@dimen/_11ssp"
 						tools:text="Minecraft 1.20.4"/>
 
@@ -190,12 +190,12 @@
 						android:id="@+id/home_instance_loader_text"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:background="@drawable/zyro_badge_purple"
+						android:background="@drawable/rc_badge_purple"
 						android:paddingHorizontal="@dimen/padding_heavy"
 						android:paddingVertical="@dimen/padding_small"
-						android:textColor="@color/zyro_purple"
+						android:textColor="@color/rc_purple"
 						android:textSize="@dimen/_9ssp"
-						android:text="@string/zyro_filter_vanilla"
+						android:text="@string/rc_filter_vanilla"
 						tools:text="Forge 49.1.0"/>
 				</LinearLayout>
 			</LinearLayout>
@@ -206,8 +206,8 @@
 				android:layout_height="wrap_content"
 				android:layout_marginTop="@dimen/padding_extra_large"
 				android:layout_marginBottom="@dimen/padding_heavy"
-				android:text="@string/zyro_quick_access"
-				android:textColor="@color/zyro_text_primary"
+				android:text="@string/rc_quick_access"
+				android:textColor="@color/rc_text_primary"
 				android:textSize="@dimen/_15ssp"
 				android:textStyle="bold"
 				android:fontFamily="@font/noto_sans_bold"/>
@@ -224,22 +224,22 @@
 					android:layout_weight="1"
 					android:layout_marginEnd="@dimen/padding_medium"
 					android:orientation="vertical"
-					android:background="@drawable/zyro_panel_ripple"
+					android:background="@drawable/rc_panel_ripple"
 					android:padding="@dimen/padding_heavy">
 
 					<ImageView
 						android:layout_width="@dimen/_24sdp"
 						android:layout_height="@dimen/_24sdp"
-						android:src="@drawable/ic_zyro_cube"
-						app:tint="@color/zyro_neon"
-						android:contentDescription="@string/zyro_instances"/>
+						android:src="@drawable/ic_rc_cube"
+						app:tint="@color/rc_neon"
+						android:contentDescription="@string/rc_instances"/>
 
 					<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_marginTop="@dimen/padding_medium"
-						android:text="@string/zyro_instances"
-						android:textColor="@color/zyro_text_primary"
+						android:text="@string/rc_instances"
+						android:textColor="@color/rc_text_primary"
 						android:textSize="@dimen/_12ssp"
 						android:textStyle="bold"/>
 
@@ -247,8 +247,8 @@
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_marginTop="@dimen/padding_tiny"
-						android:text="@string/zyro_manage_instances"
-						android:textColor="@color/zyro_text_secondary"
+						android:text="@string/rc_manage_instances"
+						android:textColor="@color/rc_text_secondary"
 						android:textSize="@dimen/_9ssp"
 						android:maxLines="2"
 						android:ellipsize="end"/>
@@ -261,22 +261,22 @@
 					android:layout_weight="1"
 					android:layout_marginStart="@dimen/padding_medium"
 					android:orientation="vertical"
-					android:background="@drawable/zyro_panel_ripple"
+					android:background="@drawable/rc_panel_ripple"
 					android:padding="@dimen/padding_heavy">
 
 					<ImageView
 						android:layout_width="@dimen/_24sdp"
 						android:layout_height="@dimen/_24sdp"
-						android:src="@drawable/ic_zyro_puzzle"
-						app:tint="@color/zyro_purple"
-						android:contentDescription="@string/zyro_mods"/>
+						android:src="@drawable/ic_rc_puzzle"
+						app:tint="@color/rc_purple"
+						android:contentDescription="@string/rc_mods"/>
 
 					<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_marginTop="@dimen/padding_medium"
-						android:text="@string/zyro_mods"
-						android:textColor="@color/zyro_text_primary"
+						android:text="@string/rc_mods"
+						android:textColor="@color/rc_text_primary"
 						android:textSize="@dimen/_12ssp"
 						android:textStyle="bold"/>
 
@@ -284,8 +284,8 @@
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_marginTop="@dimen/padding_tiny"
-						android:text="@string/zyro_browse_mods"
-						android:textColor="@color/zyro_text_secondary"
+						android:text="@string/rc_browse_mods"
+						android:textColor="@color/rc_text_secondary"
 						android:textSize="@dimen/_9ssp"
 						android:maxLines="2"
 						android:ellipsize="end"/>
@@ -305,22 +305,22 @@
 					android:layout_weight="1"
 					android:layout_marginEnd="@dimen/padding_medium"
 					android:orientation="vertical"
-					android:background="@drawable/zyro_panel_ripple"
+					android:background="@drawable/rc_panel_ripple"
 					android:padding="@dimen/padding_heavy">
 
 					<ImageView
 						android:layout_width="@dimen/_24sdp"
 						android:layout_height="@dimen/_24sdp"
-						android:src="@drawable/ic_zyro_layers"
-						app:tint="@color/zyro_neon"
-						android:contentDescription="@string/zyro_modpacks"/>
+						android:src="@drawable/ic_rc_layers"
+						app:tint="@color/rc_neon"
+						android:contentDescription="@string/rc_modpacks"/>
 
 					<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_marginTop="@dimen/padding_medium"
-						android:text="@string/zyro_modpacks"
-						android:textColor="@color/zyro_text_primary"
+						android:text="@string/rc_modpacks"
+						android:textColor="@color/rc_text_primary"
 						android:textSize="@dimen/_12ssp"
 						android:textStyle="bold"/>
 
@@ -328,8 +328,8 @@
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_marginTop="@dimen/padding_tiny"
-						android:text="@string/zyro_play_modpacks"
-						android:textColor="@color/zyro_text_secondary"
+						android:text="@string/rc_play_modpacks"
+						android:textColor="@color/rc_text_secondary"
 						android:textSize="@dimen/_9ssp"
 						android:maxLines="2"
 						android:ellipsize="end"/>
@@ -342,22 +342,22 @@
 					android:layout_weight="1"
 					android:layout_marginStart="@dimen/padding_medium"
 					android:orientation="vertical"
-					android:background="@drawable/zyro_panel_ripple"
+					android:background="@drawable/rc_panel_ripple"
 					android:padding="@dimen/padding_heavy">
 
 					<ImageView
 						android:layout_width="@dimen/_24sdp"
 						android:layout_height="@dimen/_24sdp"
-						android:src="@drawable/ic_zyro_image"
-						app:tint="@color/zyro_purple"
-						android:contentDescription="@string/zyro_resource_packs"/>
+						android:src="@drawable/ic_rc_image"
+						app:tint="@color/rc_purple"
+						android:contentDescription="@string/rc_resource_packs"/>
 
 					<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_marginTop="@dimen/padding_medium"
-						android:text="@string/zyro_resource_packs"
-						android:textColor="@color/zyro_text_primary"
+						android:text="@string/rc_resource_packs"
+						android:textColor="@color/rc_text_primary"
 						android:textSize="@dimen/_12ssp"
 						android:textStyle="bold"/>
 
@@ -365,8 +365,8 @@
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_marginTop="@dimen/padding_tiny"
-						android:text="@string/zyro_customize_world"
-						android:textColor="@color/zyro_text_secondary"
+						android:text="@string/rc_customize_world"
+						android:textColor="@color/rc_text_secondary"
 						android:textSize="@dimen/_9ssp"
 						android:maxLines="2"
 						android:ellipsize="end"/>
@@ -386,22 +386,22 @@
 					android:layout_weight="1"
 					android:layout_marginEnd="@dimen/padding_medium"
 					android:orientation="vertical"
-					android:background="@drawable/zyro_panel_ripple"
+					android:background="@drawable/rc_panel_ripple"
 					android:padding="@dimen/padding_heavy">
 
 					<ImageView
 						android:layout_width="@dimen/_24sdp"
 						android:layout_height="@dimen/_24sdp"
-						android:src="@drawable/ic_zyro_sparkle"
-						app:tint="@color/zyro_neon"
-						android:contentDescription="@string/zyro_shaders"/>
+						android:src="@drawable/ic_rc_sparkle"
+						app:tint="@color/rc_neon"
+						android:contentDescription="@string/rc_shaders"/>
 
 					<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_marginTop="@dimen/padding_medium"
-						android:text="@string/zyro_shaders"
-						android:textColor="@color/zyro_text_primary"
+						android:text="@string/rc_shaders"
+						android:textColor="@color/rc_text_primary"
 						android:textSize="@dimen/_12ssp"
 						android:textStyle="bold"/>
 
@@ -409,8 +409,8 @@
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_marginTop="@dimen/padding_tiny"
-						android:text="@string/zyro_enhance_visuals"
-						android:textColor="@color/zyro_text_secondary"
+						android:text="@string/rc_enhance_visuals"
+						android:textColor="@color/rc_text_secondary"
 						android:textSize="@dimen/_9ssp"
 						android:maxLines="2"
 						android:ellipsize="end"/>
@@ -423,22 +423,22 @@
 					android:layout_weight="1"
 					android:layout_marginStart="@dimen/padding_medium"
 					android:orientation="vertical"
-					android:background="@drawable/zyro_panel_ripple"
+					android:background="@drawable/rc_panel_ripple"
 					android:padding="@dimen/padding_heavy">
 
 					<ImageView
 						android:layout_width="@dimen/_24sdp"
 						android:layout_height="@dimen/_24sdp"
-						android:src="@drawable/ic_zyro_download"
-						app:tint="@color/zyro_purple"
-						android:contentDescription="@string/zyro_downloads"/>
+						android:src="@drawable/ic_rc_download"
+						app:tint="@color/rc_purple"
+						android:contentDescription="@string/rc_downloads"/>
 
 					<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:layout_marginTop="@dimen/padding_medium"
-						android:text="@string/zyro_downloads"
-						android:textColor="@color/zyro_text_primary"
+						android:text="@string/rc_downloads"
+						android:textColor="@color/rc_text_primary"
 						android:textSize="@dimen/_12ssp"
 						android:textStyle="bold"/>
 
@@ -446,8 +446,8 @@
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_marginTop="@dimen/padding_tiny"
-						android:text="@string/zyro_view_downloads"
-						android:textColor="@color/zyro_text_secondary"
+						android:text="@string/rc_view_downloads"
+						android:textColor="@color/rc_text_secondary"
 						android:textSize="@dimen/_9ssp"
 						android:maxLines="2"
 						android:ellipsize="end"/>
@@ -460,8 +460,8 @@
 				android:layout_height="wrap_content"
 				android:layout_marginTop="@dimen/padding_extra_large"
 				android:layout_marginBottom="@dimen/padding_heavy"
-				android:text="@string/zyro_utilities"
-				android:textColor="@color/zyro_text_primary"
+				android:text="@string/rc_utilities"
+				android:textColor="@color/rc_text_primary"
 				android:textSize="@dimen/_15ssp"
 				android:textStyle="bold"
 				android:fontFamily="@font/noto_sans_bold"/>
@@ -567,7 +567,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
-		android:background="@drawable/zyro_panel_accent"
+		android:background="@drawable/rc_panel_accent"
 		android:paddingHorizontal="@dimen/padding_heavy"
 		android:paddingTop="@dimen/padding_heavy"
 		android:paddingBottom="@dimen/padding_large"
@@ -582,9 +582,9 @@
 			<ImageView
 				android:layout_width="@dimen/_18sdp"
 				android:layout_height="@dimen/_18sdp"
-				android:src="@drawable/ic_zyro_cube"
-				app:tint="@color/zyro_neon"
-				android:contentDescription="@string/zyro_instances"/>
+				android:src="@drawable/ic_rc_cube"
+				app:tint="@color/rc_neon"
+				android:contentDescription="@string/rc_instances"/>
 
 			<com.kdt.mcgui.mcVersionSpinner
 				android:id="@+id/mc_version_spinner"
@@ -601,10 +601,10 @@
 				android:id="@+id/edit_profile_button"
 				android:layout_width="@dimen/_44sdp"
 				android:layout_height="@dimen/_44sdp"
-				android:background="@drawable/zyro_btn_secondary"
+				android:background="@drawable/rc_btn_secondary"
 				android:padding="@dimen/padding_heavy"
 				android:src="@drawable/ic_px_edit"
-				android:contentDescription="@string/zyro_settings"/>
+				android:contentDescription="@string/rc_settings"/>
 		</LinearLayout>
 
 		<com.kdt.mcgui.MineButton

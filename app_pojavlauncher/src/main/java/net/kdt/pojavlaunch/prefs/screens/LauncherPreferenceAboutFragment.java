@@ -16,7 +16,7 @@ public class LauncherPreferenceAboutFragment extends LauncherPreferenceFragment 
 
         Preference version = findPreference("about_version");
         if (version != null) {
-            version.setSummary(getString(R.string.zyro_about_text, BuildConfig.VERSION_NAME));
+            version.setSummary(getString(R.string.rc_about_text, BuildConfig.VERSION_NAME));
         }
         Preference source = findPreference("about_source");
         if (source != null) {

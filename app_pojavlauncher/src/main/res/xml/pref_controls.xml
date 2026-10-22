@@ -4,23 +4,23 @@
 
 
 
-    <net.kdt.pojavlaunch.prefs.ZyroActionPreference
+    <net.kdt.pojavlaunch.prefs.RcActionPreference
         android:key="edit_controls"
         android:title="@string/preference_edit_controls_title"
         android:summary="@string/preference_edit_controls_summary"
-        app2:zyroActionText="@string/zyro_action_open"/>
+        app2:rcActionText="@string/rc_action_open"/>
 
     <PreferenceCategory
         android:title="@string/preference_category_gestures">
 
-        <net.kdt.pojavlaunch.prefs.ZyroSwitchPreference
+        <net.kdt.pojavlaunch.prefs.RcSwitchPreference
             android:defaultValue="false"
             android:icon="@drawable/ic_px_nogestures"
             android:key="disableGestures"
             android:summary="@string/mcl_disable_gestures_subtitle"
             android:title="@string/mcl_disable_gestures" />
 
-        <net.kdt.pojavlaunch.prefs.ZyroSwitchPreference
+        <net.kdt.pojavlaunch.prefs.RcSwitchPreference
             android:defaultValue="false"
             android:key="disableDoubleTap"
             android:summary="@string/mcl_disable_swap_hand_subtitle"
@@ -66,7 +66,7 @@
             app2:seekBarIncrement="@integer/button_scale_seekbar_increment"
             android:icon="@drawable/ic_mat_opacity"
             />
-        <net.kdt.pojavlaunch.prefs.ZyroSwitchPreference
+        <net.kdt.pojavlaunch.prefs.RcSwitchPreference
             android:key="buttonAllCaps"
             android:defaultValue="true"
             android:title="@string/mcl_setting_title_buttonallcaps"
@@ -102,7 +102,7 @@
             android:max="@integer/mouse_speed_seekbar_max"
             app2:seekBarIncrement="@integer/mouse_speed_seekbar_increment"
             app2:showSeekBarValue="true" />
-        <net.kdt.pojavlaunch.prefs.ZyroSwitchPreference
+        <net.kdt.pojavlaunch.prefs.RcSwitchPreference
             android:key="mouse_start"
             android:title="@string/preference_mouse_start_title"
             android:summary="@string/preference_mouse_start_description"
@@ -113,7 +113,7 @@
         android:key="gyroCategory"
         android:title="@string/preference_category_gyro_controls"
         >
-        <net.kdt.pojavlaunch.prefs.ZyroSwitchPreference
+        <net.kdt.pojavlaunch.prefs.RcSwitchPreference
             android:key="enableGyro"
             android:title="@string/preference_enable_gyro_title"
             android:summary="@string/preference_enable_gyro_description"
@@ -137,19 +137,19 @@
             app2:selectable="false"
             app2:showSeekBarValue="true"
             android:icon="@drawable/ic_mat_gyro_samplerate"/>
-        <net.kdt.pojavlaunch.prefs.ZyroSwitchPreference
+        <net.kdt.pojavlaunch.prefs.RcSwitchPreference
             android:key="gyroSmoothing"
             android:title="@string/preference_gyro_smoothing_title"
             android:summary="@string/preference_gyro_smoothing_description"
             android:defaultValue="true"
             android:icon="@drawable/ic_mat_gyro_smoothing"
             />
-        <net.kdt.pojavlaunch.prefs.ZyroSwitchPreference
+        <net.kdt.pojavlaunch.prefs.RcSwitchPreference
             android:key="gyroInvertX"
             android:title="@string/preference_gyro_invert_x_axis"
             android:summary="@string/preference_gyro_invert_x_axis_description"
             android:icon="@drawable/ic_mat_gyro_invert_x"/>
-        <net.kdt.pojavlaunch.prefs.ZyroSwitchPreference
+        <net.kdt.pojavlaunch.prefs.RcSwitchPreference
             android:key="gyroInvertY"
             android:title="@string/preference_gyro_invert_y_axis"
             android:summary="@string/preference_gyro_invert_y_axis_description"
@@ -158,7 +158,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/preference_category_keyboard">
-        <net.kdt.pojavlaunch.prefs.ZyroSwitchPreference
+        <net.kdt.pojavlaunch.prefs.RcSwitchPreference
             android:key="keyboardAutoPanning"
             android:title="@string/preference_keyboard_autopan_title"
             android:summary="@string/preference_keyboard_autopan_summary"

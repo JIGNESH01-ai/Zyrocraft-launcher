@@ -3,15 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/zyro_root"
+    android:id="@+id/rc_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/zyro_page_bg">
+    android:background="@drawable/rc_page_bg">
 
     <!-- Navigation lives on the left: one straight vertical bar of icons -->
     <include
-        layout="@layout/view_zyro_nav_rail"
-        android:layout_width="@dimen/zyro_nav_width"
+        layout="@layout/view_rc_nav_rail"
+        android:layout_width="@dimen/rc_nav_width"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,7 +20,7 @@
     <!-- Browse header: the discover tab bar. Only the browse screens show it, every
          other screen gets the full height and the header fades out. -->
     <LinearLayout
-        android:id="@+id/zyro_top_bar"
+        android:id="@+id/rc_top_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:alpha="0"
@@ -32,11 +32,11 @@
         android:paddingBottom="@dimen/padding_moderate"
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/zyro_nav_rail"
+        app:layout_constraintStart_toEndOf="@id/rc_nav_rail"
         app:layout_constraintEnd_toEndOf="parent">
 
         <include
-            layout="@layout/view_zyro_browse_tabs"
+            layout="@layout/view_rc_browse_tabs"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
@@ -49,18 +49,18 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/progress_layout"
-        app:layout_constraintTop_toBottomOf="@+id/zyro_top_bar"
-        app:layout_constraintStart_toEndOf="@id/zyro_nav_rail"
+        app:layout_constraintTop_toBottomOf="@+id/rc_top_bar"
+        app:layout_constraintStart_toEndOf="@id/rc_nav_rail"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <com.kdt.mcgui.ProgressLayout
         android:id="@+id/progress_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/zyro_panel_accent"
+        android:background="@drawable/rc_panel_accent"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/zyro_nav_rail"
+        app:layout_constraintStart_toEndOf="@id/rc_nav_rail"
         app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

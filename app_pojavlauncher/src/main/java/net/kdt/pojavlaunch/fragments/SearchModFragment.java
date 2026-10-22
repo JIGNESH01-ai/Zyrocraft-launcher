@@ -76,46 +76,46 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
             "technology", "adventure", "magic", "quests", "optimization",
             "decoration", "worldgen", "food", "storage", "equipment"};
     private static final int[] MOD_CATEGORY_LABELS = {
-            R.string.zyro_cat_tech, R.string.zyro_cat_adventure, R.string.zyro_cat_magic,
-            R.string.zyro_cat_rpg, R.string.zyro_cat_optimization, R.string.zyro_cat_decoration,
-            R.string.zyro_cat_worldgen, R.string.zyro_cat_food, R.string.zyro_cat_storage,
-            R.string.zyro_cat_equipment};
+            R.string.rc_cat_tech, R.string.rc_cat_adventure, R.string.rc_cat_magic,
+            R.string.rc_cat_rpg, R.string.rc_cat_optimization, R.string.rc_cat_decoration,
+            R.string.rc_cat_worldgen, R.string.rc_cat_food, R.string.rc_cat_storage,
+            R.string.rc_cat_equipment};
 
     private static final String[] PACK_CATEGORY_KEYS = {
             "adventure", "combat", "magic", "multiplayer", "optimization", "quests",
             "technology", "kitchen-sink", "light", "sci-fi"};
     private static final int[] PACK_CATEGORY_LABELS = {
-            R.string.zyro_cat_adventure, R.string.zyro_pack_cat_combat, R.string.zyro_cat_magic,
-            R.string.zyro_pack_cat_multiplayer, R.string.zyro_cat_optimization,
-            R.string.zyro_cat_rpg, R.string.zyro_cat_tech, R.string.zyro_pack_cat_kitchensink,
-            R.string.zyro_pack_cat_light, R.string.zyro_pack_cat_scifi};
+            R.string.rc_cat_adventure, R.string.rc_pack_cat_combat, R.string.rc_cat_magic,
+            R.string.rc_pack_cat_multiplayer, R.string.rc_cat_optimization,
+            R.string.rc_cat_rpg, R.string.rc_cat_tech, R.string.rc_pack_cat_kitchensink,
+            R.string.rc_pack_cat_light, R.string.rc_pack_cat_scifi};
 
     private static final String[] RESOURCE_PACK_CATEGORY_KEYS = {
             "textures", "models", "fonts", "audio", "gui", "locale",
             "environment", "blocks", "items", "entities"};
     private static final int[] RESOURCE_PACK_CATEGORY_LABELS = {
-            R.string.zyro_rp_cat_textures, R.string.zyro_rp_cat_models, R.string.zyro_rp_cat_fonts,
-            R.string.zyro_rp_cat_audio, R.string.zyro_rp_cat_gui, R.string.zyro_rp_cat_locale,
-            R.string.zyro_rp_cat_environment, R.string.zyro_rp_cat_blocks,
-            R.string.zyro_rp_cat_items, R.string.zyro_rp_cat_entities};
+            R.string.rc_rp_cat_textures, R.string.rc_rp_cat_models, R.string.rc_rp_cat_fonts,
+            R.string.rc_rp_cat_audio, R.string.rc_rp_cat_gui, R.string.rc_rp_cat_locale,
+            R.string.rc_rp_cat_environment, R.string.rc_rp_cat_blocks,
+            R.string.rc_rp_cat_items, R.string.rc_rp_cat_entities};
 
     private static final String[] SHADER_CATEGORY_KEYS = {
             "realistic", "semi-realistic", "fantasy", "cartoon",
             "vanilla-like", "atmosphere", "blooming", "foliage"};
     private static final int[] SHADER_CATEGORY_LABELS = {
-            R.string.zyro_sh_cat_realistic, R.string.zyro_sh_cat_semirealistic,
-            R.string.zyro_sh_cat_fantasy, R.string.zyro_sh_cat_cartoon,
-            R.string.zyro_sh_cat_vanilla, R.string.zyro_sh_cat_atmosphere,
-            R.string.zyro_sh_cat_blooming, R.string.zyro_sh_cat_foliage};
+            R.string.rc_sh_cat_realistic, R.string.rc_sh_cat_semirealistic,
+            R.string.rc_sh_cat_fantasy, R.string.rc_sh_cat_cartoon,
+            R.string.rc_sh_cat_vanilla, R.string.rc_sh_cat_atmosphere,
+            R.string.rc_sh_cat_blooming, R.string.rc_sh_cat_foliage};
 
     private static final String[] LOADER_KEYS = {"fabric", "forge", "neoforge", "quilt"};
     private static final int[] LOADER_LABELS = {
-            R.string.zyro_loader_fabric, R.string.zyro_loader_forge,
-            R.string.zyro_loader_neoforge, R.string.zyro_loader_quilt};
+            R.string.rc_loader_fabric, R.string.rc_loader_forge,
+            R.string.rc_loader_neoforge, R.string.rc_loader_quilt};
     private static final String[] SORT_KEYS = {"relevance", "downloads", "newest", "updated"};
     private static final int[] SORT_LABELS = {
-            R.string.zyro_sort_relevance, R.string.zyro_sort_downloads,
-            R.string.zyro_sort_newest, R.string.zyro_sort_updated};
+            R.string.rc_sort_relevance, R.string.rc_sort_downloads,
+            R.string.rc_sort_newest, R.string.rc_sort_updated};
 
     private final SearchFilters mFilters = new SearchFilters();
 
@@ -314,7 +314,7 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         mStatusView.setVisibility(View.GONE);
         mTotalResults = totalResults;
         int pages = Math.max(1, (totalResults + PAGE_SIZE - 1) / PAGE_SIZE);
-        mPageIndicator.setText(getString(R.string.zyro_page_indicator, mPage + 1, pages));
+        mPageIndicator.setText(getString(R.string.rc_page_indicator, mPage + 1, pages));
         mPrevPage.setEnabled(mPage > 0);
         mNextPage.setEnabled(mPage + 1 < pages);
         mPrevPage.setAlpha(mPage > 0 ? 1f : 0.35f);
@@ -328,13 +328,13 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         mStatusView.setVisibility(View.VISIBLE);
         if (error == ERROR_NO_RESULTS) {
             mStatusView.setText(mFavoritesMode
-                    ? R.string.zyro_favorites_empty : R.string.search_modpack_no_result);
+                    ? R.string.rc_favorites_empty : R.string.search_modpack_no_result);
         } else {
             mStatusView.setText(mSource == SOURCE_CURSEFORGE
-                    ? R.string.zyro_source_error_curseforge : R.string.search_modpack_error);
+                    ? R.string.rc_source_error_curseforge : R.string.search_modpack_error);
         }
         if (mFavoritesMode) return;
-        mPageIndicator.setText(getString(R.string.zyro_page_indicator, mPage + 1, 1));
+        mPageIndicator.setText(getString(R.string.rc_page_indicator, mPage + 1, 1));
         mPrevPage.setEnabled(false);
         mNextPage.setEnabled(false);
         mPrevPage.setAlpha(0.35f);
@@ -347,7 +347,7 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         mSearchRow.setVisibility(View.VISIBLE);
         mFiltersScroll.setVisibility(View.GONE);
         mPager.setVisibility(View.GONE);
-        mSearchEditText.setHint(R.string.zyro_favorites_title);
+        mSearchEditText.setHint(R.string.rc_favorites_title);
         mProgressBar.setVisibility(View.GONE);
 
         mAllFavorites.clear();
@@ -372,15 +372,15 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         boolean empty = filtered.isEmpty();
         mStatusView.setVisibility(empty ? View.VISIBLE : View.GONE);
         if (empty) mStatusView.setText(needle.isEmpty()
-                ? R.string.zyro_favorites_empty : R.string.search_modpack_no_result);
+                ? R.string.rc_favorites_empty : R.string.search_modpack_no_result);
     }
 
     // ------------------------------------------------------------------ menus
 
     private void showSourceMenu() {
         PopupMenu popup = new PopupMenu(requireContext(), mSourceButton);
-        popup.getMenu().add(0, SOURCE_MODRINTH, 0, R.string.zyro_source_modrinth);
-        popup.getMenu().add(0, SOURCE_CURSEFORGE, 1, R.string.zyro_source_curseforge);
+        popup.getMenu().add(0, SOURCE_MODRINTH, 0, R.string.rc_source_modrinth);
+        popup.getMenu().add(0, SOURCE_CURSEFORGE, 1, R.string.rc_source_curseforge);
         popup.setOnMenuItemClickListener(item -> {
             selectSource(item.getItemId());
             return true;
@@ -410,7 +410,7 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
 
     private void updateSourceLabel() {
         mSourceButton.setText(mSource == SOURCE_CURSEFORGE
-                ? R.string.zyro_source_curseforge : R.string.zyro_source_modrinth);
+                ? R.string.rc_source_curseforge : R.string.rc_source_modrinth);
     }
 
     private void showCategoryMenu() {
@@ -421,8 +421,8 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         String[] keys = modrinthCategoryKeys();
         int[] labels = modrinthCategoryLabels();
         PopupMenu popup = new PopupMenu(requireContext(), mCategoriesButton);
-        popup.getMenu().add(0, 0, 0, getString(R.string.zyro_filter_categories,
-                getString(R.string.zyro_filter_all)));
+        popup.getMenu().add(0, 0, 0, getString(R.string.rc_filter_categories,
+                getString(R.string.rc_filter_all)));
         for (int i = 0; i < keys.length; i++) {
             popup.getMenu().add(0, i + 1, i + 1, getString(labels[i]));
         }
@@ -444,20 +444,20 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
 
     /** CurseForge categories are numeric ids, so they are read from the api */
     private void showCurseforgeCategoryMenu() {
-        Toast.makeText(requireContext(), R.string.zyro_categories_loading, Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireContext(), R.string.rc_categories_loading, Toast.LENGTH_SHORT).show();
         final CurseforgeApi api = CurseforgeApi.create(getString(R.string.curseforge_api_key));
         PojavApplication.sExecutorService.execute(() -> {
             final List<CategoryEntry> categories = api.fetchCategories(mProjectType);
             runOnUiThread(() -> {
                 if (!isAdded() || getView() == null) return;
                 if (categories == null || categories.isEmpty()) {
-                    Toast.makeText(requireContext(), R.string.zyro_source_error_curseforge,
+                    Toast.makeText(requireContext(), R.string.rc_source_error_curseforge,
                             Toast.LENGTH_LONG).show();
                     return;
                 }
                 PopupMenu popup = new PopupMenu(requireContext(), mCategoriesButton);
-                popup.getMenu().add(0, 0, 0, getString(R.string.zyro_filter_categories,
-                        getString(R.string.zyro_filter_all)));
+                popup.getMenu().add(0, 0, 0, getString(R.string.rc_filter_categories,
+                        getString(R.string.rc_filter_all)));
                 for (int i = 0; i < categories.size(); i++) {
                     popup.getMenu().add(0, i + 1, i + 1, categories.get(i).name);
                 }
@@ -503,8 +503,8 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
     private void showLoaderMenu() {
         if (!ProjectType.usesLoader(mProjectType)) return;
         PopupMenu popup = new PopupMenu(requireContext(), mLoaderButton);
-        popup.getMenu().add(0, 0, 0, getString(R.string.zyro_filter_loader,
-                getString(R.string.zyro_filter_all)));
+        popup.getMenu().add(0, 0, 0, getString(R.string.rc_filter_loader,
+                getString(R.string.rc_filter_all)));
         for (int i = 0; i < LOADER_KEYS.length; i++) {
             popup.getMenu().add(0, i + 1, i + 1, getString(LOADER_LABELS[i]));
         }
@@ -534,9 +534,9 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
 
     private void showVersionMenu() {
         PopupMenu popup = new PopupMenu(requireContext(), mMcButton);
-        popup.getMenu().add(0, 0, 0, getString(R.string.zyro_filter_mc,
-                getString(R.string.zyro_filter_all)));
-        popup.getMenu().add(0, 1, 1, getString(R.string.zyro_select_mc_version));
+        popup.getMenu().add(0, 0, 0, getString(R.string.rc_filter_mc,
+                getString(R.string.rc_filter_all)));
+        popup.getMenu().add(0, 1, 1, getString(R.string.rc_select_mc_version));
         popup.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == 0) {
                 mFilters.mcVersion = null;
@@ -555,17 +555,17 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
     }
 
     private void updateFilterLabels() {
-        mCategoriesButton.setText(getString(R.string.zyro_filter_categories,
-                mCategoryLabel == null ? getString(R.string.zyro_filter_all) : mCategoryLabel));
-        mMcButton.setText(getString(R.string.zyro_filter_mc,
-                mFilters.mcVersion == null ? getString(R.string.zyro_filter_all)
+        mCategoriesButton.setText(getString(R.string.rc_filter_categories,
+                mCategoryLabel == null ? getString(R.string.rc_filter_all) : mCategoryLabel));
+        mMcButton.setText(getString(R.string.rc_filter_mc,
+                mFilters.mcVersion == null ? getString(R.string.rc_filter_all)
                         : mFilters.mcVersion));
         if (ProjectType.usesLoader(mProjectType)) {
-            mLoaderButton.setText(getString(R.string.zyro_filter_loader,
-                    mFilters.loader == null ? getString(R.string.zyro_filter_all)
+            mLoaderButton.setText(getString(R.string.rc_filter_loader,
+                    mFilters.loader == null ? getString(R.string.rc_filter_all)
                             : loaderLabel(mFilters.loader)));
         }
-        mSortButton.setText(getString(R.string.zyro_filter_sort, sortLabel(mFilters.sort)));
+        mSortButton.setText(getString(R.string.rc_filter_sort, sortLabel(mFilters.sort)));
     }
 
     private String loaderLabel(String key) {
@@ -576,11 +576,11 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
     }
 
     private String sortLabel(String key) {
-        if (key == null) return getString(R.string.zyro_sort_relevance);
+        if (key == null) return getString(R.string.rc_sort_relevance);
         for (int i = 0; i < SORT_KEYS.length; i++) {
             if (SORT_KEYS[i].equals(key)) return getString(SORT_LABELS[i]);
         }
-        return getString(R.string.zyro_sort_relevance);
+        return getString(R.string.rc_sort_relevance);
     }
 
     // ------------------------------------------------------------------ local import
@@ -602,7 +602,7 @@ public class SearchModFragment extends Fragment implements ModItemAdapter.Search
         }
         try {
             if (mImportApi.installLocalModpack(fileName, outFile, null) == null) {
-                runOnUiThread(() -> Toast.makeText(context, R.string.zyro_versions_unavailable,
+                runOnUiThread(() -> Toast.makeText(context, R.string.rc_versions_unavailable,
                         Toast.LENGTH_LONG).show());
             }
         } catch (IOException e) {

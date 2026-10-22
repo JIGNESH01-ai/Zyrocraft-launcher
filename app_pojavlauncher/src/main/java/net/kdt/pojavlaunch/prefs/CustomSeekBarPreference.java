@@ -30,7 +30,7 @@ public class CustomSeekBarPreference extends SeekBarPreference {
     @SuppressLint("PrivateResource")
     public CustomSeekBarPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        setLayoutResource(R.layout.zyro_preference_seekbar);
+        setLayoutResource(R.layout.rc_preference_seekbar);
         try (TypedArray a = context.obtainStyledAttributes(
                 attrs, R.styleable.SeekBarPreference, defStyleAttr, defStyleRes)) {
             mMin = a.getInt(R.styleable.SeekBarPreference_min, 0);
@@ -68,8 +68,8 @@ public class CustomSeekBarPreference extends SeekBarPreference {
         mTextView.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_START);
         SeekBar seekBar = (SeekBar) view.findViewById(R.id.seekbar);
 
-        View stepDown = view.findViewById(R.id.zyro_seek_step_down);
-        View stepUp = view.findViewById(R.id.zyro_seek_step_up);
+        View stepDown = view.findViewById(R.id.rc_seek_step_down);
+        View stepUp = view.findViewById(R.id.rc_seek_step_up);
         if(stepDown != null && stepUp != null) {
             stepDown.setOnClickListener(v -> stepValue(seekBar, -1));
             stepUp.setOnClickListener(v -> stepValue(seekBar, 1));

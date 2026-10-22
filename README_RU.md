@@ -1,4 +1,4 @@
-<h1 align="center">PojavLauncher (также известный как Pojav Reborn)</h1>
+<h1 align="center">RC Launcher</h1>
 
 <a href="./README.md">Readme in English</a>
 

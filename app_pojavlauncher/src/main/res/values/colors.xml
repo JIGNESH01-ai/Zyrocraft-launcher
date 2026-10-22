@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- ZYROCRAFT core palette -->
-    <color name="zyro_background">#020A0E</color>
-    <color name="zyro_panel">#06151B</color>
-    <color name="zyro_panel_secondary">#0A2028</color>
-    <color name="zyro_neon">#00F59B</color>
-    <color name="zyro_emerald">#00C878</color>
-    <color name="zyro_purple">#A64DFF</color>
-    <color name="zyro_text_primary">#F2FFF9</color>
-    <color name="zyro_text_secondary">#8CA9B0</color>
-    <color name="zyro_stroke">#14343C</color>
-    <color name="zyro_stroke_neon">#3300F59B</color>
-    <color name="zyro_stroke_neon_strong">#7300F59B</color>
-    <color name="zyro_danger">#FF5A7A</color>
-    <color name="zyro_warning">#FFC24B</color>
-    <color name="zyro_purple_dim">#5B2E99</color>
-    <color name="zyro_neon_dim">#00A86B</color>
-    <color name="zyro_chip_text">#9FC4CC</color>
+    <!-- RC Launcher core palette -->
+    <color name="rc_background">#020A0E</color>
+    <color name="rc_panel">#06151B</color>
+    <color name="rc_panel_secondary">#0A2028</color>
+    <color name="rc_neon">#00F59B</color>
+    <color name="rc_emerald">#00C878</color>
+    <color name="rc_purple">#A64DFF</color>
+    <color name="rc_text_primary">#F2FFF9</color>
+    <color name="rc_text_secondary">#8CA9B0</color>
+    <color name="rc_stroke">#14343C</color>
+    <color name="rc_stroke_neon">#3300F59B</color>
+    <color name="rc_stroke_neon_strong">#7300F59B</color>
+    <color name="rc_danger">#FF5A7A</color>
+    <color name="rc_warning">#FFC24B</color>
+    <color name="rc_purple_dim">#5B2E99</color>
+    <color name="rc_neon_dim">#00A86B</color>
+    <color name="rc_chip_text">#9FC4CC</color>
 
     <!-- Settings accent, matching the reference settings screens -->
-    <color name="zyro_accent">#E879F9</color>
-    <color name="zyro_accent_fill">#1FE879F9</color>
-    <color name="zyro_accent_stroke">#66E879F9</color>
+    <color name="rc_accent">#E879F9</color>
+    <color name="rc_accent_fill">#1FE879F9</color>
+    <color name="rc_accent_stroke">#66E879F9</color>
 
     <color name="control_button_color">#4CC4C4C4</color>
     <color name="control_button_pressed_color">#4D000000</color>
 
-    <!-- Legacy names kept alive with the ZYRO palette -->
-    <color name="minebutton_color">@color/zyro_neon</color>
-    <color name="minebutton_secondary">@color/zyro_panel_secondary</color>
-    <color name="background_app">@color/zyro_background</color>
-    <color name="divider">@color/zyro_stroke</color>
-    <color name="background_overlay">@color/zyro_panel</color>
+    <!-- Legacy names kept alive with the RC palette -->
+    <color name="minebutton_color">@color/rc_neon</color>
+    <color name="minebutton_secondary">@color/rc_panel_secondary</color>
+    <color name="background_app">@color/rc_background</color>
+    <color name="divider">@color/rc_stroke</color>
+    <color name="background_overlay">@color/rc_panel</color>
     <color name="background_status_bar">#020A0E</color>
-    <color name="background_bottom_bar">@color/zyro_panel</color>
+    <color name="background_bottom_bar">@color/rc_panel</color>
     <color name="icon_outline_color">#FFFFFF</color>
 
-    <color name="primary_text">@color/zyro_text_primary</color>
-    <color name="secondary_text">@color/zyro_text_secondary</color>
+    <color name="primary_text">@color/rc_text_primary</color>
+    <color name="secondary_text">@color/rc_text_secondary</color>
 </resources>

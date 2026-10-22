@@ -6,9 +6,9 @@
         android:left="@dimen/padding_small"
         android:right="@dimen/padding_small"
         android:top="@dimen/padding_small" />
-    <solid android:color="@color/zyro_panel"/>
+    <solid android:color="@color/rc_panel"/>
     <stroke
         android:width="@dimen/_1sdp"
-        android:color="@color/zyro_stroke_neon"/>
+        android:color="@color/rc_stroke_neon"/>
     <corners android:radius="@dimen/_12sdp"/>
 </shape>

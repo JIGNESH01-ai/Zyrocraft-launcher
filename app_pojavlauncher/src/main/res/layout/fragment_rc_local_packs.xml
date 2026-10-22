@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:paddingHorizontal="@dimen/padding_heavy">
+
+    <TextView
+        android:id="@+id/rc_packs_title"
+        style="@style/RcTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_heavy"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/rc_packs_import"/>
+
+    <TextView
+        android:id="@+id/rc_packs_subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/padding_medium"
+        android:text="@string/rc_rp_info"
+        app:layout_constraintTop_toBottomOf="@id/rc_packs_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/rc_packs_import"
+        style="@style/RcSubtitle"/>
+
+    <Button
+        android:id="@+id/rc_packs_import"
+        style="@style/RcButton.Primary"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_36sdp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:paddingHorizontal="@dimen/padding_heavy"
+        android:textSize="@dimen/_10ssp"
+        android:text="@string/rc_pack_import"
+        app:layout_constraintTop_toTopOf="@id/rc_packs_title"
+        app:layout_constraintBottom_toBottomOf="@id/rc_packs_title"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/rc_packs_warning"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:background="@drawable/rc_panel_purple"
+        android:padding="@dimen/padding_heavy"
+        android:text="@string/rc_shader_warning"
+        android:textColor="@color/rc_purple"
+        android:textSize="@dimen/_9ssp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/rc_packs_subtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <HorizontalScrollView
+        android:id="@+id/rc_packs_tabs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@id/rc_packs_warning"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button android:id="@+id/tab_all" style="@style/RcChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/rc_filter_all"/>
+            <Button android:id="@+id/tab_enabled" style="@style/RcChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/rc_tab_enabled"/>
+            <Button android:id="@+id/tab_disabled" style="@style/RcChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/rc_tab_disabled"/>
+            <Button android:id="@+id/tab_open_folder" style="@style/RcChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/rc_open_folder"/>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_packs_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/padding_large"
+        app:layout_constraintTop_toBottomOf="@id/rc_packs_tabs"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/rc_packs_status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/rc_text_secondary"
+        android:textSize="@dimen/_12ssp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/rc_packs_list"
+        app:layout_constraintBottom_toBottomOf="@id/rc_packs_list"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

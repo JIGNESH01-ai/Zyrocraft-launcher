@@ -19,7 +19,7 @@ import java.util.List;
  * without touching the network.
  */
 public final class ModFavorites {
-    private static final String PREFS_NAME = "zyro_favorites";
+    private static final String PREFS_NAME = "rc_favorites";
     private static final String KEY_ITEMS = "items";
 
     private ModFavorites() {}

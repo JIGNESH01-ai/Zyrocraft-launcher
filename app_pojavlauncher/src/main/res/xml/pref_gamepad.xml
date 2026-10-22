@@ -3,15 +3,15 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <net.kdt.pojavlaunch.prefs.ZyroActionPreference
+    <net.kdt.pojavlaunch.prefs.RcActionPreference
         android:title="@string/preference_remap_controller_title"
         android:summary="@string/preference_remap_controller_description"
-        app:zyroActionText="@string/zyro_action_open"/>
+        app:rcActionText="@string/rc_action_open"/>
 
     <net.kdt.pojavlaunch.prefs.GamepadRemapPreference
         android:title="@string/preference_wipe_controller_title"
         android:summary="@string/preference_wipe_controller_description"
-        app:zyroActionText="@string/zyro_action_reset"/>
+        app:rcActionText="@string/rc_action_reset"/>
 
     <net.kdt.pojavlaunch.prefs.CustomSeekBarPreference
         android:key="gamepad_deadzone_scale"

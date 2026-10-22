@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:paddingHorizontal="@dimen/padding_heavy">
+
+    <TextView
+        android:id="@+id/rc_instances_title"
+        style="@style/RcTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_heavy"
+        android:text="@string/rc_instances"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rc_instance_subtitle"
+        app:layout_constraintTop_toBottomOf="@id/rc_instances_title"
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/RcSubtitle"/>
+
+    <Button
+        android:id="@+id/rc_instances_create"
+        style="@style/RcButton.Primary"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_36sdp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:paddingHorizontal="@dimen/padding_heavy"
+        android:textSize="@dimen/_11ssp"
+        android:text="@string/rc_create_instance"
+        app:layout_constraintTop_toTopOf="@id/rc_instances_title"
+        app:layout_constraintBottom_toBottomOf="@id/rc_instances_title"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <EditText
+        android:id="@+id/rc_instances_search"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_heavy"
+        android:background="@drawable/rc_edittext_bg"
+        android:hint="@string/rc_search_instances"
+        android:inputType="text"
+        android:textColorHint="@color/rc_text_secondary"
+        android:textColor="@color/rc_text_primary"
+        android:textSize="@dimen/_11ssp"
+        android:singleLine="true"
+        android:drawableEnd="@drawable/ic_rc_search"
+        android:drawableTint="@color/rc_text_secondary"
+        app:layout_constraintTop_toBottomOf="@id/rc_instances_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <HorizontalScrollView
+        android:id="@+id/rc_instances_filter_scroll"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@id/rc_instances_search"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:id="@+id/rc_instances_filters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button android:id="@+id/filter_all" style="@style/RcChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/rc_filter_all"/>
+            <Button android:id="@+id/filter_vanilla" style="@style/RcChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/rc_filter_vanilla"/>
+            <Button android:id="@+id/filter_forge" style="@style/RcChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/rc_filter_forge"/>
+            <Button android:id="@+id/filter_fabric" style="@style/RcChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/rc_filter_fabric"/>
+            <Button android:id="@+id/filter_neoforge" style="@style/RcChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/rc_filter_neoforge"/>
+            <Button android:id="@+id/filter_quilt" style="@style/RcChip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="@dimen/padding_medium" android:text="@string/rc_filter_quilt"/>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_instances_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/padding_medium"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/padding_large"
+        app:layout_constraintTop_toBottomOf="@id/rc_instances_filter_scroll"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/rc_instances_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/rc_text_secondary"
+        android:textSize="@dimen/_12ssp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/rc_instances_list"
+        app:layout_constraintBottom_toBottomOf="@id/rc_instances_list"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ProgressBar
+        android:id="@+id/rc_instances_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/rc_neon"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/rc_instances_list"
+        app:layout_constraintBottom_toBottomOf="@id/rc_instances_list"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

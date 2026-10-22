@@ -1,4 +1,4 @@
-# ZYROCRAFT build pipeline
+# RC Launcher build pipeline
 name: Android CI
 
 on:

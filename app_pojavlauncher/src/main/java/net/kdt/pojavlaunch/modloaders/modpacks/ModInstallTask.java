@@ -28,12 +28,12 @@ public final class ModInstallTask {
 
     public static void install(Context context, ModDetail detail, int selectedVersion) {
         Context appContext = context.getApplicationContext();
-        ProgressLayout.setProgress(PROGRESS_KEY, 0, R.string.zyro_status_downloading);
+        ProgressLayout.setProgress(PROGRESS_KEY, 0, R.string.rc_status_downloading);
         PojavApplication.sExecutorService.execute(() -> {
             try {
                 Instance instance = Instances.loadSelectedInstance();
                 if (instance == null) throw new IllegalStateException(
-                        appContext.getString(R.string.zyro_no_instance_for_mod));
+                        appContext.getString(R.string.rc_no_instance_for_mod));
                 File targetFolder = new File(instance.getGameDirectory(),
                         ProjectType.installFolder(detail.projectType));
                 FileUtils.ensureDirectory(targetFolder);
@@ -47,16 +47,16 @@ public final class ModInstallTask {
 
                 DownloadUtils.downloadFileMonitored(url, outFile, null, (curr, max) -> {
                     int percent = max > 0 ? (int) ((curr * 100L) / max) : 0;
-                    ProgressKeeper.submitProgress(PROGRESS_KEY, percent, R.string.zyro_status_downloading);
+                    ProgressKeeper.submitProgress(PROGRESS_KEY, percent, R.string.rc_status_downloading);
                 });
                 ProgressKeeper.submitProgress(PROGRESS_KEY, -1, -1);
                 Tools.runOnUiThread(() -> android.widget.Toast.makeText(appContext,
-                        appContext.getString(R.string.zyro_mod_installed,
+                        appContext.getString(R.string.rc_mod_installed,
                                 instance.name != null ? instance.name : "instance"),
                         android.widget.Toast.LENGTH_LONG).show());
             } catch (Exception e) {
                 ProgressKeeper.submitProgress(PROGRESS_KEY, -1, -1);
-                Tools.showErrorRemote(appContext, R.string.zyro_mod_install_failed, e);
+                Tools.showErrorRemote(appContext, R.string.rc_mod_install_failed, e);
             }
         });
     }

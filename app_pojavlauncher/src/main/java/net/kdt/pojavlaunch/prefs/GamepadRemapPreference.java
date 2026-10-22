@@ -11,7 +11,7 @@ import net.kdt.pojavlaunch.R;
 
 import fr.spse.gamepad_remapper.Remapper;
 
-public class GamepadRemapPreference extends ZyroActionPreference {
+public class GamepadRemapPreference extends RcActionPreference {
 
     public GamepadRemapPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -24,7 +24,7 @@ public class GamepadRemapPreference extends ZyroActionPreference {
     }
 
     private void init(){
-        setActionText(getContext().getString(R.string.zyro_action_reset));
+        setActionText(getContext().getString(R.string.rc_action_reset));
         setOnPreferenceClickListener(preference -> {
             Remapper.wipePreferences(getContext());
             Toast.makeText(getContext(), R.string.preference_controller_map_wiped, Toast.LENGTH_SHORT).show();

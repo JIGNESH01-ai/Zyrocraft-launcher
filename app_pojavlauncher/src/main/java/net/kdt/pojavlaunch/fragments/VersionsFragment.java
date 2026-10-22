@@ -52,16 +52,16 @@ public class VersionsFragment extends Fragment {
     private boolean mLoading;
 
     public VersionsFragment() {
-        super(R.layout.fragment_zyro_versions);
+        super(R.layout.fragment_rc_versions);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        mSearch = view.findViewById(R.id.zyro_versions_search);
-        mStatus = view.findViewById(R.id.zyro_versions_status);
-        mProgress = view.findViewById(R.id.zyro_versions_progress);
-        mList = view.findViewById(R.id.zyro_versions_list);
-        mModdedPanel = view.findViewById(R.id.zyro_modded_panel);
+        mSearch = view.findViewById(R.id.rc_versions_search);
+        mStatus = view.findViewById(R.id.rc_versions_status);
+        mProgress = view.findViewById(R.id.rc_versions_progress);
+        mList = view.findViewById(R.id.rc_versions_list);
+        mModdedPanel = view.findViewById(R.id.rc_modded_panel);
 
         mList.setLayoutManager(new LinearLayoutManager(getContext()));
         mAdapter = new VersionListAdapter();
@@ -78,8 +78,8 @@ public class VersionsFragment extends Fragment {
         setupTab(view.findViewById(R.id.tab_snapshot), TAB_SNAPSHOT);
         setupTab(view.findViewById(R.id.tab_modded), TAB_MODDED);
 
-        view.findViewById(R.id.zyro_versions_refresh).setOnClickListener(v -> refreshList(true));
-        view.findViewById(R.id.zyro_modded_open).setOnClickListener(v ->
+        view.findViewById(R.id.rc_versions_refresh).setOnClickListener(v -> refreshList(true));
+        view.findViewById(R.id.rc_modded_open).setOnClickListener(v ->
                 Tools.swapFragment(requireActivity(), ProfileTypeSelectFragment.class,
                         ProfileTypeSelectFragment.TAG, null));
 
@@ -102,7 +102,7 @@ public class VersionsFragment extends Fragment {
             mProgress.setVisibility(View.GONE);
             if (versions == null || versions.versions == null) {
                 mStatus.setVisibility(View.VISIBLE);
-                mStatus.setText(R.string.zyro_versions_error);
+                mStatus.setText(R.string.rc_versions_error);
                 return;
             }
             ExtraCore.setValue(ExtraConstants.RELEASE_TABLE, versions);
@@ -138,8 +138,8 @@ public class VersionsFragment extends Fragment {
             Button b = root.findViewById(ids[i]);
             if (b == null) continue;
             boolean selected = tabs[i].equals(mTab);
-            b.setBackgroundResource(selected ? R.drawable.zyro_chip_selected : R.drawable.zyro_chip_bg);
-            b.setTextColor(getResources().getColor(selected ? R.color.zyro_background : R.color.zyro_chip_text));
+            b.setBackgroundResource(selected ? R.drawable.rc_chip_selected : R.drawable.rc_chip_bg);
+            b.setTextColor(getResources().getColor(selected ? R.color.rc_background : R.color.rc_chip_text));
         }
     }
 
@@ -164,7 +164,7 @@ public class VersionsFragment extends Fragment {
         mAdapter.notifyDataSetChanged();
         boolean empty = mVisibleVersions.isEmpty() && !mLoading;
         mStatus.setVisibility(empty ? View.VISIBLE : View.GONE);
-        if (empty) mStatus.setText(R.string.zyro_versions_empty);
+        if (empty) mStatus.setText(R.string.rc_versions_empty);
     }
 
     private void installVersion(JVersionList.Version version) {
@@ -178,7 +178,7 @@ public class VersionsFragment extends Fragment {
                 Tools.runOnUiThread(() -> {
                     if (getContext() == null) return;
                     Toast.makeText(getContext(),
-                            R.string.zyro_install_created, Toast.LENGTH_LONG).show();
+                            R.string.rc_install_created, Toast.LENGTH_LONG).show();
                     ExtraCore.setValue(ExtraConstants.REFRESH_VERSION_SPINNER, null);
                 });
             } catch (Exception e) {
@@ -191,7 +191,7 @@ public class VersionsFragment extends Fragment {
         @NonNull @Override
         public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             return new Holder(LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_zyro_version, parent, false));
+                    .inflate(R.layout.item_rc_version, parent, false));
         }
 
         @Override
@@ -204,7 +204,7 @@ public class VersionsFragment extends Fragment {
                     && (version.id.equals(list.latest.get("release"))
                         || version.id.equals(list.latest.get("snapshot")));
             holder.badge.setVisibility(latest ? View.VISIBLE : View.GONE);
-            if (latest) holder.badge.setText(R.string.zyro_version_type_latest);
+            if (latest) holder.badge.setText(R.string.rc_version_type_latest);
             holder.install.setOnClickListener(v -> installVersion(version));
         }
 
@@ -219,10 +219,10 @@ public class VersionsFragment extends Fragment {
 
             Holder(View v) {
                 super(v);
-                id = v.findViewById(R.id.zyro_version_id);
-                type = v.findViewById(R.id.zyro_version_type);
-                badge = v.findViewById(R.id.zyro_version_badge);
-                install = v.findViewById(R.id.zyro_version_install);
+                id = v.findViewById(R.id.rc_version_id);
+                type = v.findViewById(R.id.rc_version_type);
+                badge = v.findViewById(R.id.rc_version_badge);
+                install = v.findViewById(R.id.rc_version_install);
             }
         }
     }

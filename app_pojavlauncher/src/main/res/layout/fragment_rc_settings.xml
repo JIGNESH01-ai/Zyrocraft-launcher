@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settings: one scrollable pill tab bar on top, one preference page below it.
+     Every tab loads a real preference screen of the launcher. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rc_page_bg"
+    android:orientation="vertical">
+
+    <HorizontalScrollView
+        android:id="@+id/rc_settings_tabs_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/_10sdp"
+        android:paddingEnd="@dimen/_10sdp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/rc_settings_tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/_2sdp"
+            android:paddingBottom="@dimen/_2sdp">
+
+            <TextView
+                android:id="@+id/stab_renderer"
+                style="@style/RcSettingsTab"
+                android:text="@string/rc_settings_tab_renderer"/>
+
+            <TextView
+                android:id="@+id/stab_game"
+                style="@style/RcSettingsTab"
+                android:text="@string/rc_settings_tab_game"/>
+
+            <TextView
+                android:id="@+id/stab_java"
+                style="@style/RcSettingsTab"
+                android:text="@string/rc_settings_tab_java"/>
+
+            <TextView
+                android:id="@+id/stab_launcher"
+                style="@style/RcSettingsTab"
+                android:text="@string/rc_settings_tab_launcher"/>
+
+            <TextView
+                android:id="@+id/stab_controls"
+                style="@style/RcSettingsTab"
+                android:text="@string/rc_settings_tab_controls"/>
+
+            <TextView
+                android:id="@+id/stab_gamepad"
+                style="@style/RcSettingsTab"
+                android:text="@string/rc_settings_tab_gamepad"/>
+
+            <TextView
+                android:id="@+id/stab_experimental"
+                style="@style/RcSettingsTab"
+                android:text="@string/rc_settings_tab_experimental"/>
+
+            <TextView
+                android:id="@+id/stab_about"
+                style="@style/RcSettingsTab"
+                android:text="@string/rc_settings_tab_about"/>
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/rc_settings_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_weight="1"/>
+
+</LinearLayout>

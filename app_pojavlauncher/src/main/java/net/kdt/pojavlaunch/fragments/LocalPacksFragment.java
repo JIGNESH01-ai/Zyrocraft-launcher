@@ -67,7 +67,7 @@ public class LocalPacksFragment extends Fragment {
                     this::onImportUri);
 
     public LocalPacksFragment() {
-        super(R.layout.fragment_zyro_local_packs);
+        super(R.layout.fragment_rc_local_packs);
     }
 
     public static LocalPacksFragment newInstance(String folder, String title) {
@@ -86,28 +86,28 @@ public class LocalPacksFragment extends Fragment {
             String folder = args.getString(ARG_FOLDER);
             if (folder != null) mFolder = folder;
             String title = args.getString(ARG_TITLE);
-            TextView titleView = view.findViewById(R.id.zyro_packs_title);
+            TextView titleView = view.findViewById(R.id.rc_packs_title);
             if (title != null) titleView.setText(title);
         }
 
-        mStatus = view.findViewById(R.id.zyro_packs_status);
-        RecyclerView list = view.findViewById(R.id.zyro_packs_list);
+        mStatus = view.findViewById(R.id.rc_packs_status);
+        RecyclerView list = view.findViewById(R.id.rc_packs_list);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         mAdapter = new PackAdapter();
         list.setAdapter(mAdapter);
 
-        TextView warning = view.findViewById(R.id.zyro_packs_warning);
-        TextView subtitle = view.findViewById(R.id.zyro_packs_subtitle);
+        TextView warning = view.findViewById(R.id.rc_packs_warning);
+        TextView subtitle = view.findViewById(R.id.rc_packs_subtitle);
         if (FOLDER_SHADER_PACKS.equals(mFolder)) {
             warning.setVisibility(View.VISIBLE);
-            subtitle.setText(R.string.zyro_shader_info);
+            subtitle.setText(R.string.rc_shader_info);
         } else if (FOLDER_MODS.equals(mFolder)) {
-            subtitle.setText(R.string.zyro_mods_info);
+            subtitle.setText(R.string.rc_mods_info);
         }
 
-        Button importButton = view.findViewById(R.id.zyro_packs_import);
+        Button importButton = view.findViewById(R.id.rc_packs_import);
         if (FOLDER_MODS.equals(mFolder)) {
-            importButton.setText(R.string.zyro_import_local);
+            importButton.setText(R.string.rc_import_local);
         }
         importButton.setOnClickListener(v -> mImportLauncher.launch("*/*"));
 
@@ -143,8 +143,8 @@ public class LocalPacksFragment extends Fragment {
             Button b = root.findViewById(ids[i]);
             if (b == null) continue;
             boolean selected = tabs[i].equals(mTab);
-            b.setBackgroundResource(selected ? R.drawable.zyro_chip_selected : R.drawable.zyro_chip_bg);
-            b.setTextColor(getResources().getColor(selected ? R.color.zyro_background : R.color.zyro_chip_text));
+            b.setBackgroundResource(selected ? R.drawable.rc_chip_selected : R.drawable.rc_chip_bg);
+            b.setTextColor(getResources().getColor(selected ? R.color.rc_background : R.color.rc_chip_text));
         }
     }
 
@@ -164,7 +164,7 @@ public class LocalPacksFragment extends Fragment {
         mFiles.clear();
         File dir = getPackDirectory();
         if (dir == null) {
-            showStatus(R.string.zyro_no_instance_for_mod);
+            showStatus(R.string.rc_no_instance_for_mod);
             mAdapter.notifyDataSetChanged();
             return;
         }
@@ -184,7 +184,7 @@ public class LocalPacksFragment extends Fragment {
             }
         }
         mAdapter.notifyDataSetChanged();
-        if (mFiles.isEmpty()) showStatus(R.string.zyro_packs_empty);
+        if (mFiles.isEmpty()) showStatus(R.string.rc_packs_empty);
         else hideStatus();
     }
 
@@ -227,7 +227,7 @@ public class LocalPacksFragment extends Fragment {
     private void openFolder() {
         File dir = getPackDirectory();
         if (dir == null) {
-            Toast.makeText(requireContext(), R.string.zyro_error_no_game_dir, Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), R.string.rc_error_no_game_dir, Toast.LENGTH_SHORT).show();
             return;
         }
         Tools.openPath(requireContext(), dir, false);
@@ -237,7 +237,7 @@ public class LocalPacksFragment extends Fragment {
         if (uri == null || getContext() == null) return;
         File dir = getPackDirectory();
         if (dir == null) {
-            Toast.makeText(requireContext(), R.string.zyro_error_no_game_dir, Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), R.string.rc_error_no_game_dir, Toast.LENGTH_SHORT).show();
             return;
         }
         PojavApplication.sExecutorService.execute(() -> {
@@ -250,7 +250,7 @@ public class LocalPacksFragment extends Fragment {
                 IOUtils.copy(in, os);
                 Tools.runOnUiThread(() -> {
                     if (getContext() != null)
-                        Toast.makeText(getContext(), R.string.zyro_pack_imported, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), R.string.rc_pack_imported, Toast.LENGTH_SHORT).show();
                     reload();
                 });
             } catch (IOException e) {
@@ -267,7 +267,7 @@ public class LocalPacksFragment extends Fragment {
         @NonNull @Override
         public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             return new Holder(LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_zyro_pack, parent, false));
+                    .inflate(R.layout.item_rc_pack, parent, false));
         }
 
         @Override
@@ -276,10 +276,10 @@ public class LocalPacksFragment extends Fragment {
             String name = file.getName();
             boolean enabled = !name.toLowerCase(Locale.ROOT).endsWith(".disabled");
             holder.name.setText(name);
-            holder.state.setText(getString(enabled ? R.string.zyro_pack_enabled : R.string.zyro_pack_disabled)
+            holder.state.setText(getString(enabled ? R.string.rc_pack_enabled : R.string.rc_pack_disabled)
                     + " · " + android.text.format.Formatter.formatShortFileSize(getContext(), file.length()));
             holder.icon.setImageResource(FOLDER_MODS.equals(mFolder)
-                    ? R.drawable.ic_zyro_puzzle : R.drawable.ic_zyro_image);
+                    ? R.drawable.ic_rc_puzzle : R.drawable.ic_rc_image);
             holder.toggle.setOnCheckedChangeListener(null);
             holder.toggle.setChecked(enabled);
             holder.toggle.setOnCheckedChangeListener((v, checked) -> togglePack(file));
@@ -299,11 +299,11 @@ public class LocalPacksFragment extends Fragment {
 
             Holder(View v) {
                 super(v);
-                name = v.findViewById(R.id.zyro_pack_name);
-                state = v.findViewById(R.id.zyro_pack_state);
-                icon = v.findViewById(R.id.zyro_pack_icon);
-                toggle = v.findViewById(R.id.zyro_pack_toggle);
-                delete = v.findViewById(R.id.zyro_pack_delete);
+                name = v.findViewById(R.id.rc_pack_name);
+                state = v.findViewById(R.id.rc_pack_state);
+                icon = v.findViewById(R.id.rc_pack_icon);
+                toggle = v.findViewById(R.id.rc_pack_toggle);
+                delete = v.findViewById(R.id.rc_pack_delete);
             }
         }
     }

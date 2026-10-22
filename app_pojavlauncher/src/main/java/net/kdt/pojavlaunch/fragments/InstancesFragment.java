@@ -49,20 +49,20 @@ public class InstancesFragment extends Fragment {
     private String mFilterKey = "all";
 
     public InstancesFragment() {
-        super(R.layout.fragment_zyro_instances);
+        super(R.layout.fragment_rc_instances);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        mSearch = view.findViewById(R.id.zyro_instances_search);
-        mStatus = view.findViewById(R.id.zyro_instances_status);
-        mProgress = view.findViewById(R.id.zyro_instances_progress);
-        RecyclerView list = view.findViewById(R.id.zyro_instances_list);
+        mSearch = view.findViewById(R.id.rc_instances_search);
+        mStatus = view.findViewById(R.id.rc_instances_status);
+        mProgress = view.findViewById(R.id.rc_instances_progress);
+        RecyclerView list = view.findViewById(R.id.rc_instances_list);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         mAdapter = new InstanceListAdapter();
         list.setAdapter(mAdapter);
 
-        view.findViewById(R.id.zyro_instances_create).setOnClickListener(v ->
+        view.findViewById(R.id.rc_instances_create).setOnClickListener(v ->
                 Tools.swapFragment(requireActivity(), ProfileTypeSelectFragment.class,
                         ProfileTypeSelectFragment.TAG, null));
 
@@ -107,8 +107,8 @@ public class InstancesFragment extends Fragment {
             Button b = root.findViewById(ids[i]);
             if (b == null) continue;
             boolean selected = keys[i].equals(mFilterKey);
-            b.setBackgroundResource(selected ? R.drawable.zyro_chip_selected : R.drawable.zyro_chip_bg);
-            b.setTextColor(getResources().getColor(selected ? R.color.zyro_background : R.color.zyro_chip_text));
+            b.setBackgroundResource(selected ? R.drawable.rc_chip_selected : R.drawable.rc_chip_bg);
+            b.setTextColor(getResources().getColor(selected ? R.color.rc_background : R.color.rc_chip_text));
         }
     }
 
@@ -158,7 +158,7 @@ public class InstancesFragment extends Fragment {
         mAdapter.notifyDataSetChanged();
         boolean empty = mVisibleInstances.isEmpty();
         mStatus.setVisibility(empty ? View.VISIBLE : View.GONE);
-        if (empty) mStatus.setText(R.string.zyro_instances_empty);
+        if (empty) mStatus.setText(R.string.rc_instances_empty);
     }
 
     private void play(DisplayInstance instance) {
@@ -178,13 +178,13 @@ public class InstancesFragment extends Fragment {
                 Instances.copyInstance(instance, null);
                 Tools.runOnUiThread(() -> {
                     if (getContext() != null)
-                        Toast.makeText(getContext(), R.string.zyro_duplicate_success, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), R.string.rc_duplicate_success, Toast.LENGTH_SHORT).show();
                     reloadInstances();
                 });
             } catch (IOException e) {
                 Tools.runOnUiThread(() -> {
                     if (getContext() != null)
-                        Toast.makeText(getContext(), R.string.zyro_duplicate_failed, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), R.string.rc_duplicate_failed, Toast.LENGTH_SHORT).show();
                 });
                 Tools.showErrorRemote(e);
             }
@@ -193,8 +193,8 @@ public class InstancesFragment extends Fragment {
 
     private void confirmDelete(DisplayInstance instance) {
         new AlertDialog.Builder(requireContext())
-                .setTitle(R.string.zyro_delete_instance_title)
-                .setMessage(R.string.zyro_delete_instance_message)
+                .setTitle(R.string.rc_delete_instance_title)
+                .setMessage(R.string.rc_delete_instance_message)
                 .setPositiveButton(R.string.global_delete, (d, w) ->
                         PojavApplication.sExecutorService.execute(() -> {
                             try {
@@ -213,7 +213,7 @@ public class InstancesFragment extends Fragment {
         @NonNull @Override
         public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             return new Holder(LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_zyro_instance, parent, false));
+                    .inflate(R.layout.item_rc_instance, parent, false));
         }
 
         @Override
@@ -243,14 +243,14 @@ public class InstancesFragment extends Fragment {
 
             Holder(View v) {
                 super(v);
-                name = v.findViewById(R.id.zyro_instance_name);
-                subtitle = v.findViewById(R.id.zyro_instance_subtitle);
-                loaderBadge = v.findViewById(R.id.zyro_instance_loader_badge);
-                icon = v.findViewById(R.id.zyro_instance_icon);
-                play = v.findViewById(R.id.zyro_instance_play);
-                edit = v.findViewById(R.id.zyro_instance_edit);
-                duplicate = v.findViewById(R.id.zyro_instance_duplicate);
-                delete = v.findViewById(R.id.zyro_instance_delete);
+                name = v.findViewById(R.id.rc_instance_name);
+                subtitle = v.findViewById(R.id.rc_instance_subtitle);
+                loaderBadge = v.findViewById(R.id.rc_instance_loader_badge);
+                icon = v.findViewById(R.id.rc_instance_icon);
+                play = v.findViewById(R.id.rc_instance_play);
+                edit = v.findViewById(R.id.rc_instance_edit);
+                duplicate = v.findViewById(R.id.rc_instance_duplicate);
+                delete = v.findViewById(R.id.rc_instance_delete);
             }
         }
     }

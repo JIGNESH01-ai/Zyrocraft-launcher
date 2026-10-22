@@ -19,7 +19,7 @@ import net.kdt.pojavlaunch.prefs.LauncherPreferences;
 
 /**
  * Base class of every settings page. Each page loads one preference screen and is
- * hosted inside {@link ZyroSettingsFragment}, which draws the pill tab bar.
+ * hosted inside {@link RcSettingsFragment}, which draws the pill tab bar.
  */
 public class LauncherPreferenceFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
     protected Runnable mVisibilityUpdater = () -> {};

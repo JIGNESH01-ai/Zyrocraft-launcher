@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Left navigation rail background: dark panel with a 1dp divider on its right edge -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/rc_stroke_neon"/>
+        </shape>
+    </item>
+    <item android:right="@dimen/rc_nav_border">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/rc_panel"/>
+        </shape>
+    </item>
+</layer-list>

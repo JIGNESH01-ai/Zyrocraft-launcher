@@ -7,7 +7,7 @@
         android:id="@+id/progress_generic_progressbar"
         android:layout_width="@dimen/_40sdp"
         android:layout_height="@dimen/_30sdp"
-        android:indeterminateTint="@color/zyro_neon"
+        android:indeterminateTint="@color/rc_neon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

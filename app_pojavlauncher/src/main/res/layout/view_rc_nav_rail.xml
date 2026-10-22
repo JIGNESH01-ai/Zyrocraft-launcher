@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- RC left navigation: one straight vertical bar of icon buttons.
+     It scrolls on its own when the screen is too short to show every entry. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rc_nav_rail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rc_nav_bg"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/padding_moderate"
+    android:paddingTop="@dimen/padding_moderate"
+    android:paddingBottom="@dimen/padding_moderate">
+
+    <ImageView
+        android:id="@+id/rc_nav_logo"
+        android:layout_width="@dimen/_32sdp"
+        android:layout_height="@dimen/_32sdp"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/rc_brand"
+        android:scaleType="fitCenter"
+        android:src="@drawable/rc_logo"/>
+
+    <View
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/rc_nav_border"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/padding_moderate"
+        android:layout_marginBottom="@dimen/padding_medium"
+        android:background="@color/rc_stroke_neon_strong"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/nav_home"
+                style="@style/RcNavIcon"
+                android:contentDescription="@string/rc_home"
+                android:src="@drawable/ic_px_home"/>
+
+            <ImageView
+                android:id="@+id/nav_instances"
+                style="@style/RcNavIcon"
+                android:contentDescription="@string/rc_instances"
+                android:src="@drawable/ic_rc_cube"/>
+
+            <ImageView
+                android:id="@+id/nav_versions"
+                style="@style/RcNavIcon"
+                android:contentDescription="@string/rc_versions"
+                android:src="@drawable/ic_rc_blocks"/>
+
+            <ImageView
+                android:id="@+id/nav_mods"
+                style="@style/RcNavIcon"
+                android:contentDescription="@string/rc_mods"
+                android:src="@drawable/ic_rc_puzzle"/>
+
+            <ImageView
+                android:id="@+id/nav_modpacks"
+                style="@style/RcNavIcon"
+                android:contentDescription="@string/rc_modpacks"
+                android:src="@drawable/ic_rc_layers"/>
+
+            <ImageView
+                android:id="@+id/nav_resource_packs"
+                style="@style/RcNavIcon"
+                android:contentDescription="@string/rc_resource_packs"
+                android:src="@drawable/ic_rc_image"/>
+
+            <ImageView
+                android:id="@+id/nav_shaders"
+                style="@style/RcNavIcon"
+                android:contentDescription="@string/rc_shaders"
+                android:src="@drawable/ic_rc_sparkle"/>
+
+            <ImageView
+                android:id="@+id/nav_downloads"
+                style="@style/RcNavIcon"
+                android:contentDescription="@string/rc_downloads"
+                android:src="@drawable/ic_rc_download"/>
+
+            <View
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/rc_nav_border"
+                android:layout_marginVertical="@dimen/padding_small"
+                android:background="@color/rc_stroke"/>
+
+            <ImageView
+                android:id="@+id/nav_settings"
+                style="@style/RcNavIcon"
+                android:contentDescription="@string/rc_settings"
+                android:src="@drawable/ic_rc_gear"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

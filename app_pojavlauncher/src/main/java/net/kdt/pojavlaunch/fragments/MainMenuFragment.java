@@ -127,11 +127,11 @@ public class MainMenuFragment extends Fragment {
         bindQuickCard(view, R.id.card_resource_packs, () ->
                 Tools.swapFragment(requireActivity(), LocalPacksFragment.class, LocalPacksFragment.TAG,
                         LocalPacksFragment.newInstance(LocalPacksFragment.FOLDER_RESOURCE_PACKS,
-                                getString(R.string.zyro_resource_packs)).getArguments()));
+                                getString(R.string.rc_resource_packs)).getArguments()));
         bindQuickCard(view, R.id.card_shaders, () ->
                 Tools.swapFragment(requireActivity(), LocalPacksFragment.class, LocalPacksFragment.TAG,
                         LocalPacksFragment.newInstance(LocalPacksFragment.FOLDER_SHADER_PACKS,
-                                getString(R.string.zyro_shaders)).getArguments()));
+                                getString(R.string.rc_shaders)).getArguments()));
         bindQuickCard(view, R.id.card_downloads, () ->
                 Tools.swapFragment(requireActivity(), DownloadsFragment.class, DownloadsFragment.TAG, null));
     }
@@ -166,14 +166,14 @@ public class MainMenuFragment extends Fragment {
         Instance instance = Instances.loadSelectedInstance();
         if (instance == null) {
             instanceName.setText(R.string.no_instance);
-            instanceStatus.setText(R.string.zyro_instances_empty);
+            instanceStatus.setText(R.string.rc_instances_empty);
             versionText.setText("");
-            loaderText.setText(R.string.zyro_filter_vanilla);
+            loaderText.setText(R.string.rc_filter_vanilla);
             avatar.setImageResource(R.mipmap.ic_launcher);
             return;
         }
         instanceName.setText(instance.name != null ? instance.name : instance.versionId);
-        instanceStatus.setText(R.string.zyro_launch_hint);
+        instanceStatus.setText(R.string.rc_launch_hint);
         versionText.setText(VersionDescriptor.minecraftVersion(instance.versionId));
         loaderText.setText(VersionDescriptor.loaderName(instance.versionId));
         avatar.setImageDrawable(InstanceIconProvider.fetchIcon(getResources(), instance));

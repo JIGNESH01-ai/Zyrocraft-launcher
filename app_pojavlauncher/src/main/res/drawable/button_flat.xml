@@ -9,10 +9,10 @@
     </item>
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/zyro_panel_secondary"/>
+            <solid android:color="@color/rc_panel_secondary"/>
             <stroke
                 android:width="@dimen/_1sdp"
-                android:color="@color/zyro_stroke_neon"/>
+                android:color="@color/rc_stroke_neon"/>
             <corners android:radius="@dimen/_10sdp"/>
         </shape>
     </item>
